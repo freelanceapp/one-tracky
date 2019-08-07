@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="row">
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#details">Details</button>
+          <div id="details" class="collapse table-responsive in">
+                  <table class="table bg-white">
+                      <thead>
+                          <tr>
+                              <th>Title</th>
+                              <th>Value</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Username</td>
+                              <td>{{employeeInfoData.username}}</td>
+                          </tr>
+                          <tr>
+                              <td>First Name</td>
+                              <td>{{employeeInfoData.firstname}}</td>
+                          </tr>
+                          <tr>
+                              <td>Last Name</td>
+                              <td>{{employeeInfoData.lastname}}</td>
+                          </tr>
+                          <tr>
+                              <td>Email</td>
+                              <td>{{employeeInfoData.email}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+          </div>
+      </div>
+  </div>
+  <div class="col-sm-5">
+      <h3>Permissions:</h3>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="permissionEditCheck = true">Edit</button> <br />
+      <table>
+          <tbody>
+              <tr><input type="checkbox" name="view" ng-disabled="!permissionEditCheck" ng-model="permissionPayload.View" id="view" /> <label for="view">View</label></tr>
+              <tr><input type="checkbox" name="create" ng-disabled="!permissionEditCheck" ng-model="permissionPayload.Create" id="create" /> <label for="create">Create</label></tr>
+              <tr><input type="checkbox" name="delete" ng-disabled="!permissionEditCheck" ng-model="permissionPayload.Delete" id="delete" /> <label for="delete">Delete</label></tr>
+          </tbody>
+      </table>
+      <br />
+      <button ng-click="updatePermission()" ng-hide="!permissionEditCheck">Update</button>
+  </div>
+</div>

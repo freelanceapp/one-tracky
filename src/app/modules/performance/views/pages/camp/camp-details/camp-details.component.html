@@ -1,0 +1,259 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="row">
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#details">Details</button>
+          <div id="details" class="collapse table-responsive in">
+                  <table class="table bg-white">
+
+                      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit</button>
+                      <thead>
+                          <tr>
+                              <th>Title</th>
+                              <th>Value</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Objective</td>
+                              <td>{{campaignInfoData.objective}}</td>
+                          </tr>
+                          <tr>
+                              <td>Advertiser</td>
+                              <td>{{campaignInfoData.advertiserName}}</td>
+                          </tr>
+                          <tr>
+                              <td>Status</td>
+                              <td>{{campaignInfoData.status}}</td>
+                          </tr>
+                          <tr>
+                              <td>Currency</td>
+                              <td>{{campaignInfoData.revenue_currency}}</td>
+                          </tr>
+                          <tr>
+                              <td>Devices</td>
+                              <td><span ng-repeat="devicesName in devices">{{devicesName}}, </span></td>
+                          </tr>
+                          <tr>
+                              <td>Title</td>
+                              <td>{{campaignInfoData.title}}</td>
+                          </tr>
+                          <tr>
+                              <td>Preview URL</td>
+                              <td>{{campaignInfoData.previewUrl}}</td>
+                          </tr>
+                          <tr>
+                              <td>URL</td>
+                              <td>{{campaignInfoData.promoUrl}}</td>
+                          </tr>
+                          <tr>
+                              <td>Created At</td>
+                              <td>{{campaignInfoData.createdAt}}</td>
+                          </tr>
+                          <tr>
+                              <td>Visibility</td>
+                              <td>{{campaignInfoData.visibility}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+          </div>
+      </div>
+  </div>
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#trackinglinks">Tracking Links</button>
+          <div id="trackinglinks" class="collapse in">
+              <p>Publisher</p>
+              <select class="form-control" name="publisher" ng-model="trackingPayload.publisher_id" ng-change="getGeneratedLink(trackingPayload.publisher_id)">
+                  <option ng-repeat="publisher in campaignInfoData.joined_publishers" value="{{publisher.id}}">{{publisher.name}} ({{publisher.join_status}})</option>
+              </select>
+              <p>Generated Link</p>
+              <input type="text" class="form-control" name="generatedLink" ng-model="generatedLink" ng-disabled="!generatedLink" />
+              <input type="checkbox" ng-model="addSubIdCheck"> Add SubIds
+              <table>
+                  <tbody>
+                      <tr>
+                          <td><input type="text" ng-disabled="!addSubIdCheck" class="form-control" placeholder="Sub 1" name="sub1" ng-model="trackingPayload.extra_args.p1" ng-disabled="!generatedLink" /></td>
+                          <td><input type="text" ng-disabled="!addSubIdCheck" class="form-control" placeholder="Sub 2" name="sub2" ng-model="trackingPayload.extra_args.p2" ng-disabled="!generatedLink" /></td>
+                      </tr>
+                      <tr>
+                          <td><input type="text" ng-disabled="!addSubIdCheck" class="form-control" placeholder="Sub 3" name="sub3" ng-model="trackingPayload.extra_args.p3" ng-disabled="!generatedLink" /></td>
+                          <td><input type="text" ng-disabled="!addSubIdCheck" class="form-control" placeholder="Sub 4" name="sub4" ng-model="trackingPayload.extra_args.p4" ng-disabled="!generatedLink" /></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button ng-hide="!generatedLink" ng-click="updateSubId()">Update</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#revenue">Revenue Payout</button>
+          <div id="revenue" class="collapse in">
+                  <table class="table bg-white">
+                  <thead>
+                      <tr>
+                          <th>Revenue</th>
+                          <th>Payout</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td><input type="text" ng-model="updateRevPayPayload.revenue" ng-disabled="!revPayEditCheck" /></td>
+                          <td><input type="text" ng-model="updateRevPayPayload.payout" ng-disabled="!revPayEditCheck" /></td>
+                          <td><button ng-hide="revPayEditCheck" ng-click="revPayEditCheck = true">Edit</button><button ng-hide="!revPayEditCheck" ng-click="updateRevPay()">Update</button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#optimization">Optimization</button>
+          <div id="optimization" class="collapse in">
+              <button ng-hide="editCutCheck" ng-click="editCutCheck = true">Edit</button>
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Offer Level</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>% Cut : </td>
+                          <td><input type="text" name="cutPercentage" ng-model="optimizationPayloadCampaign.cut_percentage" ng-disabled="!editCutCheck" /></td>
+                      </tr>
+                      <tr>
+                          <td>Cut After : </td>
+                          <td><input type="text" name="cutAfter" ng-model="optimizationPayloadCampaign.cut_after" ng-disabled="!editCutCheck" /></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button ng-click="updateCut()" ng-hide="!editCutCheck">Update</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#caping">Caping</button>
+          <div id="caping" class="collapse in">
+              <button ng-hide="editCapCheck" ng-click="editCapCheck = true">Edit</button>
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Offer Level</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>Daily Caping Value : </td>
+                          <td><input type="text" name="dailyCaping" ng-model="capingPayload.dailycap" ng-disabled="!editCapCheck" /></td>
+                      </tr>
+                      <tr>
+                          <td>Total Caping Value : </td>
+                          <td><input type="text" name="totalCaping" ng-model="capingPayload.totalcap" ng-disabled="!editCapCheck" /></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button ng-click="updateCap()" ng-hide="!editCapCheck">Update</button>
+          </div>
+      </div>
+  </div>
+  <div class="col-sm-5">
+      <div class="details-wrapper mb-2">
+          <button class="btn btn-default full-width" data-toggle="collapse" data-target="#targeting">Targeting</button>
+          <div id="targeting" class="collapse in">
+                  <button ng-hide="targetEdit" ng-click="targetEdit = true">Edit</button>
+              <table>
+                  <tbody>
+                      <tr>
+                          <td>Geo Coverage</td>
+                          <td>
+                              <select class="form-control" name="geos" ng-model="targetingPayload.geo" ng-disabled="!targetEdit">
+                                  <option ng-repeat="geo in campaignGeo" value="{{geo.id}}">{{geo.name}}</option>
+                              </select>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Carrier Targeting</td>
+                          <td>
+                              <select class="form-control" name="carriers" ng-model="targetingPayload.carriers" ng-disabled="!targetEdit">
+                                  <option ng-repeat="isp in campaignIsp" value="{{isp.id}}">{{isp.name}}</option>
+                              </select>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Devices</td>
+                          <td>
+                              <select class="form-control" name="devices" ng-model="targetingPayload.devices" ng-disabled="!targetEdit">
+                                  <option ng-repeat="device in campaignDevices" value="{{device.id}}">{{device.name}}</option>
+                              </select>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Browsers</td>
+                          <td>
+                              <select class="form-control" name="browsers" ng-model="targetingPayload.browser" ng-disabled="!targetEdit">
+                                  <option ng-repeat="browser in campaignBrowsers" value="{{browser.id}}">{{browser.name}}</option>
+                              </select>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button ng-hide="!targetEdit" ng-click="updateTarget()">Update</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Modal Header</h4>
+    </div>
+    <div class="modal-body">
+
+          <p>Objective</p>
+          <select class="form-control" name="objective" ng-model="updateCampPayload.objective">
+              <option ng-repeat="objective in campaignObjectives" value="{{objective.id}}">{{objective.name}}</option>
+          </select>
+
+          <p>Advertiser</p>
+          <select class="form-control" name="advertiser" ng-model="updateCampPayload.advertiser">
+              <option ng-repeat="advertiser in campaignAdvertisers" value="{{advertiser.id}}">{{advertiser.username}}</option>
+          </select>
+          <p>Currency</p>
+          <select class="form-control" name="currency" ng-model="updateCampPayload.revenue_currency">
+              <option ng-repeat="currency in campaignCurrencies" value="{{currency.id}}">{{currency.name}}</option>
+          </select>
+          <p>Title</p>
+          <input type="text" name="title" ng-model="updateCampPayload.title" />
+          <p>Preview URL</p>
+          <input type="text" name="previewUrl" ng-model="updateCampPayload.preview_url" />
+          <p>Promo URL</p>
+          <input type="text" name="promoUrl" ng-model="updateCampPayload.promo_url" />
+    </div>
+    <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="updateCampaign()">Update</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+
+</div>
+</div>

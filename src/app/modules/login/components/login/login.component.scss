@@ -1,0 +1,120 @@
+$font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+$primary-color: #0190c8;
+$white-color: #ffffff;
+
+
+  
+    
+  
+    section.login-wrap {
+      height: 100%;
+      display: flex;
+      font-family: $font-family;
+      justify-content: center;
+      align-items: center;
+      background-image: url("/assets/login/login-bg.png");
+      background-position: center;
+      background-size: cover;
+      .li-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+  
+        .li-box {
+          flex-basis: 22%;
+          text-align: center;
+  
+          label.input-label.radio-btn {
+            color: $primary-color;
+            margin: 0 12px 0 0px;
+            font-weight: 600;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px $primary-color;
+  
+            @media screen and (max-width: 768px) {
+              color: $white-color;
+            }
+  
+            input[type="radio"] {
+              display: none;
+              font-size: 15px;
+  
+              + i {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                margin: 5px 0px 0 0;
+                border-radius: 100%;
+                background-color: $white-color;
+                border-style: solid;
+                border-width: 2px;
+                border-color: $primary-color;
+  
+                @media screen and (max-width: 768px) {
+                  border-color: $white-color;
+                  background-color: $primary-color;
+                }
+              }
+  
+              &:checked + i {
+                background-color: $primary-color;
+  
+                @media screen and (max-width: 768px) {
+                  background-color: $white-color;
+                }
+              }
+            }
+          }
+  
+          .li-box-title {
+            font-size: 30px;
+            margin: 10px 0 50px 0;
+            padding: 0 0;
+            color: $primary-color;
+            font-family: $font-family;
+  
+            @media screen and (max-width: 768px) {
+              color: $white-color;
+            }
+          }
+  
+          &.li-pr {
+            .li-box-title {
+              color: $white-color;
+            }
+            label.input-label.radio-btn {
+              color: $white-color;
+              input[type="radio"] {
+                + i {
+                  background-color: $primary-color;
+                  border-color: $white-color;
+                }
+                &:checked + i {
+                  background-color: $white-color;
+                }
+              }
+            }
+          }
+  
+          @media screen and (max-width: 992px) {
+            flex-basis: 35%;
+          }
+          @media screen and (max-width: 768px) {
+            width: 60%;
+          }
+          @media screen and (max-width: 512px) {
+            width: 80%;
+          }
+        }
+  
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+  
+      @media screen and (max-width: 768px) {
+        background-color: $primary-color;
+        background-image: none;
+      }
+    }

@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Branding</span>
+    <span class="toolbar-saparater"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>arrow_drop_down</mat-icon>
+      {{loggedInUser.firstName + ' ' + loggedInUser.lastName}}
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="logOut()" mat-menu-item>Logout</button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div [hidden]="!showProgressBar">
+  <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+</div>

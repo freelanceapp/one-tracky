@@ -1,0 +1,167 @@
+<form [formGroup]="cmpForm" (ngSubmit)="onSubmit()">
+
+  <h1 class="mat-headline">{{isNewCampaign ? 'Add new' : 'Edit'}} campaign</h1>
+
+  <div class="row">
+
+
+    <section class="col-8">
+
+      <!-- Basic info -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Basic Information</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+          <input type="hidden" formControlName="campaignId">
+
+          <section>
+            <mat-form-field class="mff-100">
+              <input matInput placeholder="Campaign name" formControlName="campaignName">
+              <mat-error>
+                <div
+                  *ngIf="cmpForm.get('campaignName').invalid && (cmpForm.get('campaignName').touched || cmpForm.get('campaignName').dirty)">
+                  <div *ngIf="cmpForm.get('campaignName').errors.required">Campaign name is required</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+          </section>
+
+          <section class="">
+            <mat-form-field class="mff-100">
+              <textarea formControlName="comments" matInput placeholder="Any comments"></textarea>
+            </mat-form-field>
+          </section>
+
+        </mat-card-content>
+      </mat-card>
+      <br>
+
+      <!-- pricing -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Pricing</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <section class="row">
+            <mat-form-field class="col">
+              <mat-label>Pricing model</mat-label>
+              <mat-select>
+                <mat-option value="1">CPM</mat-option>
+                <mat-option value="2">CPC</mat-option>
+                <mat-option value="3">Tenancy</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col">
+              <input matInput placeholder="Price rate" type="number">
+            </mat-form-field>
+
+            <mat-form-field class="col">
+              <input matInput placeholder="Impressions" type="number">
+            </mat-form-field>
+          </section>
+        </mat-card-content>
+      </mat-card>
+      <br>
+
+      <!-- Priority In relation to other module -->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Priority In relation to other module</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <section class="row">
+
+          
+          <mat-form-field class="col">
+            <mat-label>Priority lavel</mat-label>
+            <mat-select>
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="7">7</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="9">9</mat-option>
+              <mat-option value="1">10</mat-option>
+              <mat-option value="1">11</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col">
+            <mat-label>Limit</mat-label>
+            <mat-select>
+              <mat-option value="target_impression">impressions</mat-option>
+              <mat-option value="target_click">Clicks</mat-option>
+              <mat-option value="target_conversion">Conversions</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col">
+            <input matInput placeholder="Per day" type="number">
+          </mat-form-field>
+        </section>
+        </mat-card-content>
+      </mat-card>
+      <br>
+
+
+
+    </section>
+    <section class="col-4">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Date options</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="mff-100">
+            <input matInput [matDatepicker]="camStartDate" placeholder="Campaign start date" disabled>
+            <mat-datepicker-toggle matSuffix [for]="camStartDate"></mat-datepicker-toggle>
+            <mat-datepicker #camStartDate disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="mff-100">
+            <input matInput [matDatepicker]="camExpireDate" placeholder="Campaign expire date" disabled>
+            <mat-datepicker-toggle matSuffix [for]="camExpireDate"></mat-datepicker-toggle>
+            <mat-datepicker #camExpireDate disabled="false"></mat-datepicker>
+            <mat-hint>Leave empty in case of no expiration date</mat-hint>
+          </mat-form-field>
+          <!-- <button mat-button type="button" (click)="camExpireDate.value = null">Clear expiration date</button> -->
+        </mat-card-content>
+
+      </mat-card>
+      <br>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Delivery Capping per Visitor</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="mff-100">
+            <input matInput placeholder="Period" type="number">
+          </mat-form-field>
+          <mat-form-field class="mff-100">
+            <input matInput placeholder="Amount" type="number">
+          </mat-form-field>
+          <mat-form-field class="mff-100">
+            <mat-label>Period type</mat-label>
+            <mat-select>
+              <mat-option value="hours">Hours</mat-option>
+              <mat-option value="days">Days</mat-option>
+              <mat-option value="months">Months</mat-option>
+              <mat-option value="years">Years</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+
+  </div>
+  <button type="submit" [disabled]="!cmpForm.valid" mat-raised-button color="primary">{{isNewCampaign ? 'Add' : 'Save'}}
+    Campaign</button> &nbsp;
+  <button type="reset" mat-raised-button>Reset</button>
+</form>

@@ -1,0 +1,136 @@
+<section class="login-wrap">
+  <div class="li-container">
+    <!-- branding -->
+    <section class="li-box li-br">
+
+      <form [formGroup]="brandingLoginForm" (ngSubmit)="onBrandingSubmit()">
+
+        <h3 class="si-title">Please choose your account type</h3>
+        <div class="radio-control-wrap">
+
+          <label class="input-label radio-btn">
+            <input name="signUpAs" value="publisher" type="radio" formControlName="signUpAs">
+            <i>Publisher</i> </label>
+          <label class="input-label radio-btn">
+            <input name="signUpAs" value="advertiser" type="radio" formControlName="signUpAs">
+            <i>Advertiser</i> </label>
+
+          <aside *ngIf="brandingLoginForm.get('signUpAs').touched && brandingLoginForm.get('signUpAs').invalid"
+            class="err">
+            <div *ngIf="brandingLoginForm.get('signUpAs').errors.required">Please choose an option</div>
+          </aside>
+        </div>
+
+        <section class="bg-wrap">
+          <section class="bg-controls-wrap">
+            <div class="row">
+
+              <!-- first name -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">First name</label>
+                <input formControlName="firstName" class="input-control" autocomplete="off" type="text">
+
+                <aside *ngIf="brandingLoginForm.get('firstName').touched && brandingLoginForm.get('firstName').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('firstName').errors.required">First Name is requierd</div>
+                </aside>
+
+              </div>
+
+              <!-- last name -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">Last name</label>
+                <input formControlName="lastName" class="input-control" autocomplete="off" type="text">
+
+                <aside *ngIf="brandingLoginForm.get('lastName').touched && brandingLoginForm.get('lastName').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('lastName').errors.required">Last Name is requierd</div>
+                </aside>
+
+              </div>
+
+              <!-- email -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">Email <span class="label-info">used as your username</span></label>
+                <input formControlName="email" class="input-control" autocomplete="off" type="email">
+
+                <aside *ngIf="brandingLoginForm.get('email').touched && brandingLoginForm.get('email').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('email').errors.required">email is requierd</div>
+                </aside>
+
+              </div>
+
+              <!-- password -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">Password</label>
+                <input formControlName="password" class="input-control" autocomplete="off" type="password">
+
+                <aside *ngIf="brandingLoginForm.get('password').touched && brandingLoginForm.get('password').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('password').errors.required">Password is requierd</div>
+                </aside>
+
+              </div>
+
+              <!-- company name -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">Comapny name</label>
+                <input formControlName="companyName" class="input-control" autocomplete="off" type="text">
+
+                <aside
+                  *ngIf="brandingLoginForm.get('companyName').touched && brandingLoginForm.get('companyName').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('companyName').errors.required">Company Name is requierd</div>
+                </aside>
+
+              </div>
+
+              <!-- skype id -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">SkypeId</label>
+                <input formControlName="skypeId" class="input-control" autocomplete="off" type="text">
+
+                <aside *ngIf="brandingLoginForm.get('skypeId').touched && brandingLoginForm.get('skypeId').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('skypeId').errors.required">SkypeId is requierd</div>
+                </aside>
+
+              </div>
+
+              <!-- phone -->
+              <div class="control-wrap col-lg-6">
+                <label class="control-label">Phone no.</label>
+                <input formControlName="phoneNo" class="input-control" autocomplete="off" type="tel">
+
+                <aside *ngIf="brandingLoginForm.get('phoneNo').touched && brandingLoginForm.get('phoneNo').invalid"
+                  class="err">
+                  <div *ngIf="brandingLoginForm.get('phoneNo').errors.required">phoneNo is requierd</div>
+                </aside>
+
+              </div>
+
+              <div class="control-wrap sbmt-btn-wrap col-12">
+                <button class="input-control-btn sbmt-btn" type="submit"
+                  [disabled]="!brandingLoginForm.valid">Login</button>
+              </div>
+
+            </div>
+
+
+
+
+
+
+            <div class="login-link">
+              Already has an account ?
+              <a class="signup" [routerLink]="['/login']">signin</a> here.
+            </div>
+          </section>
+
+        </section>
+
+      </form>
+    </section>
+  </div>
+</section>

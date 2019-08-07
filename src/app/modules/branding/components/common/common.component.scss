@@ -1,0 +1,18 @@
+.dashboard-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  section.app-container {
+    display: flex;
+    flex-grow: 1;
+    background-color: #f1f1f1;
+    .side-nav {
+      flex-basis: 20%;
+    }
+
+    .main-container {
+      flex-basis: 80%;
+    }
+  }
+}

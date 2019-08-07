@@ -1,0 +1,65 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="container-box">
+<div class="breadcrums">
+    <ul>
+        <li>Home</li>
+        <li><mat-icon>keyboard_arrow_right</mat-icon></li>
+        <li class="active">All Campagins</li>
+    </ul>
+</div>
+
+<div class="sectionContentMain" ng-init="redirectionReport()">
+      <div  class="sectionContent">
+          <h3>We Know all your campaigns are much important for you than us. <img  src="assets/img/Orion_dead-emoji.svg"></h3>
+          <div class="afmCard">
+                  <ul class="responsive-table">
+                          <li class="table-header">
+                            <div class="col">Redirection Id</div>
+                            <div class="col">Date/Time</div>
+                            <div class="col">Campaign (Receiving)</div>
+                            <div class="col">Campaign (Redirected)</div>
+                            <div class="col">Publisher (Received)</div>
+                            <div class="col">Publisher (Redirected)</div>
+                            <div class="col">Advertiser (Received)</div>
+                            <div class="col">Advertiser (Redirected)</div>
+                            <div class="col">Click ID (Received)</div>
+                            <div class="col">Click ID (Redirected)</div>
+                            <div class="col">Reason</div>
+                          </li>
+                          <li class="table-row list-data" ng-repeat="redirectionReport in redirectionReportList">
+                            <div class="col" data-label="Id">redirectionReport.id</div>
+                            <div class="col" data-label="Username">redirectionReport.created_at</div>
+                            <div class="col" data-label="Email"><a href="#!/camp/details/redirectionReport.receiving_campaign">redirectionReport.receiving_campaign_title</a></div>
+                            <div class="col" data-label="Email"><a href="#!/camp/details/redirectionReport.redirected_campaign">redirectionReport.redirected_campaign_title</a></div>
+                            <div class="col" data-label="Email">redirectionReport.actual_publisher_name</div>
+                            <div class="col" data-label="Email">redirectionReport.virtual_publisher_name</div>
+                            <div class="col" data-label="Email">redirectionReport.actual_advertiser_name</div>
+                            <div class="col" data-label="Email">redirectionReport.virtual_advertiser_name</div>
+                            <div class="col" data-label="Email">redirectionReport.actual_clickid</div>
+                            <div class="col" data-label="Email">redirectionReport.virtual_clickid</div>
+                            <div class="col" data-label="Email">redirectionReport.reason</div>
+                          </li>
+                  </ul>
+          </div>
+      </div>
+      <!-- <div class="shimmerWindow" ng-if="isShimmerLoader == true">
+              <div class="shimmerLeft" ng-repeat="n in [] | range:10">
+              
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                      <div class="shimmerSearch"></div>
+                  
+              </div>
+          </div> -->
+  </div>
+</div> 
+  

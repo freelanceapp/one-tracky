@@ -1,0 +1,15 @@
+.full-width {
+    width: 100%;
+}
+
+button {
+    outline: none !important;
+}
+
+.mb-2 {
+    margin-bottom: 2em;
+}
+
+.bg-white {
+    background: white;
+}

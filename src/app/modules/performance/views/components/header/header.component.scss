@@ -1,0 +1,390 @@
+@import "../../../../../../performance-styles.scss";
+#header {
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    float: left;
+    clear: both;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    padding: 0 0 0 50px;
+    margin: 0 0 25px;
+    box-shadow: 0 16px 74px 0 rgba(67, 109, 244, 0.2);
+}
+.req_demo{
+    background: #3f51b5;
+    color:#ffffff;
+}
+.nav-box{
+    flex:auto;
+}
+#header .logo {
+    float: left;
+    padding: 11px 0;
+    cursor: pointer;
+}
+#header .logo img {
+    max-height: 36px;
+    width: auto;
+}
+.loginPanel {
+    float: right;
+    margin: 0 10px;
+}
+.loginPanel ul {
+    margin: 0;
+    padding: 0;
+}
+.loginPanel li {
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin: 11px 0 0 5px;
+}
+.loginPanel li button {
+    display: block; 
+    font-size: 14px;
+    color: #399c12;
+    cursor: pointer;
+    font-family: $fontFamily;
+}
+.loginPanel {
+    float: right;
+    margin: 0 10px;
+}
+.requestDemo {
+    float: right;
+    margin: 10px 0px 0 0;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: $fontFamily;
+    position: relative;
+    color: #fff;
+    border-radius: 3px;
+}
+.requestDemo .requestLinks {
+    position: absolute;
+    z-index: -9;
+    top: 40px;
+    right: 0;
+    background: #fff;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    -webkit-transform: translateX(0) translateY(-20px) scale(.8);
+    transform: translateX(0) translateY(-20px) scale(.8);
+    -webkit-transform-origin: right;
+    transform-origin: right;
+    transition-timing-function: cubic-bezier(.68,-.55,.265,1.55);
+    transition-duration: .3s;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 0 1px 1px rgba(31,45,61,.15);
+    border-radius: 4px;
+}
+.requestDemo .requestLinks button:first-child {
+    border-right: 1px solid rgba(0,0,0,.2);
+    border-radius: 4px 0 0 4px;
+}
+.requestDemo .requestLinks button {
+    font-size: 12px;
+    background: #fff;
+    width: 50%;
+    cursor: pointer;
+    padding: 10px;
+    line-height: 18px;
+    border: none;
+    color: rgba(0,0,0,.7);
+    position: relative;
+    z-index: 10;
+    border-radius: 0 4px 4px 0;
+}
+button {
+    outline: none !important;
+}
+.requestDemo .requestLinks button {
+    font-size: 12px;
+    background: #fff;
+    width: 50%;
+    cursor: pointer;
+    padding: 10px;
+    line-height: 18px;
+    border: none;
+    color: rgba(0,0,0,.7);
+    position: relative;
+    z-index: 10;
+    border-radius: 0 4px 4px 0;
+}
+.requestDemo .requestLinks button strong {
+    font-size: 14px;
+    margin: 5px 0 0;
+    font-family: inherit;
+    display: block;
+}
+.requestDemo .requestLinks button .reqIcon {
+    display: block;
+    margin: 0 0 5px;
+    float: left;
+    width: 100%;
+    clear: both;
+    text-align: center;
+}
+.requestDemo .requestLinks button span {
+    color: rgba(0,0,0,.5);
+    font-size: 11px;
+}
+.loginPanel li button.active {
+    background-color: #5cb85c;
+    box-shadow: 0 7px 22px 0 rgba(32,44,69,.1);
+    color: #fff;
+}
+.commonPopUp.active {
+    opacity: 1;
+    z-index: 9999;
+}
+.commonPopUp {
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -99;
+    overflow-y: auto;
+}
+.commonPopUp.active .popOverlay {
+    background: rgba(0,0,0,.5);
+    -webkit-animation: .2s ease-in-out popupfade;
+    animation: .2s ease-in-out popupfade;
+}
+.commonPopUp .popOverlay {
+    background: rgba(0,0,0,0);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.commonPopUp .popHolder {
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: 3;
+    border-radius: 8px;
+}
+.commonPopUp.active .popHolder {
+    -webkit-animation: .1s ease-in-out popupanimation;
+    animation: .1s ease-in-out popupanimation;
+}
+
+.loginRegister {
+    width: calc(100% - 30px);
+    max-width: 800px;
+    display: flex;
+}
+.commonPopUp .popHolder .closePopUp {
+    position: absolute;
+    cursor: pointer;
+    z-index: 9;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 19px;
+    color: rgba(0, 0, 0, 0.25);
+}
+.form-group {
+    position: relative;
+    margin: 15px 0px;
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    padding: .4375em 0;
+    border-top: .84375em solid transparent;
+}
+  .form-control {
+    border:none;
+    border-bottom:1px solid #ddd;
+    border-radius: 0px;
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    box-shadow: inset 200px 200px 0 0 #fff;
+    font-size: 14px;
+    height: 30px;
+    padding: 6px 0px;
+  }
+  .form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+  .form-control-placeholder {
+    position: absolute;
+    top: 0;
+    padding: 7px 0 0 0px;
+    transition: all 200ms;
+    opacity: 0.5;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0,0,0,.87);
+    display: block;
+    margin: 0 0 10px;
+  }
+  
+  .form-control:focus + .form-control-placeholder {
+    font-size: 85%;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+  }
+  .form-control:valid + .form-control-placeholder {
+      font-size: 85%;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+  }
+  .loginRegisterLeft h3 {
+      color:#fff;
+      font-size: 18px;
+      padding-right: 22%;
+      line-height: 24px;
+  }
+  .loginRegister .loginRegisterLeft {
+    box-sizing: border-box;
+    width: 360px;
+    min-height: 500px;
+    // background: url('../../../../assets/img/loginLeft.png') bottom right/cover no-repeat #fff;
+    border-radius: 6px 0 0 6px;
+    padding: 20px 0 20px 20px;
+}
+.loginRegister .loginRegisterRight {
+    box-sizing: border-box;
+    width: calc(100% - 360px);
+    align-items: center;
+    padding: 25px 40px 25px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm {
+    width: 100%;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin {
+    width: 100%;
+    text-align: center;
+    clear: both;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin h4 {
+    display: block;
+    position: relative;
+    height: 20px;
+    margin: 0 0 10px;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin h4:before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    width: 100%;
+    z-index: 1;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin h4 span {
+    display: inline-block;
+    font-size: 13px;
+    color: rgba(0,0,0,.4);
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    padding: 0 15px;
+    font-weight: 300;
+    margin-top: 4px;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin .socialIcon {
+    box-sizing: border-box;
+    display: inline-block;
+    width: calc(33.33% - 10px);
+    vertical-align: middle;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid rgba(0,0,0,.1);
+    cursor: pointer;
+    background: #fff;
+    color: rgba(0,0,0,.4);
+    margin-bottom: 15px;
+    transition: .3s ease-in-out;
+    font-size: 13px;
+    margin-right: 5px;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin .socialIcon:hover {
+    box-shadow: 0 4px 8px 0 rgba(35,36,48,.2);
+    background: #018dd0;
+    border: 1px solid #018dd0;
+    color: #fff;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .socialLogin .socialIcon.active {
+  background: #018dd0;
+  border: 1px solid #018dd0;
+  color: #fff;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm  .loginButton:disabled {
+    cursor: auto;
+    background: #ccc;
+}
+
+.loginRegister .loginRegisterRight .loginRegisterForm  .loginButton {
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 130px;
+    text-align: center;
+    background: #208a20;
+    box-shadow: 0 7px 22px 0 rgba(32,44,69,.1);
+    border-radius: 4px;
+    color: #fff;
+    cursor:pointer;
+    font-size: 14px;
+    // font-family: $fontFamily;
+    border: none;
+    padding: 8px 10px;
+    transition: .3s ease-in-out;
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .dontText {
+    margin-top:5rem; 
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .dontText span {
+    font-size:13px;
+    color: rgba(0,0,0,.4);
+}
+.loginRegister .loginRegisterRight .loginRegisterForm .dontText .registerText{
+    color:#208a20;
+}
+button:focus {
+    outline: none;
+}
+.initialLoader {position: fixed;display: block;width: 100%;height: 100%;background: #E8EFFA;background-attachment: fixed;text-align: center;z-index: 99999;top: 0;left: 0;}
+    .initialLoader:before {content: ''; display: block; position: absolute; left: 50%; top: 50%; width: 104px; height: 104px; box-shadow: 1px 4px 40px rgba(67, 117, 195, 0.2);
+      background: #fff; padding: 20px; transform: translate(-50%, -50%); z-index: 99; border-radius: 6px;}
+
+    .initialLoader .homeLoader {display: block; position: absolute; left: 50%; top: 50%; width: 64px; height: 64px;  margin: -32px 0 0 -32px; z-index: 99; animation: homeloading 1.55s ease-in-out infinite;}
+    .initialLoader .homeLoader img {width:100%; height: auto;}
+
+    .initialLoader .loadingOverlay {position: fixed; top:0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.25);}
+
+    @-webkit-keyframes homeloading {
+      0% {transform: scale(1); opacity: 1;}
+      50% {transform: scale(0.8); opacity: 0.7;}
+      100% {transform: scale(1); opacity: 1;}
+    }
+
+    @keyframes homeloading {
+      0% {transform: scale(1); opacity: 1;}
+      50% {transform: scale(0.8); opacity: 0.5;}
+      100% {transform: scale(1); opacity: 1;}
+      }

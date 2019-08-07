@@ -1,0 +1,291 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<div class="container-box">
+  <div class="breadcrums">
+    <ul>
+      <li>Home</li>
+      <li><mat-icon>keyboard_arrow_right</mat-icon></li>
+      <li class="active">Dashboard</li>
+    </ul>
+  </div>
+
+  <div class="sectionContentMain">
+    <div class="sectionContent">
+      <h3>
+        Creating an Campaign have never been so easy than here.
+        <img src="assets/img/Orion_smile-emoji.svg" />
+      </h3>
+      <div class="afmCard">
+        <form name="campForm" ng-submit="creatForm()">
+          <!-- Objective -->
+          <div class="row">
+            <div class="col-md-2">
+              <span class="label">Choose an Objective</span>
+            </div>
+            <div class="col-md-9">
+              <label
+                ng-repeat="objective in campaignObjectives"
+                class="input-radio-camp"
+                for=""
+                ng-class=""
+              >
+                <span></span>
+                <input
+                  type="radio"
+                  id=""
+                  ng-model="createCampPayload.objective"
+                  value=""
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput placeholder="Campaign Title *" />
+              </mat-form-field>
+
+              <!-- <div class="form-group">
+                                <input 
+                                    type="text" 
+                                    ng-blur="visitidTitle == true" 
+                                    ng-model-options="" 
+                                    name="title" 
+                                    class="form-control" 
+                                    ng-model="createCampPayload.title" 
+                                    required
+                                />
+                                <label class="form-control-placeholder" for="password">Campaign Title *</label>
+                                <span ng-show="campForm.title.$dirty && campForm.title.$invalid" class="error">Invalid: Tell us  your name.</span> 
+                            </div> -->
+            </div>
+
+            <div class="col-4">
+              
+                <mat-form-field>
+                  <mat-select placeholder="Campaign Category">
+                    <mat-option value="option">Campaign Category</mat-option>
+                  </mat-select>
+                </mat-form-field>
+           
+              <!-- <div class="form-group">
+                                    <select class="form-control" ng-options="category.name for category in campaignCategories track by category.id" ng-model="createCampPayload.category"></select>
+                                    <label class="form-control-placeholder" for="password">Campaign Category</label>
+                                </div> -->
+            </div>
+
+            <div class="col-md-4">
+              <!-- <div class="form-group">
+                                <select class="form-control" name="advertiser" required ng-model="createCampPayload.advertiser">
+                                    <option ng-repeat="advertiser in campaignAdvertisers" value=""></option>
+                                </select>
+                                <label class="form-control-placeholder" for="password">Choose an advertiser *</label>
+                                <span ng-show="campForm.advertiser.$dirty && campForm.advertiser.$invalid" class="error">Invalid: Please choose advertiser.</span> 
+                            </div> -->
+
+              <mat-form-field>
+                <mat-select placeholder="Choose an advertiser *">
+                  <mat-option value="option">Choose an advertiser *</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <!-- <div class="form-group">
+                                <input type="text" id="des" ng-model-options=""  class="form-control" ng-model="createCampPayload.note">
+                                <label class="form-control-placeholder" for="password">Tell us campaign Description </label>
+                            </div> -->
+              <mat-form-field>
+                <input matInput placeholder="Tell us campaign Description " />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <!-- <div class="form-group">
+                                <select class="form-control" name="visibility" ng-options="visibility for visibility in campaignVisibility track by visibility" ng-model="createCampPayload.visibility" required></select>
+                                <label class="form-control-placeholder" for="password">Campaign Visibility *</label>
+                                <span ng-show="campForm.visibility.$dirty && campForm.visibility.$invalid" class="error">Invalid: Please choose campaign visibility.</span> 
+                            </div> -->
+              <mat-form-field>
+                <mat-select placeholder="Campaign Visibility *">
+                  <mat-option value="option">option 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="titleTab">Revenue &amp; Payout</div>
+          <div class="row">
+            <div class="col-md-4">
+              <!-- <div class="form-group">
+                                        <input type="text" id="des" class="form-control" ng-model-options=""  ng-model="createCampPayload.preview_url">
+                                        <label class="form-control-placeholder" for="password">Preview URL </label>
+                                    </div> -->
+              <mat-form-field>
+                <input matInput placeholder="Preview URL " />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <!-- <div class="form-group">
+                                    <input type="text" name="revenue" id="des" ng-model-options=""  class="form-control" ng-model="createCampPayload.revenue" required>
+                                    <label class="form-control-placeholder" for="password">Tell us revenue *</label>
+                                    <span ng-show="campForm.revenue.$dirty && campForm.revenue.$invalid" class="error">Invalid: Enter revenue.</span> 
+                                </div> -->
+              <mat-form-field>
+                <input matInput placeholder="Tell us revenue *" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <!-- <div class="form-group">
+                                        <select class="form-control" ng-options="currency.name for currency in campaignCurrencies track by currency.id" ng-model="createCampPayload.revenue_currency"></select>
+                                        <label class="form-control-placeholder" for="password">Your Currency Visibility </label>
+                                    </div> -->
+              <mat-form-field>
+                <mat-select placeholder="Your Currency Visibility ">
+                  <mat-option value="option">option 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <!-- <div class="form-group">
+                                            <input type="text" name="payout" id="des" ng-model-options=""  class="form-control" ng-model="createCampPayload.payout" required>
+                                            <label class="form-control-placeholder" for="password">Payout *</label>  
+                                            <span ng-show="campForm.payout.$dirty && campForm.payout.$invalid" class="error">Invalid: Enter payload.</span> 
+                                    </div> -->
+              <mat-form-field>
+                <input matInput placeholder="Payout *" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <!-- <div class="form-group">
+                                                <input type="text" id="des" name="promourl" class="form-control" ng-model-options=""  ng-model="createCampPayload.promo_url" required>
+                                                <label class="form-control-placeholder" for="password">Default Campaign URL *</label> 
+                                                <span ng-show="campForm.promourl.$dirty && campForm.promourl.$invalid" class="error">Invalid: Enter campaign url.</span> 
+                                                <span class="helpText">The campaign URL where traffic will redirect to. Optional variabled can be used in URL. Most Used URL tokens</span> 
+                                        </div> -->
+              <mat-form-field>
+                <input matInput placeholder="Default Campaign URL *" />
+              </mat-form-field>
+              <div class="helpText">
+                The campaign URL where traffic will redirect to. Optional
+                variabled can be used in URL. Most Used URL tokens
+              </div>
+
+              <div class="formTiles" ng-click="appendToUrl('click_id')">
+                click_id
+              </div>
+              <div class="formTiles" ng-click="appendToUrl('title')">
+                title
+              </div>
+              <div class="formTiles" ng-click="appendToUrl('camp_id')">
+                camp_id
+              </div>
+              <div class="formTiles" ng-click="appendToUrl('param4')">
+                param4
+              </div>
+              <div class="formTiles" ng-click="appendToUrl('next_param')">
+                next_param
+              </div>
+            </div>
+          </div>
+          <div class="titleTab">Optimization</div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="% cut" />
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                <input type="text" id="cut-percentage" ng-model-options=""  class="form-control" ng-model="createCampPayload.cut_percentage">
+                                                <label class="form-control-placeholder" for="cut-percentage">% cut</label>  
+                                        </div> -->
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="cut after %" />
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                    <input type="text" id="des" ng-model-options=""  class="form-control" ng-model="createCampPayload.cut_after">
+                                                    <label class="form-control-placeholder" for="password">cut after %</label>  
+                                            </div> -->
+            </div>
+          </div>
+          <div class="titleTab">Targeting</div>
+          <div class="row">
+            <div class="col-md-6">
+              <!-- <div class="form-group">
+                                                <select class="form-control" ng-options="geo.name for geo in campaignGeo track by geo.id" ng-model="createCampPayload.geo"></select>
+                                                <label class="form-control-placeholder" for="password">Geo Coverage </label>
+                                            </div> -->
+              <mat-form-field>
+                <mat-select placeholder="Geo Coverage ">
+                  <mat-option value="option">option 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Devices">
+                  <mat-option value="option">option 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                    <select class="form-control" ng-options="device.name for device in campaignDevices track by device.id" ng-model="createCampPayload.devices"></select>
+                                                    <label class="form-control-placeholder" for="password">Devices </label>
+                                                </div> -->
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Browser">
+                  <mat-option value="option">option 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                        <select class="form-control" ng-options="browser.name for browser in campaignBrowsers track by browser.id" ng-model="createCampPayload.browser"></select>
+                                                        <label class="form-control-placeholder" for="password">Browser </label>
+                                                    </div> -->
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Carrier Targeting">
+                  <mat-option value="option">option 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                            <select class="form-control" ng-options="carrier.name for carrier in campaignIsp track by carrier.id" ng-model="createCampPayload.carriers"></select>
+                                                            <label class="form-control-placeholder" for="password">Carrier Targeting </label>
+                                                        </div> -->
+            </div>
+          </div>
+          <div class="titleTab">Caping</div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Daily Caping Value" />
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                    <input type="text" id="des" ng-model-options=""  class="form-control" ng-model="createCampPayload.dailycap">
+                                                    <label class="form-control-placeholder" for="password">Daily Caping Value</label>  
+                                            </div> -->
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Total Caping Value" />
+              </mat-form-field>
+              <!-- <div class="form-group">
+                                                    <input type="text" ng-model-options=""  id="des" class="form-control" ng-model="createCampPayload.totalcap">
+                                                    <label class="form-control-placeholder" for="password">Total Caping Value</label>  
+                                            </div> -->
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="text-center submitButtonarea">
+        <!-- <button type="submit" class="proceedButton" ng-disabled="campForm.$invalid" ng-click="createCampaign()">Process to Revenue </button> -->
+        <button mat-raised-button class="proceedButton">
+          Process to Revenue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

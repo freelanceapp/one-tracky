@@ -1,0 +1,123 @@
+<section class="login-wrap">
+  <div class="li-container">
+    <!-- branding -->
+    <section class="li-box li-br">
+      <h3 class="li-box-title">Branding</h3>
+
+
+      <form [formGroup]="brandingLoginForm" (ngSubmit)="onBrandingSubmit()">
+        <fieldset [disabled]="disableBrandingForm">
+          <div class="control-wrap">
+
+            <label class="input-label radio-btn">
+              <input name="logInAs" value="publisher" type="radio" formControlName="logInAs">
+              <i></i> Publisher</label>
+            <label class="input-label radio-btn">
+              <input name="logInAs" value="advertiser" type="radio" formControlName="logInAs">
+              <i></i> Advertiser</label>
+
+            <aside *ngIf="brandingLoginForm.get('logInAs').touched && brandingLoginForm.get('logInAs').invalid"
+              class="err">
+              <div *ngIf="brandingLoginForm.get('logInAs').errors.required">Please choose an option</div>
+            </aside>
+          </div>
+
+          <!-- username -->
+          <div class="has-icon control-wrap">
+            <img src="assets/login/user.svg" class="cntrol-icon">
+            <input formControlName="username" placeholder="Enter username" class="input-control" autocomplete="off"
+              type="text">
+
+            <aside *ngIf="brandingLoginForm.get('username').invalid && brandingLoginForm.get('username').touched"
+              class="err">
+              <div *ngIf="brandingLoginForm.get('username').errors.required">Username is requierd</div>
+            </aside>
+
+          </div>
+
+          <!-- password -->
+          <div class="has-icon control-wrap">
+            <img src="assets/login/lock.svg" class="cntrol-icon">
+            <input formControlName="password" class="input-control" autocomplete="off" placeholder="Enter password"
+              type="password">
+
+            <aside *ngIf="brandingLoginForm.get('password').touched && brandingLoginForm.get('password').invalid"
+              class="err">
+              <div *ngIf="brandingLoginForm.get('password').errors.required">Password is requierd</div>
+            </aside>
+
+          </div>
+          <div class="control-wrap">
+            <button class="input-control-btn" type="submit" [disabled]="!brandingLoginForm.valid">Login</button>
+          </div>
+
+          <!-- signup -->
+          <div class="login-link">
+            Already has an account ?
+            <a class="signup" [routerLink]="['/login/signup']">signup</a> here.
+          </div>
+
+          <!-- forgot password -->
+          <div class="login-link">
+            <a class="signup" [routerLink]="['/login/forgot-password']">Forgot password ?</a>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    <!-- performance -->
+    <section class="li-box li-pr">
+      <h3 class="li-box-title">Performance</h3>
+      <form [formGroup]="performanceLoginForm" (ngSubmit)="onPerformanceSubmit()">
+        <div class="control-wrap">
+          <label class="input-label radio-btn">
+            <input name="logInAs" value="publisher" type="radio" formControlName="logInAs">
+            <i></i> Publisher</label>
+          <label class="input-label radio-btn">
+            <input name="logInAs" value="advertiser" type="radio" formControlName="logInAs">
+            <i></i> Advertiser</label>
+
+          <aside *ngIf="performanceLoginForm.get('logInAs').touched && performanceLoginForm.get('logInAs').invalid"
+            class="err">
+            <div *ngIf="performanceLoginForm.get('logInAs').errors.required">Please choose an option</div>
+          </aside>
+        </div>
+
+        <!-- username -->
+        <div class="control-wrap has-icon">
+          <img src="assets/login/user.svg" class="cntrol-icon">
+          <input formControlName="username" placeholder="Enter username" class="input-control" autocomplete="off"
+            type="text">
+
+          <aside *ngIf="performanceLoginForm.get('username').touched && performanceLoginForm.get('username').invalid"
+            class="err">
+            <div *ngIf="performanceLoginForm.get('username').errors.required">Username is requierd</div>
+          </aside>
+        </div>
+
+        <!-- password -->
+        <div class="control-wrap has-icon">
+          <img src="assets/login/lock.svg" class="cntrol-icon">
+          <input formControlName="password" class="input-control" autocomplete="off" placeholder="Enter password"
+            type="password">
+
+          <aside *ngIf="performanceLoginForm.get('password').touched && performanceLoginForm.get('password').invalid"
+            class="err">
+            <div *ngIf="performanceLoginForm.get('password').errors.required">Password is requierd</div>
+          </aside>
+        </div>
+        <div class="control-wrap">
+          <button class="input-control-btn" type="submit" [disabled]="!performanceLoginForm.valid">Login</button>
+        </div>
+        <!-- signup -->
+        <div class="login-link">
+          Already has an account ?
+          <a class="signup" [routerLink]="['/login/signup']">signup</a> here.
+        </div>
+        <!-- forgot password -->
+        <div class="login-link">
+          <a class="signup" [routerLink]="['/login/forgot-password']">Forgot password ?</a>
+        </div>
+      </form>
+    </section>
+  </div>
+</section>

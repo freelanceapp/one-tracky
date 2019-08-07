@@ -1,0 +1,112 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<div class="container-box">
+  <div class="breadcrums">
+    <ul>
+      <li>Home</li>
+      <li><mat-icon>keyboard_arrow_right</mat-icon></li>
+      <li class="active">Redirection</li>
+    </ul>
+  </div>
+  <div class="sectionContentMain">
+    <div class="sectionContent">
+      <h3>
+        We know all your campaigns are much important for you than us.<img
+          src="assets/img/Orion_smile-emoji.svg"
+        />
+      </h3>
+      <div class="redirection-btn">
+        <a mat-raised-button color="primary" routerLink="../add-redirection"
+          >New Redirection</a
+        >
+      </div>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+
+            <td mat-cell *matCellDef="let lstRedirection">
+              {{ lstRedirection.id }}
+            </td>
+          </ng-container>
+
+          <!-- Publisher Name Column -->
+          <ng-container matColumnDef="publisher_name">
+            <th mat-header-cell *matHeaderCellDef>Publisher Name</th>
+            <td mat-cell *matCellDef="let lstRedirection">
+              {{ lstRedirection.publisher_name }}
+            </td>
+          </ng-container>
+
+          <!-- Campaign Name Column -->
+          <ng-container matColumnDef="campaign_name">
+            <th mat-header-cell *matHeaderCellDef>Campaign Name</th>
+            <td mat-cell *matCellDef="let lstRedirection">
+              {{ lstRedirection.campaign_name }}
+            </td>
+          </ng-container>
+
+          <!-- City Column -->
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let lstRedirection">
+              {{ lstRedirection.city }}
+            </td>
+          </ng-container>
+
+          <!-- Device Column -->
+          <ng-container matColumnDef="device">
+            <th mat-header-cell *matHeaderCellDef>Device</th>
+            <td mat-cell *matCellDef="let lstRedirection">
+              {{ lstRedirection.device }}
+            </td>
+          </ng-container>
+
+          <!-- Operator Column -->
+          <ng-container matColumnDef="operator">
+            <th mat-header-cell *matHeaderCellDef>Operator</th>
+            <td mat-cell *matCellDef="let lstRedirection">
+              {{ lstRedirection.operator }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let lstRedirection">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="editCategory(lstRedirection.id)"
+                style="margin-right:10px;"
+              >
+                Edit
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="delete(lstRedirection.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <div class="message" *ngIf="isValid">
+          {{ message }}
+        </div>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

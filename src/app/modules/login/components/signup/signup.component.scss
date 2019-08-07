@@ -1,0 +1,107 @@
+$font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+$primary-color: #00c1e0;
+$white-color: #ffffff;
+$gray-color: #f0f0f0;
+
+.radio-control-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+
+  label.input-label.radio-btn {
+    flex-basis: 250px;
+
+    &:first-of-type {
+      margin-right: 5px;
+    }
+    &:last-of-type {
+      margin-left: 5px;
+    }
+
+    i {
+      padding-top: 9px;
+      color: $white-color;
+      min-height: 45px;
+      min-width: 100px;
+      display: inline-block;
+      text-align: center;
+      border: 0 none;
+      font-family: $font-family;
+      border-radius: 9px;
+      font-size: 16px;
+      font-style: normal;
+      text-decoration: none;
+      width: 100%;
+      background-color: gray;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    input[type="radio"]:checked + i {
+      background-color: #307abb;
+    }
+
+    &:disabled {
+      background-color: $gray-color;
+      cursor: not-allowed;
+    }
+
+    &:focus:enabled {
+      outline: none;
+    }
+
+    &:active:enabled {
+      background-color: #026085;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 14px 20px;
+  }
+}
+
+section.bg-wrap {
+  display: flex;
+  justify-content: center;
+  section.bg-controls-wrap {
+    flex-basis: 80%;
+    background: $gray-color;
+    padding: 45px 45px;
+    box-shadow: rgba(0, 0, 0, 0.31) 0px 0px 7px 1px;
+    border-radius: 7px;
+
+    @media screen and (max-width: 768px) {
+      padding: 15px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    flex-basis: 90%;
+  }
+}
+
+h3.si-title {
+  text-align: center;
+  font-family: $font-family;
+  color: #043a46;
+  margin-bottom: 0;
+}
+
+
+
+section.li-box.li-br {
+  background-image: url("/assets/login/signup-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sbmt-btn-wrap {
+  text-align: center;
+  .sbmt-btn {
+    width: 250px;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}

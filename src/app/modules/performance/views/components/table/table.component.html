@@ -1,0 +1,54 @@
+<div class="container-box">
+  <div class="breadcrums">
+    <ul>
+        <li>Home</li>
+        <li><mat-icon>keyboard_arrow_right</mat-icon></li>
+        <li class="active">All Campagins</li>
+    </ul>
+  </div>
+  <div class="sectionContentMain">
+        <div  class="sectionContent">
+            <h3>We Know all your campaigns are much important for you than us. <img  src="assets/img/Orion_dead-emoji.svg"></h3>
+            <a class="btn-right" ><button mat-raised-button class="add-adver">Add {{name}}</button></a>
+            <div class="afmCard">
+                    <ul class="responsive-table">
+                            <li class="table-header">
+                              <div class="col" *ngFor="let thName of tableHeading">{{thName}}</div>
+                              <!-- <div class="col-sm-2">Username</div>
+                              <div class="col-sm-2">Email</div>
+                              <div class="col-sm-2">Created At</div>
+                              <div class="col-sm-2">Currency</div>
+                              <div class="col-sm-2">Action</div> -->
+                            </li>
+                            <li class="table-row list-data">
+                              <div class="col" *ngFor="let tableContent of tableContent">{{tableContent}}</div>
+                              <!-- <div class="col" data-label="Id">publisher.id</div>
+                              <div class="col" data-label="Username">publisher.username</div>
+                              <div class="col" data-label="Email">publisher.email</div>
+                              <div class="col" data-label="Email">publisher.created_at</div>
+                              <div class="col" data-label="Email">publisher.currency</div> -->
+                              <app-edit></app-edit>
+                              <div class="col-1" data-label="Action"><span class="edit-btn delete-btn"> Delete</span></div>
+                            </li>
+                    </ul>
+            </div>
+        </div>
+        <!-- <div class="shimmerWindow" ng-if="isShimmerLoader == true">
+                <div class="shimmerLeft" ng-repeat="n in [] | range:10">
+                
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                        <div class="shimmerSearch"></div>
+                    
+                </div>
+            </div> -->
+    </div>
+   </div> 

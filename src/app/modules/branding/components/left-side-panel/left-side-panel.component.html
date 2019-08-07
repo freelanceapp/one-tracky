@@ -1,0 +1,20 @@
+<mat-accordion *ngIf="brandingMenu && brandingMenu.length > 0">
+
+  <!-- dashboard -->
+
+  <mat-expansion-panel *ngFor="let bmenu of brandingMenu">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{bmenu.text}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <ul *ngIf="bmenu.menuItems && bmenu.menuItems.length > 0" class="nav-menu">
+        <li *ngFor="let bMenuItem of bmenu.menuItems">
+          <a matRipple [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="'active-nav'"
+            [routerLink]="['/branding/' + bmenu.modulePath + '/' + bMenuItem.componentPath]">{{bMenuItem.text}}</a></li>
+      </ul>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>

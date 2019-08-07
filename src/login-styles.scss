@@ -1,0 +1,101 @@
+$font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+$primary-color: #0190c8;
+$white-color: #ffffff;
+
+header.app-logo {
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  flex-basis: 5%;
+  width: 100%;
+  background: white;
+  box-shadow: 0px 4px 4px 1px rgba(115, 110, 110, 0.5803921568627451);
+  img {
+    max-width: 200px;
+  }
+}
+
+label.control-label {
+  font-size: 17px;
+  margin: 0 0 5px 0;
+  display: inline-block;
+  font-family: $font-family;
+  color: $primary-color;
+  font-weight: 600;
+  text-shadow: rgba(0, 0, 0, 0.23137254901960785) 1px 1px 1px;
+}
+
+.control-wrap {
+  margin: 0 0 15px 0;
+  position: relative;
+  img.cntrol-icon {
+    position: absolute;
+    max-width: 25px;
+    top: 9px;
+    left: 5px;
+  }
+}
+
+button.input-control-btn {
+  background-color: #307abb;
+  color: $white-color;
+  min-height: 45px;
+  min-width: 100px;
+  text-align: center;
+  border: 0 none;
+  font-family: $font-family;
+  border-radius: 9px;
+  font-size: 16px;
+  width: 100%;
+
+  &:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+
+  &:focus:enabled {
+    outline: none;
+  }
+
+  &:active:enabled {
+    background-color: #026085;
+  }
+}
+
+.input-control {
+  font-size: 15px;
+  padding: 14px 14px 14px 14px;
+  box-sizing: border-box;
+  border: 0 none;
+  width: 100%;
+  border-radius: 9px;
+  box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.161);
+}
+
+.has-icon .input-control{
+  padding: 14px 14px 14px 36px;  
+}
+
+aside.err {
+  text-align: left;
+  font-size: 12px;
+  color: #ff1a1a;
+  margin: 2px 0 0 0;
+  font-family: $font-family;
+}
+
+.login-link {
+  text-align: center;
+  color: #000;
+  font-family: $font-family;
+  a.signup {
+    color: #00415a;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 5px;
+    font-weight: bold;
+    text-shadow: #fff 0px 0px 2px;
+  }
+}

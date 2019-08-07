@@ -1,0 +1,124 @@
+<h1 class="mat-headline">{{isNewUser ? 'Add new' : 'Edit'}} user</h1>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+  <mat-card class="example-card">
+
+    <mat-card-header>
+      <mat-card-subtitle>* indicates that fields are required</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+      <input type="hidden" formControlName="userId">
+      <div class="row">
+
+        <!-- username -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <input type="email" matInput placeholder="Email *" formControlName="userName">
+            <mat-hint>This email will be used as your username</mat-hint>
+            <mat-error>
+              <div
+                *ngIf="userForm.get('userName').invalid && (userForm.get('userName').touched || userForm.get('userName').dirty)">
+                <div *ngIf="userForm.get('userName').errors.required">Email is required</div>
+                <div *ngIf="userForm.get('userName').errors.email">Enter a valid email</div>
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </section>
+
+        <!-- password -->
+        <section [hidden]="!isNewUser" class="col-6">
+          <mat-form-field class="mff-100">
+            <input matInput type="password" placeholder="Password *" formControlName="password">
+            <mat-error>
+              <div
+                *ngIf="userForm.get('password').invalid && (userForm.get('password').touched || userForm.get('password').dirty)">
+                <div *ngIf="userForm.get('password').errors.required">Password is required</div>
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </section>
+
+
+        <!-- firstname -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <input matInput type="tel" placeholder="First Name *" formControlName="firstName">
+            <mat-error>
+              <div
+                *ngIf="userForm.get('firstName').invalid && (userForm.get('firstName').touched || userForm.get('firstName').dirty)">
+                <div *ngIf="userForm.get('firstName').errors.required">First name is required</div>
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </section>
+
+        <!-- lastName -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <input matInput type="text" placeholder="Last name *" formControlName="lastName">
+            <mat-error>
+              <div
+                *ngIf="userForm.get('lastName').invalid && (userForm.get('lastName').touched || userForm.get('lastName').dirty)">
+                <div *ngIf="userForm.get('lastName').errors.required">Last name is required</div>
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </section>
+
+        <!-- role -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <mat-label>Select role *</mat-label>
+            <mat-select formControlName="role">
+              <mat-option [value]="1">Admin</mat-option>
+              <mat-option [value]="2">Advertiser</mat-option>
+              <mat-option [value]="3">Publisher</mat-option>
+              <mat-option [value]="4">Executive</mat-option>
+              <mat-option [value]="5">Publisher Executive</mat-option>
+            </mat-select>
+            <mat-error>
+              <div *ngIf="userForm.get('role').invalid && (userForm.get('role').touched || userForm.get('role').dirty)">
+                <div *ngIf="userForm.get('role').errors.required">Role is required</div>
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </section>
+
+        <!-- skype -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <input matInput type="text" placeholder="Skype" formControlName="skype">
+          </mat-form-field>
+        </section>
+
+        <!-- company -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <input matInput type="text" placeholder="Company name" formControlName="company">
+          </mat-form-field>
+        </section>
+        
+        <!-- phone -->
+        <section class="col-6">
+          <mat-form-field class="mff-100">
+            <input matInput type="text" placeholder="Phone number *" formControlName="phone">
+            <mat-error>
+              <div
+                *ngIf="userForm.get('phone').invalid && (userForm.get('phone').touched || userForm.get('phone').dirty)">
+                <div *ngIf="userForm.get('phone').errors.required">phone is required</div>
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </section>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br>
+  <button type="submit" [disabled]="!userForm.valid" mat-raised-button color="primary">{{isNewUser ? 'Add' : 'Save'}}
+    user</button> &nbsp;
+  <button type="reset" mat-raised-button>Reset</button>
+</form>
