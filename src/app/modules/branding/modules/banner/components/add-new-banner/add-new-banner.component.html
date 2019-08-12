@@ -1,6 +1,6 @@
 <h1 class="mat-headline">Add new banner</h1>
 
-<form>
+<form [formGroup]="bannerForm" (ngSubmit)="onSubmit()">
   <div class="row">
 
     <div class="col-md-8">
@@ -10,11 +10,16 @@
         </mat-card-header>
         <mat-card-content>
           <div class="row">
+
+            <!-- hidden filed -->
+            <input type="hidden" formControlName="bannerId">
+            <input type="hidden" formControlName="campaignId">
+
             <!-- banner type -->
 
             <mat-form-field class="col-md-6">
               <mat-label>Banner Type</mat-label>
-              <mat-select>
+              <mat-select formControlName="bannerType">
                 <mat-option value="web">Web</mat-option>
                 <mat-option value="html">Html</mat-option>
                 <mat-option value="html5">Html 5</mat-option>
@@ -23,41 +28,39 @@
 
             <!-- banner name -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="Banner Name *">
+              <input formControlName="bannerName" matInput placeholder="Banner Name *">
+              <mat-error *ngIf="this.bannerForm.invalid">
+              </mat-error>
             </mat-form-field>
-
 
             <!-- Destination url -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="Destination Url *">
+              <input formControlName="destinationUrl" matInput placeholder="Destination Url *">
             </mat-form-field>
 
             <!-- Tracking pixel -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="Tracking pixel">
+              <input formControlName="trackingPixel" matInput placeholder="Tracking pixel">
             </mat-form-field>
-
 
             <!-- Keywords -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="Keywords">
+              <input formControlName="keyword" matInput placeholder="Keywords">
             </mat-form-field>
 
             <!-- Weight -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="Weight">
+              <input formControlName="weight" matInput placeholder="Weight">
             </mat-form-field>
 
             <!-- comments -->
             <mat-form-field class="col-md-12">
-              <textarea rows="5" matInput placeholder="Any Comments"></textarea>
+              <textarea formControlName="comments" rows="5" matInput placeholder="Any Comments"></textarea>
             </mat-form-field>
+
           </div>
         </mat-card-content>
       </mat-card>
-
-
-
     </div>
 
     <div class="col-md-4">
@@ -70,16 +73,16 @@
 
             <!-- widht -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="Width *">
+              <input formControlName="width" matInput placeholder="Width *">
             </mat-form-field>
 
             <!-- height -->
             <mat-form-field class="col-md-6">
-              <input matInput placeholder="height *">
+              <input formControlName="height" matInput placeholder="height *">
             </mat-form-field>
           </div>
           <!-- file upload -->
-          <input type="file" placeholder="Upload File *">
+          <input formControlName="bannerImage" type="file" placeholder="Upload File *">
         </mat-card-content>
 
       </mat-card>
