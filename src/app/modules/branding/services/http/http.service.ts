@@ -18,6 +18,8 @@ export enum HttpDataType {
 @Injectable({
   providedIn: BrandingModule
 })
+
+/**http service for branding module */
 export class HttpService {
 
   private baseUrl: string;

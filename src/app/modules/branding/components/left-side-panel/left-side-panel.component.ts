@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModel, MenuItemModel } from '../../model/menu.model';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-left-side-panel',
@@ -10,7 +11,7 @@ export class LeftSidePanelComponent implements OnInit {
 
   public brandingMenu: MenuModel[] = [];
 
-  constructor() { }
+  constructor(private logInSvc: LoginService) { }
 
   ngOnInit() {
     this.createMenu();
@@ -26,7 +27,7 @@ export class LeftSidePanelComponent implements OnInit {
           new MenuItemModel('All advertisers', ''),
         ]),
         new MenuModel('Campaign', 'campaign', [
-          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('Add new', 'add-new/' + this.logInSvc.loggedInBrandingUser.userId.toString()),
           new MenuItemModel('All campaigns', ''),
         ]),
         new MenuModel('Banner', 'banner', [
@@ -40,6 +41,13 @@ export class LeftSidePanelComponent implements OnInit {
         new MenuModel('Zones', 'zone', [
           new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All Zones', ''),
+        ]),
+        new MenuModel('webSite', 'website', [
+          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All website', ''),
+        ]),
+        new MenuModel('notification', 'notification', [
+          new MenuItemModel('All notification', ''),
         ]),
       ]
     );

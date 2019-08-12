@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSelectChange, MatSnackBar } from '@angular/material';
+import { ZoneService } from 'src/app/modules/branding/services/zone/zone.service';
+import { ZoneModel } from 'src/app/modules/branding/model/zone.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-zone',
@@ -6,6 +11,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-new-zone.component.scss']
 })
 export class AddNewZoneComponent implements OnInit {
+  public zoneForm: FormGroup;
+  public isNewZone: boolean = true;
+  public errMsg: string = '';
+  public zoneId: number = null;
 
   public zoneSizeArr: Array<{ key: string, value: string }> = [{
     value: '468x60',
@@ -79,11 +88,128 @@ export class AddNewZoneComponent implements OnInit {
     value: 'custom',
     key: 'Custom'
   }
-];
+  ];
 
-  constructor() { }
+  constructor(private fb: FormBuilder,
+    public zoneService: ZoneService,
+    private _snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.zoneId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    if (this.zoneId) {
+      this.getZoneById();
+      this.isNewZone = false;
+    }
+  }
+
+
+
+
+  public createZoneForm() {
+    return this.fb.group({
+      zoneId: [''],
+      description: [''],
+      zoneName: ['', [Validators.required]],
+      delivery: [''],
+      zoneType: [''],
+      width: [''],
+      height: [''],
+      comments: [''],
+      size: [null]
+    })
+  }
+
+  public setSize(event: MatSelectChange) {
+    const size: string = event.value;
+    if (size == 'custom') {
+      this.zoneForm.controls['zoneType'].setValue('custom');
+      this.zoneForm.controls['width'].setValue('');
+      this.zoneForm.controls['height'].setValue('');
+    }
+    else {
+      this.zoneForm.controls['width'].setValue(this.getSize(size)[0]);
+      this.zoneForm.controls['height'].setValue(this.getSize(size)[1]);
+      this.zoneForm.controls['zoneType'].setValue('default');
+    }
+  }
+
+  private getSize(size: string): string[] {
+    return size.split('x');
+  }
+
+  public getZoneById() {
+    this.zoneService.getZone(this.zoneId)
+      .then(zone => {
+        this.setZoneForm(zone);
+      })
+      .catch(err => {
+        this.errMsg = err;
+      })
+  }
+
+  public setZoneForm(zone: ZoneModel) {
+    this.zoneForm.patchValue({
+      zoneId: zone.zoneId,
+      description: zone.description,
+      zoneName: zone.zoneName,
+      delivery: zone.delivery,
+      zoneType: zone.zoneType,
+      width: zone.width,
+      height: zone.height,
+      comments: zone.comments,
+    })
+    this.setbannerSize(zone)
+  }
+
+  private setbannerSize(zone: ZoneModel) {
+    if (zone) {
+      let width = zone.width;
+      let height = zone.height;
+
+      if (zone.zoneType == "default") {
+        this.zoneForm.controls['size'].setValue(width + "x" + height);
+      }
+      if (zone.zoneType == "custom") {
+        this.zoneForm.controls['size'].setValue(zone.zoneType);
+
+      }
+    }
+  }
+  public onSubmit() {
+    if (this.zoneForm.valid) {
+      let data: ZoneModel = this.zoneForm.value;
+      if (this.zoneId) {
+        this.zoneService.editZone(this.zoneId, data)
+          .then(reps => {
+            this._snackBar.open('Zone Succefully Edit', 'Done', {
+              duration: 2000,
+            });
+          })
+          .catch(err => {
+            this.errMsg = err;
+          })
+          .finally(() => {
+          })
+      }
+      else {
+        this.zoneService.addNewZone(data)
+          .then(reps => {
+            this.router.navigateByUrl('/branding/zone')
+            this._snackBar.open('Zone Succefully Added', 'Done', {
+              duration: 2000,
+            });
+          })
+          .catch(err => {
+            this.errMsg = err;
+          })
+
+      }
+    }
+  }
 
   ngOnInit() {
+    this.zoneForm = this.createZoneForm();
   }
 
 }

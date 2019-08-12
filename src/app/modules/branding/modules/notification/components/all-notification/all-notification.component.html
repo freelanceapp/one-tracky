@@ -1,0 +1,60 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> Sr/No. </th>
+    <td mat-cell *matCellDef="let row ;let i=index"> {{i}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Campaign Name </th>
+    <td mat-cell *matCellDef="let row"> {{row.campaignName}} </td>
+  </ng-container>
+
+  <!-- status Column -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+  </ng-container>
+
+  <!-- totalImpression Column -->
+  <ng-container matColumnDef="totalImpr">
+    <th mat-header-cell *matHeaderCellDef> Total Impressions </th>
+    <td mat-cell *matCellDef="let row"> {{row.totalImpressions}} </td>
+  </ng-container>
+
+  <!-- deliveredImpression Column -->
+  <ng-container matColumnDef="deliveredImpr">
+    <th mat-header-cell *matHeaderCellDef> Delivered Impressions </th>
+    <td mat-cell *matCellDef="let row"> {{row.deliveredImpressions}} </td>
+  </ng-container>
+
+  <!-- delivery percentage Column -->
+  <ng-container matColumnDef="delivery%">
+    <th mat-header-cell *matHeaderCellDef> Delivery % </th>
+    <td mat-cell *matCellDef="let row"> {{row.deliveryPercentage}} </td>
+  </ng-container>
+
+  <!-- activateDate Column -->
+  <ng-container matColumnDef="activateDate">
+    <th mat-header-cell *matHeaderCellDef> Activate Date </th>
+    <td mat-cell *matCellDef="let row"> {{row.activateDate}} </td>
+  </ng-container>
+
+  <!-- expiryDate Column -->
+  <ng-container matColumnDef="expiryDate">
+    <th mat-header-cell *matHeaderCellDef> Expiry Date </th>
+    <td mat-cell *matCellDef="let row"> {{row.expiryDate}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

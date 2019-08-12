@@ -1,0 +1,73 @@
+<h1 class="mat-headline">{{isNewWebsite ? 'Add new' : 'Edit'}} Website</h1>
+
+
+
+<form [formGroup]="websiteForm" (ngSubmit)="onSubmit()">
+
+
+
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>Basic Info</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <input type="hidden" formControlName="userId" name="" id="">
+          <input type="hidden" formControlName="affiliateId" name="" id="">
+          <!-- Website URL -->
+
+          <mat-form-field class="col-6">
+
+            <input formControlName="websiteURL" matInput placeholder="Website URL *" value="">
+            <mat-error *ngIf="this.websiteForm.invalid">
+              Website Url required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Domain Name -->
+
+          <mat-form-field class="col-6">
+            <input formControlName="domainName" matInput placeholder="Domain Name * " value="">
+            <mat-error *ngIf="this.websiteForm.invalid">
+              Domain Name required
+            </mat-error>
+          </mat-form-field>
+          <!--Contact Number -->
+
+          <mat-form-field class="col-6">
+            <input formControlName="contact" matInput placeholder="Contact Number * " value="">
+            <mat-error *ngIf="this.websiteForm.invalid">
+              Contact Number required
+            </mat-error>
+          </mat-form-field>
+          <!--email -->
+
+          <mat-form-field class="col-6">
+            <input type="email" formControlName="email" matInput placeholder="email *" value="">
+            <mat-error *ngIf="this.websiteForm.invalid">
+              <mat-error *ngIf="this.websiteForm.controls['email'].errors.required"> email required</mat-error>
+              <mat-error *ngIf="this.websiteForm.controls['email'].errors.email"> Email must be a valid email address
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </mat-card-content>
+      <!-- comments -->
+      <mat-form-field class="mff-100">
+        <textarea rows="5" formControlName="comments" matInput placeholder="Any Comments"></textarea>
+      </mat-form-field>
+    </mat-card>
+    <br>
+  </div>
+
+  <div>
+    <button [disabled]="!websiteForm.valid" mat-raised-button color="primary"
+      type="submit">{{isNewWebsite ? 'Add' : 'Edit'}} Website</button> &nbsp;
+    <button *ngIf="isNewWebsite" mat-raised-button type="reset">Reset</button>
+  </div>
+
+
+</form>

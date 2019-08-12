@@ -15,6 +15,7 @@
         <mat-card-content>
 
           <input type="hidden" formControlName="campaignId">
+          <input type="hidden" formControlName="advertiserId">
 
           <section>
             <mat-form-field class="mff-100">
@@ -23,6 +24,7 @@
                 <div
                   *ngIf="cmpForm.get('campaignName').invalid && (cmpForm.get('campaignName').touched || cmpForm.get('campaignName').dirty)">
                   <div *ngIf="cmpForm.get('campaignName').errors.required">Campaign name is required</div>
+                  <div *ngIf="cmpForm.get('campaignName').errors.isAlphaNumericWithSpace">Campaign name must be alphanumeric</div>
                 </div>
               </mat-error>
             </mat-form-field>
@@ -46,21 +48,41 @@
 
         <mat-card-content>
           <section class="row">
-            <mat-form-field class="col">
+            <mat-form-field class="col-6">
               <mat-label>Pricing model</mat-label>
-              <mat-select>
+              <mat-select formControlName="pricingModel">
                 <mat-option value="1">CPM</mat-option>
                 <mat-option value="2">CPC</mat-option>
                 <mat-option value="3">Tenancy</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field class="col">
-              <input matInput placeholder="Price rate" type="number">
+            <mat-form-field class="col-6">
+              <input matInput formControlName="rate" placeholder="Price rate" min="1" type="number">
+              <mat-error>
+                <div *ngIf="cmpForm.get('rate').invalid && (cmpForm.get('rate').touched || cmpForm.get('rate').dirty)">
+                  <div *ngIf="cmpForm.get('rate').errors.min">Price can not be less than 1</div>
+                  <div *ngIf="cmpForm.get('rate').errors.isInt">Price must be an integer</div>
+                </div>
+              </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="col">
-              <input matInput placeholder="Impressions" type="number">
+            <section class="col-6">
+              <mat-checkbox formControlName="views">Unlimited Impressions ?</mat-checkbox>
+            </section>
+
+            <mat-form-field class="col-6">
+              <input matInput min="1" formControlName="impressions" placeholder="Impressions" type="number">
+              <mat-error>
+                <div
+                  *ngIf="cmpForm.get('impressions').invalid && (cmpForm.get('impressions').touched || cmpForm.get('impressions').dirty)">
+                  <div *ngIf="cmpForm.get('impressions').errors.min">Impressions can not be less than 1</div>
+                  <div *ngIf="cmpForm.get('impressions').errors.isInt">Impressions must be integer</div>
+                </div>
+              </mat-error>
             </mat-form-field>
+
+
+
           </section>
         </mat-card-content>
       </mat-card>
@@ -75,35 +97,44 @@
         <mat-card-content>
           <section class="row">
 
-          
-          <mat-form-field class="col">
-            <mat-label>Priority lavel</mat-label>
-            <mat-select>
-              <mat-option value="1">1</mat-option>
-              <mat-option value="2">2</mat-option>
-              <mat-option value="3">3</mat-option>
-              <mat-option value="4">4</mat-option>
-              <mat-option value="5">5</mat-option>
-              <mat-option value="6">6</mat-option>
-              <mat-option value="7">7</mat-option>
-              <mat-option value="8">8</mat-option>
-              <mat-option value="9">9</mat-option>
-              <mat-option value="1">10</mat-option>
-              <mat-option value="1">11</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="col">
-            <mat-label>Limit</mat-label>
-            <mat-select>
-              <mat-option value="target_impression">impressions</mat-option>
-              <mat-option value="target_click">Clicks</mat-option>
-              <mat-option value="target_conversion">Conversions</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="col">
-            <input matInput placeholder="Per day" type="number">
-          </mat-form-field>
-        </section>
+
+            <mat-form-field class="col">
+              <mat-label>Priority lavel</mat-label>
+              <mat-select formControlName="priority">
+                <mat-option>None</mat-option>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="9">9</mat-option>
+                <mat-option value="1">10</mat-option>
+                <mat-option value="11">11</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col">
+              <mat-label>Select limit</mat-label>
+              <mat-select formControlName="targetType">
+                <mat-option>None</mat-option>
+                <mat-option value="target_impression">impressions</mat-option>
+                <mat-option value="target_click">Clicks</mat-option>
+                <mat-option value="target_conversion">Conversions</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col">
+              <input matInput min="1" formControlName="targetValue" placeholder="Per day" type="number">
+              <mat-error>
+                <div
+                  *ngIf="cmpForm.get('targetValue').invalid && (cmpForm.get('targetValue').touched || cmpForm.get('targetValue').dirty)">
+                  <div *ngIf="cmpForm.get('targetValue').errors.required">This field is required</div>
+                  <div *ngIf="cmpForm.get('targetValue').errors.min">Limit can not be less than 1</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+          </section>
         </mat-card-content>
       </mat-card>
       <br>
@@ -118,18 +149,30 @@
         </mat-card-header>
         <mat-card-content>
           <mat-form-field class="mff-100">
-            <input matInput [matDatepicker]="camStartDate" placeholder="Campaign start date" disabled>
+            <input matInput [min]="minStartDate" readonly formControlName="startDate" [matDatepicker]="camStartDate"
+              placeholder="Campaign start date" disabled>
             <mat-datepicker-toggle matSuffix [for]="camStartDate"></mat-datepicker-toggle>
             <mat-datepicker #camStartDate disabled="false"></mat-datepicker>
+
+            <mat-error>
+              <div
+                *ngIf="cmpForm.get('startDate').invalid && (cmpForm.get('startDate').touched || cmpForm.get('startDate').dirty)">
+                <div *ngIf="cmpForm.get('startDate').errors.required">Please select date</div>
+              </div>
+            </mat-error>
+
           </mat-form-field>
           <br>
           <mat-form-field class="mff-100">
-            <input matInput [matDatepicker]="camExpireDate" placeholder="Campaign expire date" disabled>
+            <input [min]="minEndDate" matInput readonly formControlName="endDate" [matDatepicker]="camExpireDate"
+              placeholder="Campaign expire date">
             <mat-datepicker-toggle matSuffix [for]="camExpireDate"></mat-datepicker-toggle>
             <mat-datepicker #camExpireDate disabled="false"></mat-datepicker>
+            <button mat-icon-button class="clear-btn" type="button" (click)="clearExpirationDate()">
+              <mat-icon aria-label="Clear end date">clear</mat-icon>
+            </button>
             <mat-hint>Leave empty in case of no expiration date</mat-hint>
           </mat-form-field>
-          <!-- <button mat-button type="button" (click)="camExpireDate.value = null">Clear expiration date</button> -->
         </mat-card-content>
 
       </mat-card>
@@ -140,14 +183,29 @@
         </mat-card-header>
         <mat-card-content>
           <mat-form-field class="mff-100">
-            <input matInput placeholder="Period" type="number">
+            <input matInput placeholder="Period" formControlName="cappingPeriod" type="number">
+            <mat-error>
+                <div
+                  *ngIf="cmpForm.get('cappingPeriod').invalid && (cmpForm.get('cappingPeriod').touched || cmpForm.get('cappingPeriod').dirty)">
+                  <div *ngIf="cmpForm.get('cappingPeriod').errors.min">Value can not be less than 1</div>
+                  <div *ngIf="cmpForm.get('cappingPeriod').errors.isInt">Value must be an integer</div>
+                </div>
+              </mat-error>
           </mat-form-field>
           <mat-form-field class="mff-100">
-            <input matInput placeholder="Amount" type="number">
+            <input matInput placeholder="Amount" formControlName="cappingAmount" type="number">
+            <mat-error>
+                <div
+                  *ngIf="cmpForm.get('cappingAmount').invalid && (cmpForm.get('cappingAmount').touched || cmpForm.get('cappingAmount').dirty)">
+                  <div *ngIf="cmpForm.get('cappingAmount').errors.min">Value can not be less than 1</div>
+                  <div *ngIf="cmpForm.get('cappingAmount').errors.isInt">Value must be an integer</div>
+                </div>
+              </mat-error>
           </mat-form-field>
           <mat-form-field class="mff-100">
             <mat-label>Period type</mat-label>
-            <mat-select>
+            <mat-select formControlName="cappingPeriodType">
+                <mat-option>None</mat-option>
               <mat-option value="hours">Hours</mat-option>
               <mat-option value="days">Days</mat-option>
               <mat-option value="months">Months</mat-option>

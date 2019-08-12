@@ -1,5 +1,7 @@
-<h2 mat-dialog-title>{{errTitle}}</h2>
+<section class="title-wrap">
+  <h2 mat-dialog-title>{{errTitle}}</h2>
+  <button color="primary" mat-icon-button mat-dialog-close>
+      <mat-icon aria-label="Close">clear</mat-icon>
+  </button>
+</section>
 <mat-dialog-content [innerHTML]="errMessage"></mat-dialog-content>
-<mat-dialog-actions>
-  <button color="primary" mat-raised-button mat-dialog-close>Close</button>
-</mat-dialog-actions>

@@ -6,20 +6,24 @@ import { NotFoundComponent } from 'src/app/modules/shared/components/not-found/n
 
 const routes: Routes = [
   {
-    path : 'add-new',
-    component : AddNewCampaignComponent
+    path: 'add-new/:advertiserId',
+    component: AddNewCampaignComponent
   },
   {
-    path : ':id',
-    component : AddNewCampaignComponent
+    path: 'edit/:advertiserId/:campaignId',
+    component: AddNewCampaignComponent
   },
   {
-    path : '',
-    component : AllCampaignsComponent
+    path: ':advertiserId',
+    component: AllCampaignsComponent
   },
   {
-    path : '**',
-    component : NotFoundComponent
+    path: '',
+    component: AllCampaignsComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   },
 ];
 

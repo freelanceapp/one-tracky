@@ -1,3 +1,11 @@
 mat-dialog-content {
   background-color: #ff9595;
 }
+.title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    align-self: flex-start;
+  }
+}

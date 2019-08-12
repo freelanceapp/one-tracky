@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ZoneRoutingModule } from './zone-routing.module';
-import { AddNewZoneComponent } from './components/add-new-zone/add-new-zone.component';
-import { AllZonesComponent } from './components/all-zones/all-zones.component';
+import { WebsiteRoutingModule } from './website-routing.module';
+import { AddNewWebsiteComponent } from './components/add-new-website/add-new-website.component';
+import { AllWebsiteComponent } from './components/all-website/all-website.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import {
   MatInputModule, MatRadioModule,
@@ -12,24 +12,27 @@ import {
   MatPaginatorModule, MatSnackBarModule, MatTooltipModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+
 @NgModule({
-  declarations: [AddNewZoneComponent, AllZonesComponent],
+  declarations: [AddNewWebsiteComponent, AllWebsiteComponent],
   imports: [
     CommonModule,
-    ZoneRoutingModule,
+    WebsiteRoutingModule,
     SharedModule,
-    MatCardModule,
     MatInputModule,
-    MatSelectModule,
     MatRadioModule,
+    MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
-export class ZoneModule { }
+export class WebsiteModule { }

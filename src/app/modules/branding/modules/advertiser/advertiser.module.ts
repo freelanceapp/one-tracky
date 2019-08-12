@@ -27,7 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [AdvertiserService]
 })

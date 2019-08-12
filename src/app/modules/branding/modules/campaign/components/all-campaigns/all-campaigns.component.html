@@ -7,7 +7,16 @@
   <!-- Position Column -->
   <ng-container matColumnDef="campaignName">
     <th mat-header-cell *matHeaderCellDef> Campaign Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.campaignName}} </td>
+    <td mat-cell *matCellDef="let element">
+      <a mat-button color="primary" [routerLink]="['/branding/campaign/edit', element?.advertiserId, element?.campaignId]">
+        {{element.campaignName}}
+      </a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="startDate">
+    <th mat-header-cell *matHeaderCellDef> Start Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
   </ng-container>
 
   <!-- Name Column -->
@@ -18,17 +27,19 @@
 
   <!-- Weight Column -->
   <ng-container matColumnDef="campaigns">
-    <th mat-header-cell *matHeaderCellDef> Campaigns </th>
-    <td mat-cell *matCellDef="let element"> 
-      <button mat-button type="button">Add Campaign</button>  
-      <button mat-button type="button">All Campaigns</button>  
+    <th mat-header-cell *matHeaderCellDef> Banner Action </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button color="primary" type="button">Add new</button>
+      <button mat-button color="primary" type="button">View All</button>
     </td>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="details">
-    <th mat-header-cell *matHeaderCellDef> Details </th>
-    <td mat-cell *matCellDef="let element"> test </td>
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button color="warn" mat-button (click)="deleteCampaign(element.campaignId)">Delete</button>  
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

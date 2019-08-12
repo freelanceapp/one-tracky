@@ -33,6 +33,14 @@ const routes: Routes = [
         loadChildren: './modules/zone/zone.module#ZoneModule'
       },
       {
+        path: 'website',
+        loadChildren: './modules/website/website.module#WebsiteModule'
+      },
+      {
+        path: 'notification',
+        loadChildren: './modules/notification/notification.module#NotificationModule'
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

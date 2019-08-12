@@ -11,7 +11,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 export class AllCampaignsComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['campaignName', 'status', 'campaigns', 'details'];
+  displayedColumns: string[] = ['campaignName', 'startDate', 'status', 'campaigns', 'details'];
   dataSource: MatTableDataSource<CampaignModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -27,9 +27,7 @@ export class AllCampaignsComponent implements OnInit {
 
   private async getCampaings() {
     this.campaigns = await this.campaignSvc.getCampaigns();
-    this.dataSource = new MatTableDataSource(this.campaigns);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.updateCampaignsTable();
   }
 
   applyFilter(filterValue: string) {
@@ -40,5 +38,23 @@ export class AllCampaignsComponent implements OnInit {
     }
   }
 
+  private updateCampaignsTable() {
+    this.dataSource = new MatTableDataSource(this.campaigns);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  deleteCampaign(campaignId: number) {
+    if (confirm('Are you sure to delete this campaign')) {
+      this.campaignSvc.deleteCampaign(campaignId)
+        .then(msg => {
+          alert(msg);
+          const index = this.campaigns.findIndex(cmp => cmp.campaignId === campaignId);
+          this.campaigns.splice(index, 1);
+          this.updateCampaignsTable();
+        })
+        .catch(err => alert(err));
+    }
+  }
 
 }
