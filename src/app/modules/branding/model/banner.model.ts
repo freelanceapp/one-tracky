@@ -1,17 +1,19 @@
+import { BannerTypeEnum } from '../enums/banner-type.enum';
+
 export class BannerModel {
     public bannerId: number = null;
+    public campaignId: number = null;
     public bannerName: string = '';
-    public bannerType: string = '';
-    public bannerImage: string = '';
-    public destinationUrl: string = '';
-    public target: string = '';
+    public bannerType: BannerTypeEnum = BannerTypeEnum.Standard;
+    public bannerImage: File | string = null;
+    public width: string = '';
+    public height: string = '';
     public trackingPixel: string = '';
-    public allText: string = '';
-    public statusText: string = '';
-    public textBelowImage: string = '';
-    public keyword: string = '';
-    public weight: number = null;
     public comments: string = '';
+    public keyword: string = '';
+    public destinationUrl: string = '';
+    public weight: number = null;
+
 
     constructor();
     constructor(advertiserProperties: Partial<BannerModel>)
