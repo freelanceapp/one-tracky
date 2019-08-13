@@ -41,6 +41,14 @@ export class AllBannersComponent implements OnInit {
 
 
 
+  public deleteBanner(id) {
+    this.bannerService.deleteBanner(id)
+      .then(msg => {
+        this.getBanner()
+        this.snackbar.open(msg, 'Done', { duration: 2000, })
+      })
+  }
+
   ngOnInit() {
     this.getBanner()
   }
