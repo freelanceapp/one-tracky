@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { BannerModel } from '../../model/banner.model';
 import { BannerTypeEnum } from '../../enums/banner-type.enum';
 import { HttpService } from '../http/http.service';
+import { BrandingModule } from '../../branding.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: BrandingModule
 })
 export class BannerService {
 
@@ -46,7 +47,11 @@ export class BannerService {
       else {
         this.httpServce.get(this.baseUrl)
           .then(resp => {
-            let banner = this.parseBanner(resp.data)
+            let banner = this.parseBanner(resp.data);
+            resolve(banner)
+          })
+          .catch(err => {
+            reject(err)
           })
       }
     });
@@ -54,36 +59,52 @@ export class BannerService {
 
 
 
-
-
+  /**
+   * delete banner with banner id 
+   * @param bannerId  id of banner
+   */
+  public deleteBanner(bannerId: number): Promise<string> {
+    return new Promise((resoleve, reject) => {
+      this.httpServce.delete(this.baseUrl + bannerId + "/")
+        .then(resp => {
+          resoleve(resp.message)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
 
 
   /**parse banner function start */
-
-
-  public parseBanner(banner: any[]) {
-    let bannerList: BannerModel[] = []
+  private parseBanner(banner: any[]) {
+    let bannerList: BannerModel[] = [];
     if (banner) {
-      bannerList = banner.map(b => {
-        let _banner = new BannerModel();
-        _banner.bannerId = b.Bannerid;
-        _banner.campaignId = b.Campaignid;
-        _banner.bannerType = b.Storagetype;
-        _banner.bannerName = b.Description;
-        _banner.width = b.width;
-        _banner.height = b.Height;
-        _banner.weight = b.weight;
-        _banner.trackingPixel = b.Tracking_pixel;
-        _banner.comments = b.Comments;
-        _banner.keyword = b.Keyword;
-        _banner.destinationUrl = b.Url;
-        _banner.fileName = b.Filename;
-        return _banner
-      })
+      bannerList = banner.map((b => new BannerModel({
+        bannerId: b.bannerid,
+        campaignId: b.campaignid,
+        bannerType: b.storagetype,
+        bannerName: b.description,
+        bannerImage: b.bannerImage,
+        width: b.width,
+        height: b.height,
+        weight: b.weight,
+        trackingPixel: b.tracking_pixel,
+        comments: b.comments,
+        keyword: b.keyword,
+        destinationUrl: b.url,
+        fileName: b.filename,
+        updated: b.updated,
+      })))
     }
     return bannerList
   }
   /**parse banner function end */
+
+
+
+
+
 
 }
 
