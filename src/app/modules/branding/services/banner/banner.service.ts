@@ -58,7 +58,32 @@ export class BannerService {
 
 
 
- 
+  /**parse banner function start */
+
+
+  public parseBanner(banner: any[]) {
+    let bannerList: BannerModel[] = []
+    if (banner) {
+      bannerList = banner.map(b => {
+        let _banner = new BannerModel();
+        _banner.bannerId = b.Bannerid;
+        _banner.campaignId = b.Campaignid;
+        _banner.bannerType = b.Storagetype;
+        _banner.bannerName = b.Description;
+        _banner.width = b.width;
+        _banner.height = b.Height;
+        _banner.weight = b.weight;
+        _banner.trackingPixel = b.Tracking_pixel;
+        _banner.comments = b.Comments;
+        _banner.keyword = b.Keyword;
+        _banner.destinationUrl = b.Url;
+        _banner.fileName = b.Filename;
+        return _banner
+      })
+    }
+    return bannerList
+  }
+  /**parse banner function end */
 
 }
 
