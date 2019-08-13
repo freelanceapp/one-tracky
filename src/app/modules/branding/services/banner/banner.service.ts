@@ -57,7 +57,18 @@ export class BannerService {
     });
   }
 
-
+  public addBanner(data): Promise<BannerModel> {
+    return new Promise((resolve, reject) => {
+      this.httpServce.post(this.baseUrl, data)
+        .then(resp => {
+          let banner = this.parseBanner([resp.data]);
+          resolve(banner[0]);
+        })
+        .catch(err => {
+          reject(err);
+        })
+    })
+  }
 
   /**
    * delete banner with banner id 
