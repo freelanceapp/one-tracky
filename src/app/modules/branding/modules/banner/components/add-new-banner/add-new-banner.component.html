@@ -30,12 +30,16 @@
             <mat-form-field class="col-md-6">
               <input formControlName="bannerName" matInput placeholder="Banner Name *">
               <mat-error *ngIf="this.bannerForm.invalid">
+                Banner Name Required
               </mat-error>
             </mat-form-field>
 
             <!-- Destination url -->
             <mat-form-field class="col-md-6">
               <input formControlName="destinationUrl" matInput placeholder="Destination Url *">
+              <mat-error *ngIf="this.bannerForm.invalid">
+                Destination Url Required
+              </mat-error>
             </mat-form-field>
 
             <!-- Tracking pixel -->
@@ -74,11 +78,17 @@
             <!-- widht -->
             <mat-form-field class="col-md-6">
               <input formControlName="width" matInput placeholder="Width *">
+              <mat-error *ngIf="this.bannerForm.invalid">
+                Width Required
+              </mat-error>
             </mat-form-field>
 
             <!-- height -->
             <mat-form-field class="col-md-6">
               <input formControlName="height" matInput placeholder="height *">
+              <mat-error *ngIf="this.bannerForm.invalid">
+                Height Required
+              </mat-error>
             </mat-form-field>
           </div>
           <!-- file upload -->
