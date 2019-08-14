@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BannerTypeEnum } from 'src/app/modules/branding/enums/banner-type.enum';
 import { BannerService } from 'src/app/modules/branding/services/banner/banner.service';
+import { CustomValidators } from 'src/app/modules/branding/custom-validators/custom-validators';
 
 @Component({
   selector: 'app-add-new-banner',
@@ -17,16 +18,16 @@ export class AddNewBannerComponent implements OnInit {
     return this.fb.group({
       bannerId: [null],
       campaignId: [1],
-      bannerName: ['', Validators.required],
+      bannerName: ['', [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
       bannerType: [BannerTypeEnum.Standard],
       // bannerImage: [null, Validators.required],
-      width: ['', Validators.required],
-      height: ['', Validators.required],
+      width: ['', [Validators.required, CustomValidators.isUint]],
+      height: ['', [Validators.required, CustomValidators.isUint]],
       trackingPixel: '',
       comments: '',
       keyword: '',
-      destinationUrl: ['', Validators.required],
-      weight: null,
+      destinationUrl: ['', [Validators.required, CustomValidators.isUrl]],
+      weight: [null, [CustomValidators.isUint]],
       code: ['']
     });
   }

@@ -13,11 +13,15 @@ export class AllBannersComponent implements OnInit {
   dataSource: MatTableDataSource<BannerModel>;
   public errMsg: string = '';
 
+  private bannerList: BannerModel[] = [];
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private bannerService: BannerService, private snackbar: MatSnackBar) { }
-  applyFilter(filterValue: string) {
+
+
+  public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -30,9 +34,9 @@ export class AllBannersComponent implements OnInit {
 
   public getBanner() {
     this.bannerService.getBanner()
-      .then(resp => {
-        console.log(resp);
-        this.dataSource = new MatTableDataSource<BannerModel>(resp);
+      .then(banners => {
+        this.bannerList = banners;
+        this.updateBannerTable();
       })
       .catch(err => {
         this.errMsg = err;
@@ -40,13 +44,21 @@ export class AllBannersComponent implements OnInit {
   }
 
 
+  private updateBannerTable() {
+    this.dataSource = new MatTableDataSource<BannerModel>(this.bannerList);
+  }
 
-  public deleteBanner(id) {
-    this.bannerService.deleteBanner(id)
+  public deleteBanner(bannerId: number) {
+    if (!confirm('Are you sure to delete this banner ?')) {
+      return;
+    }
+    this.bannerService.deleteBanner(bannerId)
       .then(msg => {
-        this.getBanner();
+        const index = this.bannerList.findIndex(banner => banner.bannerId === bannerId);
+        this.bannerList.splice(index, 1);
+        this.updateBannerTable();
         this.snackbar.open(msg, 'Done', { duration: 2000, });
-      });
+      }).catch(err => alert(err));
   }
 
   ngOnInit() {

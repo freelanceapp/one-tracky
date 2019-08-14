@@ -29,16 +29,24 @@
             <!-- banner name -->
             <mat-form-field class="col-md-6">
               <input formControlName="bannerName" matInput placeholder="Banner Name *">
-              <mat-error *ngIf="this.bannerForm.invalid">
-                Banner Name Required
-              </mat-error>
+              <mat-error>
+                  <div
+                    *ngIf="bannerForm.get('bannerName').invalid && (bannerForm.get('bannerName').touched || bannerForm.get('bannerName').dirty)">
+                    <div *ngIf="bannerForm.get('bannerName').errors.required">Banner name is required</div>
+                    <div *ngIf="bannerForm.get('bannerName').errors.isAlphaNumericWithSpace">Banner name should be alpha numeric</div>
+                  </div>
+                </mat-error>
             </mat-form-field>
 
             <!-- Destination url -->
             <mat-form-field class="col-md-6">
-              <input formControlName="destinationUrl" matInput placeholder="Destination Url *">
-              <mat-error *ngIf="this.bannerForm.invalid">
-                Destination Url Required
+              <input formControlName="destinationUrl" matInput placeholder="Destination Url *" type="url">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('destinationUrl').invalid && (bannerForm.get('destinationUrl').touched || bannerForm.get('destinationUrl').dirty)">
+                  <div *ngIf="bannerForm.get('destinationUrl').errors.required">Destination url is required</div>
+                  <div *ngIf="bannerForm.get('destinationUrl').errors.isUrl">Enter a valid url</div>
+                </div>
               </mat-error>
             </mat-form-field>
 
@@ -54,7 +62,13 @@
 
             <!-- Weight -->
             <mat-form-field class="col-md-6">
-              <input formControlName="weight" matInput placeholder="Weight">
+              <input type="number" formControlName="weight" matInput placeholder="Weight">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('weight').invalid && (bannerForm.get('weight').touched || bannerForm.get('weight').dirty)">
+                  <div *ngIf="bannerForm.get('weight').errors.isUint">Weight should be +ve numbers</div>
+                </div>
+              </mat-error>
             </mat-form-field>
 
             <!-- code -->
@@ -76,24 +90,32 @@
     <div class="col-md-4">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Size</mat-card-title>
+          <mat-card-subtitle>Size (in pixels)</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div class="row">
 
             <!-- widht -->
             <mat-form-field class="col-md-6">
-              <input formControlName="width" matInput placeholder="Width *">
-              <mat-error *ngIf="this.bannerForm.invalid">
-                Width Required
+              <input formControlName="width" matInput placeholder="Width *" type="number">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('width').invalid && (bannerForm.get('width').touched || bannerForm.get('width').dirty)">
+                  <div *ngIf="bannerForm.get('width').errors.required">Width is required</div>
+                  <div *ngIf="bannerForm.get('width').errors.isUint">Width should be +ve numbers</div>
+                </div>
               </mat-error>
             </mat-form-field>
 
             <!-- height -->
             <mat-form-field class="col-md-6">
-              <input formControlName="height" matInput placeholder="height *">
-              <mat-error *ngIf="this.bannerForm.invalid">
-                Height Required
+              <input formControlName="height" matInput placeholder="height *" type="number">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('height').invalid && (bannerForm.get('height').touched || bannerForm.get('height').dirty)">
+                  <div *ngIf="bannerForm.get('height').errors.required">Height is required</div>
+                  <div *ngIf="bannerForm.get('height').errors.isUint">Height should be +ve numbers</div>
+                </div>
               </mat-error>
             </mat-form-field>
           </div>
@@ -112,4 +134,3 @@
   </div>
 
 </form>
-{{bannerForm.get('bannerType')|| JSON}}

@@ -19,7 +19,7 @@ export enum HttpDataType {
   providedIn: BrandingModule
 })
 
-/**http service for branding module */
+/** http service for branding module */
 export class HttpService {
 
   private baseUrl: string;
@@ -128,7 +128,7 @@ export class HttpService {
         message: response.message,
         status: response.status === true
       };
-      if (response.status) {
+      if (resp.status) {
         res(resp);
       } else {
         rej(resp.message);
