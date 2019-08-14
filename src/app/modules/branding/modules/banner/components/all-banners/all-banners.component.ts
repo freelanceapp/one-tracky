@@ -11,7 +11,7 @@ import { BannerService } from 'src/app/modules/branding/services/banner/banner.s
 export class AllBannersComponent implements OnInit {
   displayedColumns: string[] = ['name', 'date', 'details', 'action'];
   dataSource: MatTableDataSource<BannerModel>;
-  public errMsg: string = ''
+  public errMsg: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -31,12 +31,12 @@ export class AllBannersComponent implements OnInit {
   public getBanner() {
     this.bannerService.getBanner()
       .then(resp => {
-        console.log(resp)
-        this.dataSource = new MatTableDataSource<BannerModel>(resp)
+        console.log(resp);
+        this.dataSource = new MatTableDataSource<BannerModel>(resp);
       })
       .catch(err => {
         this.errMsg = err;
-      })
+      });
   }
 
 
@@ -44,13 +44,13 @@ export class AllBannersComponent implements OnInit {
   public deleteBanner(id) {
     this.bannerService.deleteBanner(id)
       .then(msg => {
-        this.getBanner()
-        this.snackbar.open(msg, 'Done', { duration: 2000, })
-      })
+        this.getBanner();
+        this.snackbar.open(msg, 'Done', { duration: 2000, });
+      });
   }
 
   ngOnInit() {
-    this.getBanner()
+    this.getBanner();
   }
 
 }

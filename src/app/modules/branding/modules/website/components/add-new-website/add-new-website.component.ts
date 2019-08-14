@@ -22,15 +22,15 @@ export class AddNewWebsiteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private websiteService: WebsiteService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.affiliateId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.affiliateId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (this.affiliateId) {
       this.getWebsiteByAffiliateID();
-      this.isNewWebsite = false
+      this.isNewWebsite = false;
     }
   }
 
@@ -43,14 +43,14 @@ export class AddNewWebsiteComponent implements OnInit {
       contact: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       comments: [''],
-    })
+    });
   }
 
   public getWebsiteByAffiliateID() {
     this.websiteService.getWebsite(this.affiliateId)
       .then(resp => {
         this.setWebsiteForm(resp);
-      })
+      });
   }
 
   private setWebsiteForm(website: WebsiteModel) {
@@ -62,37 +62,35 @@ export class AddNewWebsiteComponent implements OnInit {
       contact: website.contact,
       email: website.email,
       comments: website.comments,
-    })
+    });
   }
 
 
   public onSubmit() {
     if (this.websiteForm.valid) {
-      let data = this.websiteForm.value;
+      const data = this.websiteForm.value;
       if (this.affiliateId) {
         this.websiteService.editWebsite(this.affiliateId, data)
           .then(resp => {
-            this._snackBar.open('website Succefully update', 'Done', {
+            this.snackBar.open('website Succefully update', 'Done', {
               duration: 2000,
             });
 
           })
           .catch(err => {
             this.errMsg = err;
-          })
-      }
-      else {
+          });
+      } else {
         this.websiteService.addWebsite(data)
           .then(resp => {
-            this.router.navigateByUrl('/branding/website')
-            this._snackBar.open('website Succefully Added', 'Done', {
+            this.router.navigateByUrl('/branding/website');
+            this.snackBar.open('website Succefully Added', 'Done', {
               duration: 2000,
             });
-
           })
           .catch(err => {
             this.errMsg = err;
-          })
+          });
       }
     }
   }

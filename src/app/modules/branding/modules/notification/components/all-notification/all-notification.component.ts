@@ -23,9 +23,7 @@ export class AllNotificationComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor() {
-   
-  }
+  constructor() { }
 
 
 
