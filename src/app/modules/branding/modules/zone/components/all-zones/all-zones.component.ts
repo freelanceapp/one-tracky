@@ -19,7 +19,7 @@ export class AllZonesComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private zoneService: ZoneService, private _snackBar: MatSnackBar) {
+  constructor(private zoneService: ZoneService, private snackBar: MatSnackBar) {
     this.getAllZone();
   }
   applyFilter(filterValue: string) {
@@ -31,12 +31,12 @@ export class AllZonesComponent implements OnInit {
   public deleteZone(id) {
     this.zoneService.deleteZone(id)
       .then(resp => {
-        this._snackBar.open(resp, 'Done', { duration: 2000 });
+        this.snackBar.open(resp, 'Done', { duration: 2000 });
         this.getAllZone();
       })
       .catch(err => {
         this.errMsg = err;
-      })
+      });
   }
 
   public getAllZone() {
@@ -46,7 +46,7 @@ export class AllZonesComponent implements OnInit {
       })
       .catch(err => {
         this.errMsg = err;
-      })
+      });
   }
 
   ngOnInit() {

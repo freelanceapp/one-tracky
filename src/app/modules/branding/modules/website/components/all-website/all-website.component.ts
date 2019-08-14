@@ -27,33 +27,33 @@ export class AllWebsiteComponent implements OnInit {
   }
   constructor(
     private websitSerive: WebsiteService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
   ) { }
 
   public getAllWebsite() {
     this.websitSerive.getWebsite()
       .then(resp => {
-        console.log(resp)
-        this.dataSource = new MatTableDataSource<WebsiteModel>(resp)
+        console.log(resp);
+        this.dataSource = new MatTableDataSource<WebsiteModel>(resp);
       })
       .catch(err => {
         this.errMsg = err;
-      })
+      });
   }
 
   public deleteWebsite(id) {
     this.websitSerive.deleteWebsite(id)
       .then(msg => {
-        this._snackBar.open(msg, 'Done', {
+        this.snackBar.open(msg, 'Done', {
           duration: 2000,
         });
         this.getAllWebsite();
-      })
+      });
   }
 
 
   ngOnInit() {
-    this.getAllWebsite()
+    this.getAllWebsite();
   }
 
 }

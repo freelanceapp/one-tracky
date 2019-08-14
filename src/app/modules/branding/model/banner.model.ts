@@ -6,13 +6,15 @@ export class BannerModel {
     public bannerName: string = '';
     public bannerType: BannerTypeEnum = BannerTypeEnum.Standard;
     public bannerImage: File | string = null;
-    public width: string = '';
-    public height: string = '';
+    public width: number = null;
+    public height: number = null;
     public trackingPixel: string = '';
     public comments: string = '';
     public keyword: string = '';
     public destinationUrl: string = '';
     public weight: number = null;
+    public fileName: string = '';
+    public updated: Date = null;
 
 
     constructor();

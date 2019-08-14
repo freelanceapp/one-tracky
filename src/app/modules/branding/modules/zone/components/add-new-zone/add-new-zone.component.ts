@@ -90,13 +90,14 @@ export class AddNewZoneComponent implements OnInit {
   }
   ];
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     public zoneService: ZoneService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.zoneId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.zoneId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (this.zoneId) {
       this.getZoneById();
       this.isNewZone = false;
@@ -117,17 +118,16 @@ export class AddNewZoneComponent implements OnInit {
       height: [''],
       comments: [''],
       size: [null]
-    })
+    });
   }
 
   public setSize(event: MatSelectChange) {
     const size: string = event.value;
-    if (size == 'custom') {
+    if (size === 'custom') {
       this.zoneForm.controls['zoneType'].setValue('custom');
       this.zoneForm.controls['width'].setValue('');
       this.zoneForm.controls['height'].setValue('');
-    }
-    else {
+    } else {
       this.zoneForm.controls['width'].setValue(this.getSize(size)[0]);
       this.zoneForm.controls['height'].setValue(this.getSize(size)[1]);
       this.zoneForm.controls['zoneType'].setValue('default');
@@ -145,7 +145,7 @@ export class AddNewZoneComponent implements OnInit {
       })
       .catch(err => {
         this.errMsg = err;
-      })
+      });
   }
 
   public setZoneForm(zone: ZoneModel) {
@@ -158,19 +158,19 @@ export class AddNewZoneComponent implements OnInit {
       width: zone.width,
       height: zone.height,
       comments: zone.comments,
-    })
-    this.setbannerSize(zone)
+    });
+    this.setbannerSize(zone);
   }
 
   private setbannerSize(zone: ZoneModel) {
     if (zone) {
-      let width = zone.width;
-      let height = zone.height;
+      const width = zone.width;
+      const height = zone.height;
 
-      if (zone.zoneType == "default") {
-        this.zoneForm.controls['size'].setValue(width + "x" + height);
+      if (zone.zoneType === 'default') {
+        this.zoneForm.controls['size'].setValue(width + 'x' + height);
       }
-      if (zone.zoneType == "custom") {
+      if (zone.zoneType === 'custom') {
         this.zoneForm.controls['size'].setValue(zone.zoneType);
 
       }
@@ -178,11 +178,11 @@ export class AddNewZoneComponent implements OnInit {
   }
   public onSubmit() {
     if (this.zoneForm.valid) {
-      let data: ZoneModel = this.zoneForm.value;
+      const data: ZoneModel = this.zoneForm.value;
       if (this.zoneId) {
         this.zoneService.editZone(this.zoneId, data)
           .then(reps => {
-            this._snackBar.open('Zone Succefully Edit', 'Done', {
+            this.snackBar.open('Zone Succefully Edit', 'Done', {
               duration: 2000,
             });
           })
@@ -190,20 +190,18 @@ export class AddNewZoneComponent implements OnInit {
             this.errMsg = err;
           })
           .finally(() => {
-          })
-      }
-      else {
+          });
+      } else {
         this.zoneService.addNewZone(data)
           .then(reps => {
             this.router.navigateByUrl('/branding/zone')
-            this._snackBar.open('Zone Succefully Added', 'Done', {
+            this.snackBar.open('Zone Succefully Added', 'Done', {
               duration: 2000,
             });
           })
           .catch(err => {
             this.errMsg = err;
-          })
-
+          });
       }
     }
   }
