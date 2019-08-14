@@ -138,10 +138,22 @@ export class CustomValidators {
         return null;
     }
 
-
-
-
-
+    /**
+     * Is valid url
+     * @param control Control
+     */
+    public static isUrl(control: AbstractControl) {
+        if (control && control.value) {
+            const expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+            const regex = new RegExp(expression);
+            const value = control.value.toString().trim();
+            if (value.match(regex)) {
+                return null;
+            }
+            return { isUrl: true };
+        }
+        return null;
+    }
 
 
 }

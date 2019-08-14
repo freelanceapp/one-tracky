@@ -10,7 +10,7 @@ import { BrandingModule } from '../../branding.module';
 })
 export class BannerService {
 
-  public baseUrl = 'banners/'
+  public baseUrl = 'banners/';
 
   constructor(private httpServce: HttpService) { }
 
@@ -27,7 +27,7 @@ export class BannerService {
 
 
   /**
-   * get all banner and get banner with id 
+   * get all banner and get banner with id
    * @param bannerId id of banner
    */
 
@@ -35,32 +35,31 @@ export class BannerService {
   public getBanner(bannerId: number): Promise<BannerModel>;
   public getBanner(bannerId?: number): Promise<BannerModel | BannerModel[]> {
     return new Promise((resolve, reject) => {
-      if (bannerId) {
-        this.httpServce.get(this.baseUrl + bannerId + '/')
+      if (typeof bannerId === 'number') {
+        this.httpServce.get(this.baseUrl + '/' + bannerId + '/')
           .then(resp => {
-            let banner = this.parseBanner([resp.data])
-            resolve(banner[0])
+            const banner = this.parseBanner([resp.data]);
+            resolve(banner[0]);
           })
           .catch(err => {
             reject(err);
-          })
-      }
-      else {
+          });
+      } else {
         this.httpServce.get(this.baseUrl)
           .then(resp => {
-            let banner = this.parseBanner(resp.data);
-            resolve(banner)
+            const banner = this.parseBanner(resp.data);
+            resolve(banner);
           })
           .catch(err => {
-            reject(err)
-          })
+            reject(err);
+          });
       }
     });
   }
 
 
   /**
-   * add new banner 
+   * add new banner
    * @param data form data
    */
 
@@ -69,33 +68,33 @@ export class BannerService {
     return new Promise((resolve, reject) => {
       this.httpServce.post(this.baseUrl, data)
         .then(resp => {
-          let banner = this.parseBanner([resp.data]);
+          const banner = this.parseBanner([resp.data]);
           resolve(banner[0]);
         })
         .catch(err => {
           reject(err);
-        })
-    })
+        });
+    });
   }
 
 
 
   /***
-   * edit banner by banner id  
-   * @param bannerId id of banner 
+   * edit banner by banner id
+   * @param bannerId id of banner
    * @param data data to send for edit
    */
   public editBanner(bannerId: number, data): Promise<BannerModel> {
     return new Promise((resolve, reject) => {
       this.httpServce.put(this.baseUrl + bannerId + '/', data)
         .then(resp => {
-          let banner = this.parseBanner([resp.data]);
+          const banner = this.parseBanner([resp.data]);
           resolve(banner[0]);
         })
         .catch(err => {
-          reject(err)
-        })
-    })
+          reject(err);
+        });
+    });
   }
 
 
@@ -103,23 +102,23 @@ export class BannerService {
 
 
   /**
-   * delete banner with banner id 
+   * delete banner with banner id
    * @param bannerId  id of banner
    */
   public deleteBanner(bannerId: number): Promise<string> {
     return new Promise((resoleve, reject) => {
-      this.httpServce.delete(this.baseUrl + bannerId + "/")
+      this.httpServce.delete(this.baseUrl + '/' + bannerId + '/')
         .then(resp => {
-          resoleve(resp.message)
+          resoleve(resp.message);
         })
         .catch(err => {
-          reject(err)
-        })
-    })
+          reject(err);
+        });
+    });
   }
 
 
-  /**parse banner function start */
+  /** parse data to Banner model */
   private parseBanner(banner: any[]) {
     let bannerList: BannerModel[] = [];
     if (banner) {
@@ -138,11 +137,10 @@ export class BannerService {
         destinationUrl: b.url,
         fileName: b.filename,
         updated: b.updated,
-      })))
+      })));
     }
-    return bannerList
+    return bannerList;
   }
-  /**parse banner function end */
 
 
 
