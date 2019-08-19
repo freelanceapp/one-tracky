@@ -48,6 +48,7 @@
                   <div
                     *ngIf="advSrForm.get('email').invalid && (advSrForm.get('email').touched || advSrForm.get('email').dirty)">
                     <div *ngIf="advSrForm.get('email').errors.required">Email is required</div>
+                    <div *ngIf="advSrForm.get('email').errors.isEmail">Enter valid email</div>
                   </div>
                 </mat-error>
               </mat-form-field>
@@ -88,8 +89,14 @@
 
           <!-- reportInterval -->
           <mat-form-field class="mff-100">
-            <input formControlName="reportInterval" matInput type="number"
+            <input formControlName="reportInterval" matInput type="number" min="1"
               placeholder="Number of days between campaign delivery reports">
+            <mat-error>
+              <div
+                *ngIf="advSrForm.get('reportInterval').invalid && (advSrForm.get('reportInterval').touched || advSrForm.get('reportInterval').dirty)">
+                <div *ngIf="advSrForm.get('reportInterval').errors.min">Value shoud be 1 or above</div>
+              </div>
+            </mat-error>
           </mat-form-field>
 
         </mat-card-content>

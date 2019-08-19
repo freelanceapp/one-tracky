@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CampaignService } from 'src/app/modules/branding/services/campaign/campaign.service';
 import { CampaignModel } from 'src/app/modules/branding/model/campaign.model';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-all-campaigns',
@@ -18,7 +19,7 @@ export class AllCampaignsComponent implements OnInit {
 
   public campaigns: CampaignModel[] = [];
 
-  constructor(private campaignSvc: CampaignService) {
+  constructor(private campaignSvc: CampaignService, private actRoute: ActivatedRoute) {
     this.getCampaings();
   }
 
@@ -26,8 +27,18 @@ export class AllCampaignsComponent implements OnInit {
   }
 
   private async getCampaings() {
-    this.campaigns = await this.campaignSvc.getCampaigns();
-    this.updateCampaignsTable();
+    const advertiserId: number = parseInt(this.actRoute.snapshot.paramMap.get('advertiserId'), 10);
+    if (advertiserId) {
+      this.campaignSvc.getAdvertiserCampaigns(advertiserId)
+        .then(campaigns => {
+          this.campaigns = campaigns;
+          this.updateCampaignsTable();
+        })
+        .catch(err => alert(err));
+    } else {
+      this.campaigns = await this.campaignSvc.getCampaigns();
+      this.updateCampaignsTable();
+    }
   }
 
   applyFilter(filterValue: string) {

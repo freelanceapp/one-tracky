@@ -38,6 +38,21 @@ export class CampaignService {
     });
   }
 
+  /**
+   * Get all campaigns of a advertiser
+   * @param advertiserId Advertiser id
+   */
+  public getAdvertiserCampaigns(advertiserId: number): Promise<CampaignModel[]> {
+    return new Promise((resolve, reject) => {
+      this.httpSvc.get(`advertiser/${advertiserId}/campaigns`)
+        .then(resp => {
+          const campaigns = this.parseCampaign(resp.data);
+          resolve(campaigns);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
   public addCampaign(campaign: CampaignModel) {
     return new Promise((resolve, reject) => {
       this.httpSvc.post(this.baseUrl, this.deParseCampaign(campaign)).then(resp => {
@@ -146,8 +161,8 @@ export class CampaignService {
         clientid: campaign.advertiserId,
         campaignname: campaign.campaignName,
         activate_time: campaign.startDate,
-        expire_time: campaign.endDate,
-        revenue_type: parseInt(campaign.pricingModel.toString(), 10),
+        expire_time: campaign.endDate === '' ? null : campaign.endDate,
+        revenue_type: campaign.pricingModel ? parseInt(campaign.pricingModel.toString(), 10) : null,
         revenue: campaign.rate,
         priority: campaign.priority,
         // target_type: campaign.targetType,

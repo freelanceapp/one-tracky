@@ -53,22 +53,22 @@ export class AddNewCampaignComponent implements OnInit {
   private createCpmForm(): Promise<boolean> {
     return new Promise((res, rej) => {
       this.cmpForm = this.fb.group({
-        campaignId: [''],
-        advertiserId: [''],
-        campaignName: ['', [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
-        startDate: ['', [Validators.required]],
-        endDate: [''],
-        pricingModel: [''],
-        rate: ['', [Validators.min(1), CustomValidators.isInt]],
-        views: [''],
-        impressions: [{ value: '', disabled: false }, [Validators.min(1), CustomValidators.isInt]],
-        priority: [''],
-        targetType: [''],
-        targetValue: [{ value: '', disabled: true }],
-        cappingPeriod: ['', [Validators.min(1), CustomValidators.isInt]],
-        cappingAmount: ['', [Validators.min(1), CustomValidators.isInt]],
-        cappingPeriodType: [''],
-        comments: ['']
+        campaignId: [null],
+        advertiserId: [null],
+        campaignName: [null, [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
+        startDate: [null, [Validators.required]],
+        endDate: [null],
+        pricingModel: [null],
+        rate: [null, [Validators.min(1), CustomValidators.isInt]],
+        views: [false],
+        impressions: [{ value: null, disabled: false }, [Validators.required, Validators.min(1), CustomValidators.isInt]],
+        priority: [null],
+        targetType: [null],
+        targetValue: [{ value: null, disabled: true }],
+        cappingPeriod: [null, [Validators.min(1), CustomValidators.isInt]],
+        cappingAmount: [null, [Validators.min(1), CustomValidators.isInt]],
+        cappingPeriodType: [null],
+        comments: [null]
       });
       res(true);
     });
@@ -97,24 +97,31 @@ export class AddNewCampaignComponent implements OnInit {
   }
 
   private patchCampForm(campaign: CampaignModel) {
-    this.cmpForm.patchValue({
-      campaignId: campaign.campaignId,
-      advertiserId: campaign.advertiserId,
-      campaignName: campaign.campaignName,
-      startDate: campaign.startDate,
-      endDate: campaign.endDate,
-      pricingModel: campaign.pricingModel.toString(),
-      rate: campaign.rate,
-      views: campaign.views,
-      impressions: campaign.impressions,
-      priority: campaign.priority.toString(),
-      targetType: campaign.targetType,
-      targetValue: campaign.targetValue,
-      cappingPeriod: campaign.cappingPeriod,
-      cappingAmount: campaign.cappingAmount,
-      cappingPeriodType: campaign.cappingPeriodType,
-      comments: campaign.comments,
-    });
+
+    console.log(campaign);
+
+    try {
+      this.cmpForm.patchValue({
+        campaignId: campaign.campaignId,
+        advertiserId: campaign.advertiserId,
+        campaignName: campaign.campaignName,
+        startDate: campaign.startDate,
+        endDate: campaign.endDate,
+        pricingModel: campaign.pricingModel.toString(),
+        rate: campaign.rate,
+        views: campaign.views,
+        impressions: campaign.impressions,
+        priority: campaign.priority ? campaign.priority.toString() : null,
+        targetType: campaign.targetType,
+        targetValue: campaign.targetValue,
+        cappingPeriod: campaign.cappingPeriod,
+        cappingAmount: campaign.cappingAmount,
+        cappingPeriodType: campaign.cappingPeriodType,
+        comments: campaign.comments,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   public clearExpirationDate() {
@@ -134,7 +141,7 @@ export class AddNewCampaignComponent implements OnInit {
         impressionsControl.clearValidators();
         impressionsControl.disable();
       } else {
-        impressionsControl.setValidators([Validators.min(1), CustomValidators.isInt]);
+        impressionsControl.setValidators([Validators.required, Validators.min(1), CustomValidators.isInt]);
         impressionsControl.enable();
       }
       impressionsControl.updateValueAndValidity();

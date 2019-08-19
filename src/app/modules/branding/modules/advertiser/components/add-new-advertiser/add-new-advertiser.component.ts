@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdvertiserService } from 'src/app/modules/branding/services/advertiser/advertiser.service';
 import { AdvertiserModel } from 'src/app/modules/branding/model/advertiser.model';
+import { CustomValidators } from 'src/app/modules/branding/custom-validators/custom-validators';
 
 @Component({
   selector: 'app-add-new-advertiser',
@@ -38,8 +39,8 @@ export class AddNewAdvertiserComponent implements OnInit {
       advertiserId: [''],
       advertiserName: ['', [Validators.required]],
       phoneNo: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      reportInterval: ['', []],
+      email: ['', [Validators.required, CustomValidators.isEmail]],
+      reportInterval: ['', [Validators.min(1)]],
       comments: [''],
       reportDeactivate: [false],
       report: [false],

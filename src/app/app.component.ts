@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NetworkService } from './modules/branding/services/network/network.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'dashboard';
+
+  public isOnline: boolean;
+
+  constructor(networkService: NetworkService) {
+    this.isOnline = networkService.isOnline;
+    networkService.networkChanged.subscribe((networkStatus: boolean) => {
+      this.isOnline = networkStatus;
+    });
+  }
 }
