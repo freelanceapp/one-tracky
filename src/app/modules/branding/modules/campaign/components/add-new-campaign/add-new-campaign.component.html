@@ -51,6 +51,7 @@
             <mat-form-field class="col-6">
               <mat-label>Pricing model</mat-label>
               <mat-select formControlName="pricingModel">
+                <mat-option >None</mat-option>
                 <mat-option value="1">CPM</mat-option>
                 <mat-option value="2">CPC</mat-option>
                 <mat-option value="3">Tenancy</mat-option>
@@ -75,6 +76,7 @@
               <mat-error>
                 <div
                   *ngIf="cmpForm.get('impressions').invalid && (cmpForm.get('impressions').touched || cmpForm.get('impressions').dirty)">
+                  <div *ngIf="cmpForm.get('impressions').errors.required">Impressions is required</div>
                   <div *ngIf="cmpForm.get('impressions').errors.min">Impressions can not be less than 1</div>
                   <div *ngIf="cmpForm.get('impressions').errors.isInt">Impressions must be integer</div>
                 </div>

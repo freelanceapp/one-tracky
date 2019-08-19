@@ -4,6 +4,7 @@ import { MatSelectChange, MatSnackBar } from '@angular/material';
 import { ZoneService } from 'src/app/modules/branding/services/zone/zone.service';
 import { ZoneModel } from 'src/app/modules/branding/model/zone.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CustomValidators } from 'src/app/modules/branding/custom-validators/custom-validators';
 
 @Component({
   selector: 'app-add-new-zone',
@@ -111,11 +112,11 @@ export class AddNewZoneComponent implements OnInit {
     return this.fb.group({
       zoneId: [''],
       description: [''],
-      zoneName: ['', [Validators.required]],
+      zoneName: ['', [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
       delivery: [''],
       zoneType: [''],
-      width: [''],
-      height: [''],
+      width: ['', [Validators.required, Validators.min(1)]],
+      height: ['', [Validators.required, Validators.min(1)]],
       comments: [''],
       size: [null]
     });

@@ -17,8 +17,12 @@
             <!-- zone name -->
             <mat-form-field class="col-6">
               <input matInput formControlName="zoneName" placeholder="Zone Name *" value="">
-              <mat-error *ngIf="this.zoneForm.invalid">
-                Zone Name required
+              <mat-error>
+                <div
+                  *ngIf="zoneForm.get('zoneName').invalid && (zoneForm.get('zoneName').touched || zoneForm.get('zoneName').dirty)">
+                  <div *ngIf="zoneForm.get('zoneName').errors.required">Zone name is required</div>
+                  <div *ngIf="zoneForm.get('zoneName').errors.isAlphaNumericWithSpace">Zone name should be alpha numeric</div>
+                </div>
               </mat-error>
             </mat-form-field>
 
@@ -52,7 +56,7 @@
           <section class="mff-100">
             <label>Delivery</label><br><br>
             <mat-radio-group formControlName="delivery" [value]="zoneType">
-              <mat-radio-button class="zone-type-radio" value="web">Standard Banner</mat-radio-button><br>
+              <mat-radio-button checked class="zone-type-radio" value="web">Standard Banner</mat-radio-button><br>
               <mat-radio-button class="zone-type-radio" value="html5">HTML5</mat-radio-button><br>
               <mat-radio-button class="zone-type-radio" value="html">Inline Video Ad</mat-radio-button><br>
             </mat-radio-group>
@@ -72,12 +76,26 @@
             <!-- zone width -->
 
             <mat-form-field class="col-6">
-              <input matInput formControlName="width" placeholder="Width">
+              <input matInput formControlName="width" placeholder="Width" type="number">
+              <mat-error>
+                <div
+                  *ngIf="zoneForm.get('width').invalid && (zoneForm.get('width').touched || zoneForm.get('width').dirty)">
+                  <div *ngIf="zoneForm.get('width').errors.required">Width is required</div>
+                  <div *ngIf="zoneForm.get('width').errors.min">Width shoud be 1 or above</div>
+                </div>
+              </mat-error>
             </mat-form-field>
             <!-- zone height -->
 
             <mat-form-field class="col-6">
               <input matInput formControlName="height" placeholder="Height">
+              <mat-error>
+                <div
+                  *ngIf="zoneForm.get('height').invalid && (zoneForm.get('height').touched || zoneForm.get('height').dirty)">
+                  <div *ngIf="zoneForm.get('height').errors.required">Width is required</div>
+                  <div *ngIf="zoneForm.get('height').errors.min">Width shoud be 1 or above</div>
+                </div>
+              </mat-error>
             </mat-form-field>
           </div>
 

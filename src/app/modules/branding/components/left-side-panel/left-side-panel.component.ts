@@ -26,10 +26,10 @@ export class LeftSidePanelComponent implements OnInit {
           new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All advertisers', ''),
         ]),
-        new MenuModel('Campaign', 'campaign', [
+        /* new MenuModel('Campaign', 'campaign', [
           new MenuItemModel('Add new', 'add-new/' + this.logInSvc.loggedInBrandingUser.userId.toString()),
           new MenuItemModel('All campaigns', ''),
-        ]),
+        ]), */
         new MenuModel('Banner', 'banner', [
           new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All banners', ''),
@@ -42,7 +42,7 @@ export class LeftSidePanelComponent implements OnInit {
           new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All Zones', ''),
         ]),
-        new MenuModel('webSite', 'website', [
+        new MenuModel('Website', 'website', [
           new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All website', ''),
         ]),
