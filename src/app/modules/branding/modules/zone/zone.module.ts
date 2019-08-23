@@ -12,8 +12,9 @@ import {
   MatPaginatorModule, MatSnackBarModule, MatTooltipModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditZoneComponent } from './components/edit-zone/edit-zone.component';
 @NgModule({
-  declarations: [AddNewZoneComponent, AllZonesComponent],
+  declarations: [AddNewZoneComponent, AllZonesComponent, EditZoneComponent],
   imports: [
     CommonModule,
     ZoneRoutingModule,
