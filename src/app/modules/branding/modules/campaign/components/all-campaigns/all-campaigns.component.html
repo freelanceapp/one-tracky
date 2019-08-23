@@ -31,7 +31,7 @@
   <ng-container matColumnDef="campaigns">
     <th mat-header-cell *matHeaderCellDef> Banner Action </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button color="primary" type="button">Add new</button>
+      <a mat-button color="primary" [routerLink]="['/branding/banner/add-new', element.advertiserId]">Add new</a>
       <button mat-button color="primary" type="button">View All</button>
     </td>
   </ng-container>

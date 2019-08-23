@@ -140,13 +140,13 @@ export class CampaignService {
       targetValue: null
     };
 
-    if (campaign.target_click !== null) {
+    if (campaign.target_click && campaign.target_click !== null) {
       obj.targetType = CampaignTargetType.Clicks;
       obj.targetValue = campaign.target_click;
-    } else if (campaign.target_conversion !== null) {
+    } else if (campaign.target_conversion && campaign.target_conversion !== null) {
       obj.targetType = CampaignTargetType.Conversions;
       obj.targetValue = campaign.target_conversion;
-    } else if (campaign.target_impression !== null) {
+    } else if (campaign.target_impression && campaign.target_impression !== null) {
       obj.targetType = CampaignTargetType.Impression;
       obj.targetValue = campaign.target_impression;
     }

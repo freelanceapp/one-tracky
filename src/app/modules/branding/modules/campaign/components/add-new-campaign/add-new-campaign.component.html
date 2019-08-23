@@ -127,12 +127,12 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field class="col">
-              <input matInput min="1" formControlName="targetValue" placeholder="Per day" type="number">
+              <input matInput min="0" formControlName="targetValue" placeholder="Per day" type="number">
               <mat-error>
                 <div
                   *ngIf="cmpForm.get('targetValue').invalid && (cmpForm.get('targetValue').touched || cmpForm.get('targetValue').dirty)">
                   <div *ngIf="cmpForm.get('targetValue').errors.required">This field is required</div>
-                  <div *ngIf="cmpForm.get('targetValue').errors.min">Limit can not be less than 1</div>
+                  <div *ngIf="cmpForm.get('targetValue').errors.min">Limit can not be less than 0</div>
                 </div>
               </mat-error>
             </mat-form-field>

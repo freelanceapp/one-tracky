@@ -40,11 +40,17 @@ export class AddNewCampaignComponent implements OnInit {
     if (this.cmpForm.valid) {
       if (this.isNewCampaign) {
         this.campaignSvc.addCampaign(this.cmpForm.value)
-          .then(resp => alert(resp))
+          .then(resp => {
+            alert(resp);
+            this.resetForm(this.cmpForm);
+          })
           .catch(err => console.log(err));
       } else {
         this.campaignSvc.editCampaign(this.cmpForm.value)
-          .then(resp => alert(resp))
+          .then(resp => {
+            alert(resp);
+            this.resetForm(this.cmpForm);
+          })
           .catch(err => console.log(err));
       }
     }
@@ -98,7 +104,6 @@ export class AddNewCampaignComponent implements OnInit {
 
   private patchCampForm(campaign: CampaignModel) {
 
-    console.log(campaign);
 
     try {
       this.cmpForm.patchValue({
@@ -135,7 +140,7 @@ export class AddNewCampaignComponent implements OnInit {
     const checkBoxControl = this.cmpForm.get('views');
     const impressionsControl = this.cmpForm.get('impressions');
 
-    checkBoxControl.valueChanges.subscribe(value => {
+    checkBoxControl.valueChanges.subscribe((value: boolean) => {
       if (value) {
         impressionsControl.setValue(null);
         impressionsControl.clearValidators();
@@ -154,7 +159,7 @@ export class AddNewCampaignComponent implements OnInit {
       if (value) {
         targetValueControl.enable();
         targetValueControl.setValue(1);
-        targetValueControl.setValidators([Validators.required, Validators.min(1)]);
+        targetValueControl.setValidators([Validators.required, Validators.min(0)]);
       } else {
         targetValueControl.setValue(null);
         targetValueControl.disable();
@@ -162,6 +167,15 @@ export class AddNewCampaignComponent implements OnInit {
       }
 
       targetValueControl.updateValueAndValidity();
+    });
+  }
+
+  private resetForm(form: FormGroup) {
+
+    form.reset();
+
+    Object.keys(form.controls).forEach(key => {
+      form.get(key).setErrors(null);
     });
   }
 

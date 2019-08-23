@@ -16,10 +16,6 @@ const routes: Routes = [
     canLoad: [AuthGuardService]
   },
   {
-    path: 'performance',
-    loadChildren: './modules/performance/performance.module#PerformanceModule',
-  },
-  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

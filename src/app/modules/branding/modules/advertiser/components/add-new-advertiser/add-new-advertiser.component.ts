@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AdvertiserService } from 'src/app/modules/branding/services/advertiser/advertiser.service';
 import { AdvertiserModel } from 'src/app/modules/branding/model/advertiser.model';
 import { CustomValidators } from 'src/app/modules/branding/custom-validators/custom-validators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-new-advertiser',
@@ -14,11 +15,12 @@ export class AddNewAdvertiserComponent implements OnInit {
 
   public isNewAdvertiser: boolean = true;
   public advSrForm: FormGroup;
-
+  public advertiserId: number = null;
   constructor(
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private advSvc: AdvertiserService
+    private advSvc: AdvertiserService,
+    private snackBar: MatSnackBar
   ) {
 
   }
@@ -26,9 +28,12 @@ export class AddNewAdvertiserComponent implements OnInit {
   ngOnInit() {
     this.createAdvSrForm().then(() => {
       const advId: string = this.activatedRoute.snapshot.paramMap.get('id');
-      if (advId) {
+      this.advertiserId = parseInt(advId, 10);
+      if (this.advertiserId) {
         this.isNewAdvertiser = false;
-        this.getAndPatchAdvertiser(parseInt(advId, 10));
+        this.getAndPatchAdvertiser();
+      } else {
+        this.isNewAdvertiser = true;
       }
     });
   }
@@ -37,7 +42,7 @@ export class AddNewAdvertiserComponent implements OnInit {
   private createAdvSrForm(): Promise<boolean> {
     this.advSrForm = this.fb.group({
       advertiserId: [''],
-      advertiserName: ['', [Validators.required]],
+      advertiserName: ['', [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
       phoneNo: ['', Validators.required],
       email: ['', [Validators.required, CustomValidators.isEmail]],
       reportInterval: ['', [Validators.min(1)]],
@@ -66,19 +71,33 @@ export class AddNewAdvertiserComponent implements OnInit {
     if (this.advSrForm.valid) {
       if (this.isNewAdvertiser) {
         this.advSvc.addAdvertiser(this.advSrForm.value).then(msg => {
-          alert(msg);
+          this.snackBar.open(msg, 'Ok');
+          this.resetForm();
         }).catch(err => console.log(err));
       } else {
         this.advSvc.updateAdvertisers(this.advSrForm.value).then(msg => {
-          alert(msg);
+          this.snackBar.open(msg, 'Ok');
         }).catch(err => console.log(err));
       }
 
     }
   }
 
-  private getAndPatchAdvertiser(advId: number) {
-    this.advSvc.getAdvertisers(advId).then(adv => {
+
+  private resetForm() {
+    this.advSrForm.reset();
+    Object.keys(this.advSrForm.controls).forEach(async key => {
+      this.advSrForm.get(key).setErrors(null);
+    });
+    if (!this.isNewAdvertiser) {
+      const advertiserIdControl: AbstractControl = this.advSrForm.get('advertiserId');
+      advertiserIdControl.setValue(this.advertiserId);
+      advertiserIdControl.updateValueAndValidity();
+    }
+  }
+
+  private getAndPatchAdvertiser() {
+    this.advSvc.getAdvertisers(this.advertiserId).then(adv => {
       this.patchAdvertiser(adv);
     }).catch(err => {
       alert(err);
