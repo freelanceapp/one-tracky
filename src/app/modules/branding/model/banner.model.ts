@@ -4,7 +4,7 @@ export class BannerModel {
     public bannerId: number = null;
     public campaignId: number = null;
     public bannerName: string = '';
-    public bannerType: BannerTypeEnum = BannerTypeEnum.Standard;
+    public bannerType: BannerTypeEnum = BannerTypeEnum.Web;
     public bannerImage: File | string = null;
     public width: number = null;
     public height: number = null;
@@ -16,6 +16,23 @@ export class BannerModel {
     public fileName: string = '';
     public updated: Date = null;
 
+    public videoDelType: string = '';
+    public impressionPixel: string = '';
+    public startPixel: string = '';
+    public quaterPixel: string = '';
+    public midPixel: string = '';
+    public thirdQuaterPixel: string = '';
+    public endPixel: string = '';
+    public clickPixel: string = '';
+    public videoType: string = '';
+    public mute: boolean = false;
+    public bitrate: number = null;
+    public videoDeliveryMethod: string = '';
+    public videoDuration: number = null;
+    public skip: boolean = false;
+    public skipTime: number = null;
+    public code: string = '';
+    public invocationTag: string = '';
 
     constructor();
     constructor(advertiserProperties: Partial<BannerModel>)

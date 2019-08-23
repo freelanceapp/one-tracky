@@ -36,7 +36,7 @@ export class BannerService {
   public getBanner(bannerId?: number): Promise<BannerModel | BannerModel[]> {
     return new Promise((resolve, reject) => {
       if (typeof bannerId === 'number') {
-        this.httpServce.get(this.baseUrl + '/' + bannerId + '/')
+        this.httpServce.get(this.baseUrl + bannerId + '/')
           .then(resp => {
             const banner = this.parseBanner([resp.data]);
             resolve(banner[0]);
@@ -86,7 +86,7 @@ export class BannerService {
    */
   public editBanner(bannerId: number, data): Promise<BannerModel> {
     return new Promise((resolve, reject) => {
-      this.httpServce.put(this.baseUrl + bannerId + '/', data)
+      this.httpServce.post('bannersupdate/' + bannerId + '/', data)
         .then(resp => {
           const banner = this.parseBanner([resp.data]);
           resolve(banner[0]);
@@ -107,7 +107,7 @@ export class BannerService {
    */
   public deleteBanner(bannerId: number): Promise<string> {
     return new Promise((resoleve, reject) => {
-      this.httpServce.delete(this.baseUrl + '/' + bannerId + '/')
+      this.httpServce.delete(this.baseUrl + bannerId + '/')
         .then(resp => {
           resoleve(resp.message);
         })
@@ -119,7 +119,7 @@ export class BannerService {
 
 
   /** parse data to Banner model */
-  private parseBanner(banner: any[]) {
+  private parseBanner(banner) {
     let bannerList: BannerModel[] = [];
     if (banner) {
       bannerList = banner.map((b => new BannerModel({
@@ -137,16 +137,27 @@ export class BannerService {
         destinationUrl: b.url,
         fileName: b.filename,
         updated: b.updated,
+        code: b.htmltemplate,
+        videoDelType: b.ext_bannertype,
+        impressionPixel: b.impression_pixel,
+        startPixel: b.start_pixel,
+        quaterPixel: b.quater_pixel,
+        midPixel: b.mid_pixel,
+        thirdQuaterPixel: b.third_quater_pixel,
+        endPixel: b.end_pixel,
+        clickPixel: b.third_party_click,
+        videoType: b.vast_video_type,
+        mute: b.mute,
+        bitrate: b.vast_video_bitrate,
+        videoDeliveryMethod: b.vast_video_delivery,
+        videoDuration: b.vast_video_duration,
+        skip: b.skip,
+        skipTime: b.skip_time
       })));
     }
+
     return bannerList;
   }
-
-
-
-
-
-
 }
 
 

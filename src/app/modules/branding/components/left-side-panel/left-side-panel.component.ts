@@ -31,7 +31,7 @@ export class LeftSidePanelComponent implements OnInit {
           new MenuItemModel('All campaigns', ''),
         ]), */
         new MenuModel('Banner', 'banner', [
-          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('Add new', 'add-new/' + '1'),
           new MenuItemModel('All banners', ''),
         ]),
         new MenuModel('User', 'user', [

@@ -1,4 +1,4 @@
-<h1 class="mat-headline">Add new banner</h1>
+<h1 class="mat-headline"> {{bannerId?'Edit' :'Add new'}} banner</h1>
 
 <form [formGroup]="bannerForm" (ngSubmit)="onSubmit()">
   <div class="row">
@@ -19,7 +19,7 @@
 
             <mat-form-field class="col-md-6">
               <mat-label>Banner Type</mat-label>
-              <mat-select formControlName="bannerType" name="storagetype">
+              <mat-select formControlName="bannerType" (selectionChange)="addValidation()" name="storagetype">
                 <mat-option value="web">Web</mat-option>
                 <mat-option value="html5">Html 5</mat-option>
                 <mat-option value="html">Html</mat-option>
@@ -30,12 +30,13 @@
             <mat-form-field class="col-md-6">
               <input formControlName="bannerName" matInput placeholder="Banner Name *">
               <mat-error>
-                  <div
-                    *ngIf="bannerForm.get('bannerName').invalid && (bannerForm.get('bannerName').touched || bannerForm.get('bannerName').dirty)">
-                    <div *ngIf="bannerForm.get('bannerName').errors.required">Banner name is required</div>
-                    <div *ngIf="bannerForm.get('bannerName').errors.isAlphaNumericWithSpace">Banner name should be alpha numeric</div>
-                  </div>
-                </mat-error>
+                <div
+                  *ngIf="bannerForm.get('bannerName').invalid && (bannerForm.get('bannerName').touched || bannerForm.get('bannerName').dirty)">
+                  <div *ngIf="bannerForm.get('bannerName').errors.required">Banner name is required</div>
+                  <div *ngIf="bannerForm.get('bannerName').errors.isAlphaNumericWithSpace">Banner name should be alpha
+                    numeric</div>
+                </div>
+              </mat-error>
             </mat-form-field>
 
             <!-- Destination url -->
@@ -71,11 +72,18 @@
               </mat-error>
             </mat-form-field>
 
-            <!-- code -->
-            <mat-form-field class="col-md-12" *ngIf="bannerForm.get('bannerType')=='html5'">
-              <textarea formControlName="code" rows="5" matInput placeholder="code"></textarea>
-            </mat-form-field>
-
+            <div class="col-md-12" [hidden]="bannerForm.get('bannerType').value!='html5'">
+              <!-- code -->
+              <mat-form-field class="mff-100">
+                <textarea formControlName="code" rows="5" matInput placeholder="code *"></textarea>
+                <mat-error>
+                  <div
+                    *ngIf="bannerForm.get('code').invalid && (bannerForm.get('code').touched || bannerForm.get('code').dirty)">
+                    <div *ngIf="bannerForm.get('code').errors.required">Code required</div>
+                  </div>
+                </mat-error>
+              </mat-form-field>
+            </div>
 
             <!-- comments -->
             <mat-form-field class="col-md-12">
@@ -85,52 +93,263 @@
           </div>
         </mat-card-content>
       </mat-card>
-    </div>
 
-    <div class="col-md-4">
-      <mat-card>
+      <!-- card for third party traking  -->
+
+      <mat-card class="mt-4" *ngIf="bannerForm.get('bannerType').value=='html'">
         <mat-card-header>
-          <mat-card-subtitle>Size (in pixels)</mat-card-subtitle>
+          <mat-card-subtitle>Third Party Tracking</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <div class="row">
+          <div class="row mt-4">
 
-            <!-- widht -->
+            <!-- impression pixel -->
             <mat-form-field class="col-md-6">
-              <input formControlName="width" matInput placeholder="Width *" type="number">
+              <input formControlName="impressionPixel" matInput placeholder="Impression Pixel ">
               <mat-error>
                 <div
-                  *ngIf="bannerForm.get('width').invalid && (bannerForm.get('width').touched || bannerForm.get('width').dirty)">
-                  <div *ngIf="bannerForm.get('width').errors.required">Width is required</div>
-                  <div *ngIf="bannerForm.get('width').errors.isUint">Width should be +ve numbers</div>
+                  *ngIf="bannerForm.get('impressionPixel').invalid && (bannerForm.get('impressionPixel').touched || bannerForm.get('impressionPixel').dirty)">
+                  <div *ngIf="bannerForm.get('impressionPixel').errors.isUrl">Enter a valid url</div>
                 </div>
               </mat-error>
             </mat-form-field>
 
-            <!-- height -->
+            <!-- clickPixel -->
             <mat-form-field class="col-md-6">
-              <input formControlName="height" matInput placeholder="height *" type="number">
+              <input formControlName="clickPixel" matInput placeholder="click Pixel ">
               <mat-error>
                 <div
-                  *ngIf="bannerForm.get('height').invalid && (bannerForm.get('height').touched || bannerForm.get('height').dirty)">
-                  <div *ngIf="bannerForm.get('height').errors.required">Height is required</div>
-                  <div *ngIf="bannerForm.get('height').errors.isUint">Height should be +ve numbers</div>
+                  *ngIf="bannerForm.get('clickPixel').invalid && (bannerForm.get('clickPixel').touched || bannerForm.get('clickPixel').dirty)">
+                  <div *ngIf="bannerForm.get('clickPixel').errors.isUrl">Enter a valid url</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- startPixel -->
+            <mat-form-field class="col-md-6">
+              <input formControlName="startPixel" matInput placeholder="start Pixel ">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('startPixel').invalid && (bannerForm.get('startPixel').touched || bannerForm.get('startPixel').dirty)">
+                  <div *ngIf="bannerForm.get('startPixel').errors.isUrl">Enter a valid url</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- quaterPixel -->
+            <mat-form-field class="col-md-6">
+              <input formControlName="quaterPixel" matInput placeholder="quater Pixel ">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('quaterPixel').invalid && (bannerForm.get('quaterPixel').touched || bannerForm.get('quaterPixel').dirty)">
+                  <div *ngIf="bannerForm.get('quaterPixel').errors.isUrl">Enter a valid url</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- midPixel -->
+            <mat-form-field class="col-md-6">
+              <input formControlName="midPixel" matInput placeholder="mid Pixel ">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('midPixel').invalid && (bannerForm.get('midPixel').touched || bannerForm.get('midPixel').dirty)">
+                  <div *ngIf="bannerForm.get('midPixel').errors.isUrl">Enter a valid url</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- thirdQuaterPixel -->
+            <mat-form-field class="col-md-6">
+              <input formControlName="tQuaterPixel" matInput placeholder="third Quater Pixel">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('tQuaterPixel').invalid && (bannerForm.get('tQuaterPixel').touched || bannerForm.get('tQuaterPixel').dirty)">
+                  <div *ngIf="bannerForm.get('tQuaterPixel').errors.isUrl">Enter a valid url</div>
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- endPixel -->
+            <mat-form-field class="col-md-6">
+              <input formControlName="endPixel" matInput placeholder="end Pixel ">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('endPixel').invalid && (bannerForm.get('endPixel').touched || bannerForm.get('endPixel').dirty)">
+                  <div *ngIf="bannerForm.get('endPixel').errors.isUrl">Enter a valid url</div>
                 </div>
               </mat-error>
             </mat-form-field>
           </div>
-          <!-- file upload -->
-          <input *ngIf="bannerForm.get('bannerType')=='web'" #fileInput type="file" placeholder="Upload File *">
         </mat-card-content>
-
       </mat-card>
     </div>
 
+
+
+    <!-- col-md-4 -->
+    <div class="col-md-4">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle [hidden]="bannerForm.get('bannerType').value=='html'">Size (in pixels)</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div
+              [hidden]="bannerForm.get('videoDelType').value=='upload_video' &&  bannerForm.get('bannerType').value=='html'">
+
+              <!-- widht -->
+              <mat-form-field class="col-md-6">
+                <input formControlName="width" matInput placeholder="Width *" type="number">
+                <mat-error>
+                  <div
+                    *ngIf="bannerForm.get('width').invalid && (bannerForm.get('width').touched || bannerForm.get('width').dirty)">
+                    <div *ngIf="bannerForm.get('width').errors.required">Width is required</div>
+                    <div *ngIf="bannerForm.get('width').errors.isUint">Width should be +ve numbers</div>
+                  </div>
+                </mat-error>
+              </mat-form-field>
+
+              <!-- height -->
+              <mat-form-field class="col-md-6">
+                <input formControlName="height" matInput placeholder="height *" type="number">
+                <mat-error>
+                  <div
+                    *ngIf="bannerForm.get('height').invalid && (bannerForm.get('height').touched || bannerForm.get('height').dirty)">
+                    <div *ngIf="bannerForm.get('height').errors.required">Height is required</div>
+                    <div *ngIf="bannerForm.get('height').errors.isUint">Height should be +ve numbers</div>
+                  </div>
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <!-- label for image file  -->
+          <div class="mb-4" [hidden]="bannerForm.get('bannerType').value!='web' ">
+            Upload Image
+          </div>
+
+          <div [hidden]="bannerForm.get('bannerType').value!='web' ">
+            <!-- image file upload -->
+            <input #imageFile formControlName="imageBanner" type="file" placeholder="Upload Image File *">
+            <mat-error>
+              <div
+                *ngIf="bannerForm.get('imageBanner').invalid && (bannerForm.get('imageBanner').touched || bannerForm.get('imageBanner').dirty)">
+                <div *ngIf="bannerForm.get('imageBanner').errors.required">Image File required</div>
+              </div>
+            </mat-error>
+          </div>
+
+
+          <!-- form field show if banner type html -->
+
+          <div [hidden]="bannerForm.get('bannerType').value!='html' ">
+
+            <!-- video delivery type  -->
+            <label id="videoDeliveryMethod">Video delivery type</label> <br>
+            <mat-radio-group formControlName="videoDelType" (change)="setVideoValidation()"
+              aria-labelledby="videoDeliveryMethod" class="mt-2">
+              <mat-radio-button class="mt-2" value="create_video">Create Ad</mat-radio-button>
+              <br>
+              <mat-radio-button class="mt-2" selected value="upload_video">Vide Ad tags</mat-radio-button>
+            </mat-radio-group>
+
+
+            <!-- form field for create video start  -->
+
+            <div class="mt-2" [hidden]="bannerForm.get('videoDelType').value!='create_video'">
+
+              <!-- video type  -->
+              <mat-form-field class="mff-100">
+                <mat-label>Video Type</mat-label>
+                <mat-select formControlName="videoType">
+                  <mat-option value="mp4">MP4</mat-option>
+                  <mat-option value="flv">FLV</mat-option>
+                  <mat-option value="webm">WEBM</mat-option>
+                </mat-select>
+                <mat-error>
+                  <div
+                    *ngIf="bannerForm.get('videoType').invalid && (bannerForm.get('videoType').touched || bannerForm.get('videoType').dirty)">
+                    <div *ngIf="bannerForm.get('videoType').errors.required">Video type required</div>
+                  </div>
+                </mat-error>
+              </mat-form-field>
+
+
+              <!-- label for video file -->
+              <div class="mb-4">
+                Upload Video
+              </div>
+
+              <!-- file upload -->
+              <input #videoFile formControlName="videoBanner" type="file" placeholder="Upload Video File *">
+              <mat-error>
+                <div
+                  *ngIf="bannerForm.get('videoBanner').invalid && (bannerForm.get('videoBanner').touched || bannerForm.get('videoBanner').dirty)">
+                  <div *ngIf="bannerForm.get('videoBanner').errors.required">Image File required</div>
+                </div>
+              </mat-error>
+              <!-- mute in ad  -->
+
+              <mat-checkbox formControlName="mute" class="d-block mt-2">Mute in Ad</mat-checkbox>
+
+              <!-- skip in ad  -->
+
+              <mat-checkbox formControlName="skip" class="d-block mt-2">Skip in Ad</mat-checkbox>
+
+              <!-- skip duration -->
+              <mat-form-field class="mt-2 mff-100" *ngIf="bannerForm.get('skip').value">
+                <input formControlName="skipTime" matInput placeholder="Skip Dduration" type="number">
+              </mat-form-field>
+
+              <!-- bitrate -->
+              <mat-form-field class="mt-2 mff-100">
+                <input formControlName="bitrate" matInput placeholder="Bitrate" type="number">
+              </mat-form-field>
+
+
+              <!-- video delivery method  -->
+
+              <label id="videoDeliveryMethod">Video delivery method</label> <br>
+              <mat-radio-group formControlName="videoDeliveryMethod" aria-labelledby="videoDeliveryMethod" class="mt-2">
+                <mat-radio-button class="mt-2" selected value="progressive">Progressive</mat-radio-button>
+                <br>
+                <mat-radio-button class="mt-2" selected value="streaming">Streaming</mat-radio-button>
+              </mat-radio-group>
+
+              <!-- video duration -->
+              <mat-form-field class="mt-2 mff-100">
+                <input formControlName="videoDuration" matInput placeholder="Video Dduration in second" type="number">
+              </mat-form-field>
+
+            </div>
+
+            <!-- form field for create video start  -->
+
+
+            <!-- form field for upload video start  -->
+
+            <div class="mt-2 " [hidden]="bannerForm.get('videoDelType').value!='upload_video'">
+              <div class="row">
+                <!-- invocation teg -->
+                <mat-form-field class="col-md-12">
+                  <textarea formControlName="invocationTag" rows="5" matInput placeholder="Invocation Tag"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- form field for upload video start  -->
+
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+    </div>
   </div>
 
   <div class="mt-4">
     <button mat-raised-button color="primary" type="submit">Add Banner</button> &nbsp;
     <button mat-raised-button type="reset">Reset</button>
   </div>
-
 </form>
