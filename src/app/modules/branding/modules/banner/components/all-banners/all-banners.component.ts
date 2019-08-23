@@ -20,7 +20,6 @@ export class AllBannersComponent implements OnInit {
 
   constructor(private bannerService: BannerService, private snackbar: MatSnackBar) { }
 
-
   public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -28,9 +27,6 @@ export class AllBannersComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
-
 
   public getBanner() {
     this.bannerService.getBanner()
@@ -42,7 +38,6 @@ export class AllBannersComponent implements OnInit {
         this.errMsg = err;
       });
   }
-
 
   private updateBannerTable() {
     this.dataSource = new MatTableDataSource<BannerModel>(this.bannerList);

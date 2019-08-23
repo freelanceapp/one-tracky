@@ -1,5 +1,5 @@
 export enum BannerTypeEnum {
-    Standard = 'web',
+    Web = 'web',
     Html5 = 'html5',
-    Html = 'video'
+    Html = 'html'
 }
