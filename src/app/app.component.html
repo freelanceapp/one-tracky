@@ -1,6 +1,12 @@
-<aside class="net-info" [hidden]="isOnline">
-    <span>
-        You are offline
-    </span>
-</aside>
-<router-outlet></router-outlet>
+<section class="app-root-wrap">
+    <section class="app-root-offline-bar">
+        <aside class="net-info" [hidden]="isOnline">
+            <span>
+                You are offline
+            </span>
+        </aside>
+    </section>
+    <section class="app-root-conatiner">
+        <router-outlet></router-outlet>
+    </section>
+</section>

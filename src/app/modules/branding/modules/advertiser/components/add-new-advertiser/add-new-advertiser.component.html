@@ -22,6 +22,7 @@
                   <div
                     *ngIf="advSrForm.get('advertiserName').invalid && (advSrForm.get('advertiserName').touched || advSrForm.get('advertiserName').dirty)">
                     <div *ngIf="advSrForm.get('advertiserName').errors.required">Advertiser name is required</div>
+                    <div *ngIf="advSrForm.get('advertiserName').errors.isAlphaNumericWithSpace">Advertiser name should be alphanumeric</div>
                   </div>
                 </mat-error>
               </mat-form-field>
@@ -106,7 +107,7 @@
   <br>
   <button type="submit" [disabled]="!advSrForm.valid" mat-raised-button
     color="primary">{{isNewAdvertiser ? 'Add' : 'Save'}} advertiser</button> &nbsp;
-  <button type="reset" mat-raised-button>Reset</button>
+  <button type="button" (click)="resetForm()" mat-raised-button>Reset</button>
 
 
 </form>

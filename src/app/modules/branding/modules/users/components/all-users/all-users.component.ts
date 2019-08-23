@@ -3,6 +3,7 @@ import { UserService } from 'src/app/modules/branding/services/user/user.service
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { UserModel } from 'src/app/modules/branding/model/user.model';
 import { UserRole } from 'src/app/modules/branding/enums/user-role.enum';
+import { LoaderService } from 'src/app/modules/branding/services/loader/loader.service';
 
 @Component({
   selector: 'app-all-users',
@@ -19,7 +20,8 @@ export class AllUsersComponent implements OnInit {
 
   usersList: UserModel[] = [];
   constructor(
-    private userSvc: UserService
+    private userSvc: UserService,
+    private loaderSvc: LoaderService
   ) { }
 
 
@@ -29,11 +31,15 @@ export class AllUsersComponent implements OnInit {
   }
 
   private getAllUsers() {
-    this.userSvc.getUsers().then(users => {
-      console.log(users);
-      this.usersList = users;
-      this.updateUserTable();
-    }).catch(err => alert(err));
+    this.loaderSvc.showloader = true;
+    this.userSvc.getUsers()
+      .then(users => {
+        console.log(users);
+        this.usersList = users;
+        this.updateUserTable();
+      })
+      .catch(err => alert(err))
+      .finally(() => this.loaderSvc.showloader = false);
   }
 
   applyFilter(filterValue: string) {
@@ -55,13 +61,14 @@ export class AllUsersComponent implements OnInit {
     if (!confirm('Are you sure to delete this user ?')) {
       return;
     }
-
+    this.loaderSvc.showloader = true;
     this.userSvc.deleteUser(userId).then(msg => {
       alert(msg);
       const index = this.usersList.findIndex(usr => usr.userId === userId);
       this.usersList.splice(index, 1);
       this.updateUserTable();
-    }).catch(err => alert(err));
+    }).catch(err => alert(err))
+      .finally(() => this.loaderSvc.showloader = false);
   }
 
 

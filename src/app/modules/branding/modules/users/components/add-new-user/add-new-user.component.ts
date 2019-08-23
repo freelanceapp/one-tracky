@@ -4,6 +4,7 @@ import { UserRole } from 'src/app/modules/branding/enums/user-role.enum';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/modules/branding/services/user/user.service';
 import { UserModel } from 'src/app/modules/branding/model/user.model';
+import { LoaderService } from 'src/app/modules/branding/services/loader/loader.service';
 
 @Component({
   selector: 'app-add-new-user',
@@ -19,7 +20,8 @@ export class AddNewUserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private loaderSvc: LoaderService
   ) {
 
   }
@@ -39,9 +41,13 @@ export class AddNewUserComponent implements OnInit {
 
   private getUserById(userId: number) {
     if (userId) {
-      this.userSvc.getUsers(userId).then(user => {
-        this.patchUserForm(user);
-      });
+      this.loaderSvc.showloader = true;
+      this.userSvc.getUsers(userId)
+        .then(user => {
+          this.patchUserForm(user);
+        })
+        .catch(err => alert(err))
+        .finally(() => this.loaderSvc.showloader = false);
     }
   }
 
@@ -74,11 +80,18 @@ export class AddNewUserComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.userForm.value);
+
     if (this.userForm.valid && this.isNewUser) {
-      this.userSvc.addNewUser(this.userForm.value as UserModel).then(msg => alert(msg)).catch(err => alert(err));
+      this.loaderSvc.showloader = true;
+      this.userSvc.addNewUser(this.userForm.value as UserModel)
+        .then(msg => alert(msg))
+        .catch(err => alert(err))
+        .finally(() => this.loaderSvc.showloader = false);
     } else {
-      this.userSvc.editUser(this.userForm.value as UserModel).then(msg => alert(msg)).catch(err => alert(err));
+      this.userSvc.editUser(this.userForm.value as UserModel)
+        .then(msg => alert(msg))
+        .catch(err => alert(err))
+        .finally(() => this.loaderSvc.showloader = false);
     }
   }
 
