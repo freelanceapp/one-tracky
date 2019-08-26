@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdvertiserService } from 'src/app/modules/branding/services/advertiser/advertiser.service';
 import { AdvertiserModel } from 'src/app/modules/branding/model/advertiser.model';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { LoaderService } from 'src/app/modules/branding/services/loader/loader.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-advertisers',
@@ -13,17 +14,19 @@ export class AllAdvertisersComponent implements OnInit {
 
   public isNewAdvertiser: boolean = true;
 
-  displayedColumns: string[] = ['advertiserId', 'fullName', 'phoneNo', 'email', 'Campaign', 'action'];
+  displayedColumns: string[] = ['select', 'advertiserId', 'fullName', 'phoneNo', 'email', 'Campaign', 'action'];
   dataSource: MatTableDataSource<AdvertiserModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  selection = new SelectionModel<AdvertiserModel>(true, []);
 
 
   public advertisersList: AdvertiserModel[] = [];
 
   constructor(
     private advertiserSvc: AdvertiserService,
-    private loaderSvc: LoaderService
+    private loaderSvc: LoaderService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -34,9 +37,7 @@ export class AllAdvertisersComponent implements OnInit {
     this.loaderSvc.showloader = true;
     this.advertiserSvc.getAdvertisers().then(advs => {
       this.advertisersList = advs;
-      this.dataSource = new MatTableDataSource(this.advertisersList);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.updateTable();
     }).catch(err => alert(err))
       .finally(() => this.loaderSvc.showloader = false);
   }
@@ -49,6 +50,11 @@ export class AllAdvertisersComponent implements OnInit {
     }
   }
 
+  private updateTable() {
+    this.dataSource = new MatTableDataSource(this.advertisersList);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   public deleteAdvertiser(advertiserId: number) {
     if (!confirm('Are you sure to delete this Advertiser')) {
@@ -56,8 +62,33 @@ export class AllAdvertisersComponent implements OnInit {
     }
     this.loaderSvc.showloader = true;
     this.advertiserSvc.deleteAdvertiser(advertiserId)
-      .then(msg => alert(msg))
-      .catch(err => alert(err))
+      .then(msg => {
+        this.snackBar.open(msg, 'Ok');
+        const index = this.advertisersList.findIndex(adv => adv.advertiserId === advertiserId);
+        this.advertisersList.splice(index, 1);
+        this.updateTable();
+      })
+      .catch(err => this.snackBar.open(err, 'Ok'))
       .finally(() => this.loaderSvc.showloader = false);
   }
+
+
+  public deleteSelected() {
+    const selectedAdvertisers: AdvertiserModel[] = this.selection.selected;
+
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
 }

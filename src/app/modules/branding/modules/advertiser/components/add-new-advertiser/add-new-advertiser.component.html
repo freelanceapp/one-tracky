@@ -1,4 +1,12 @@
-<h1 class="mat-headline">{{isNewAdvertiser ? 'Add new' : 'Edit'}} advertiser</h1>
+<div class="row">
+  <section class="col-6">
+    <h1 class="mat-headline">{{isNewAdvertiser ? 'Add new' : 'Edit'}} advertiser</h1>
+  </section>
+
+  <section class="col-6 text-right">
+      <a mat-raised-button color="primary" [routerLink]="['/branding/advertiser']">View All</a>
+  </section>
+</div>
 
 <form [formGroup]="advSrForm" (ngSubmit)="onSubmit()">
 
@@ -22,7 +30,8 @@
                   <div
                     *ngIf="advSrForm.get('advertiserName').invalid && (advSrForm.get('advertiserName').touched || advSrForm.get('advertiserName').dirty)">
                     <div *ngIf="advSrForm.get('advertiserName').errors.required">Advertiser name is required</div>
-                    <div *ngIf="advSrForm.get('advertiserName').errors.isAlphaNumericWithSpace">Advertiser name should be alphanumeric</div>
+                    <div *ngIf="advSrForm.get('advertiserName').errors.isAlphaNumericWithSpace">Advertiser name should
+                      be alphanumeric</div>
                   </div>
                 </mat-error>
               </mat-form-field>

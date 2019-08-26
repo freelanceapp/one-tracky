@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AdvertiserService } from 'src/app/modules/branding/services/advertiser/advertiser.service';
 import { AdvertiserModel } from 'src/app/modules/branding/model/advertiser.model';
@@ -20,7 +20,8 @@ export class AddNewAdvertiserComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private advSvc: AdvertiserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
 
   }
@@ -77,6 +78,7 @@ export class AddNewAdvertiserComponent implements OnInit {
       } else {
         this.advSvc.updateAdvertisers(this.advSrForm.value).then(msg => {
           this.snackBar.open(msg, 'Ok');
+          this.router.navigateByUrl('branding/advertiser');
         }).catch(err => console.log(err));
       }
 
