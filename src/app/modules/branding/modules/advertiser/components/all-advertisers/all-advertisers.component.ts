@@ -79,6 +79,14 @@ export class AllAdvertisersComponent implements OnInit {
 
   public deleteSelected() {
     const selectedAdvertisers: AdvertiserModel[] = this.selection.selected;
+    let msg = `Do you really want to delete following ${selectedAdvertisers.length} Advertisers\n`;
+    selectedAdvertisers.forEach(adv => msg += adv.advertiserName + '\n');
+
+    if (confirm(msg)) {
+
+    } else {
+      this.selection.clear();
+    }
 
   }
 
