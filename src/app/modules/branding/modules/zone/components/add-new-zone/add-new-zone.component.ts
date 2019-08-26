@@ -13,9 +13,10 @@ import { CustomValidators } from 'src/app/modules/branding/custom-validators/cus
 })
 export class AddNewZoneComponent implements OnInit {
   public zoneForm: FormGroup;
-  public isNewZone: boolean = true;
   public errMsg: string = '';
   public zoneId: number = null;
+  public bannerSizeInput: boolean = false;
+
 
   public zoneSizeArr: Array<{ key: string, value: string }> = [{
     value: '468x60',
@@ -100,8 +101,7 @@ export class AddNewZoneComponent implements OnInit {
   ) {
     this.zoneId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (this.zoneId) {
-      this.getZoneById();
-      this.isNewZone = false;
+
     }
   }
 
@@ -128,10 +128,12 @@ export class AddNewZoneComponent implements OnInit {
       this.zoneForm.controls['zoneType'].setValue('custom');
       this.zoneForm.controls['width'].setValue('');
       this.zoneForm.controls['height'].setValue('');
+      this.bannerSizeInput = false;
     } else {
       this.zoneForm.controls['width'].setValue(this.getSize(size)[0]);
       this.zoneForm.controls['height'].setValue(this.getSize(size)[1]);
       this.zoneForm.controls['zoneType'].setValue('default');
+      this.bannerSizeInput = true;
     }
   }
 
@@ -139,44 +141,6 @@ export class AddNewZoneComponent implements OnInit {
     return size.split('x');
   }
 
-  public getZoneById() {
-    this.zoneService.getZone(this.zoneId)
-      .then(zone => {
-        this.setZoneForm(zone);
-      })
-      .catch(err => {
-        this.errMsg = err;
-      });
-  }
-
-  public setZoneForm(zone: ZoneModel) {
-    this.zoneForm.patchValue({
-      zoneId: zone.zoneId,
-      description: zone.description,
-      zoneName: zone.zoneName,
-      delivery: zone.delivery,
-      zoneType: zone.zoneType,
-      width: zone.width,
-      height: zone.height,
-      comments: zone.comments,
-    });
-    this.setbannerSize(zone);
-  }
-
-  private setbannerSize(zone: ZoneModel) {
-    if (zone) {
-      const width = zone.width;
-      const height = zone.height;
-
-      if (zone.zoneType === 'default') {
-        this.zoneForm.controls['size'].setValue(width + 'x' + height);
-      }
-      if (zone.zoneType === 'custom') {
-        this.zoneForm.controls['size'].setValue(zone.zoneType);
-
-      }
-    }
-  }
   public onSubmit() {
     if (this.zoneForm.valid) {
       const data: ZoneModel = this.zoneForm.value;
