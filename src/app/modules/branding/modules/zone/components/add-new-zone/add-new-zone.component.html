@@ -1,4 +1,4 @@
-<h1 class="mat-headline">{{isNewZone ? 'Add new' : 'Edit'}} zone</h1>
+<h1 class="mat-headline"> Add new zone</h1>
 
 
 
@@ -13,7 +13,6 @@
         <mat-card-content>
 
           <div class="row">
-            <input type="hidden" formControlName="zoneId">
             <!-- zone name -->
             <mat-form-field class="col-6">
               <input matInput formControlName="zoneName" placeholder="Zone Name *" value="">
@@ -21,7 +20,8 @@
                 <div
                   *ngIf="zoneForm.get('zoneName').invalid && (zoneForm.get('zoneName').touched || zoneForm.get('zoneName').dirty)">
                   <div *ngIf="zoneForm.get('zoneName').errors.required">Zone name is required</div>
-                  <div *ngIf="zoneForm.get('zoneName').errors.isAlphaNumericWithSpace">Zone name should be alpha numeric</div>
+                  <div *ngIf="zoneForm.get('zoneName').errors.isAlphaNumericWithSpace">Zone name should be alpha numeric
+                  </div>
                 </div>
               </mat-error>
             </mat-form-field>
@@ -76,7 +76,7 @@
             <!-- zone width -->
 
             <mat-form-field class="col-6">
-              <input matInput formControlName="width" placeholder="Width" type="number">
+              <input matInput formControlName="width" [readonly]="bannerSizeInput" placeholder="Width" type="number">
               <mat-error>
                 <div
                   *ngIf="zoneForm.get('width').invalid && (zoneForm.get('width').touched || zoneForm.get('width').dirty)">
@@ -88,7 +88,7 @@
             <!-- zone height -->
 
             <mat-form-field class="col-6">
-              <input matInput formControlName="height" placeholder="Height">
+              <input matInput formControlName="height" [readonly]="bannerSizeInput" placeholder="Height">
               <mat-error>
                 <div
                   *ngIf="zoneForm.get('height').invalid && (zoneForm.get('height').touched || zoneForm.get('height').dirty)">
