@@ -4,14 +4,47 @@ import { AddNewZoneComponent } from './components/add-new-zone/add-new-zone.comp
 import { AllZonesComponent } from './components/all-zones/all-zones.component';
 import { NotFoundComponent } from 'src/app/modules/shared/components/not-found/not-found.component';
 import { EditZoneComponent } from './components/edit-zone/edit-zone.component';
+import { ZonePropertiesComponent } from './components/zone-properties/zone-properties.component';
+import { AdvanceComponent } from './components/advance/advance.component';
+import { LinkedBannerComponent } from './components/linked-banner/linked-banner.component';
+import { ProbabilityComponent } from './components/probability/probability.component';
+import { InvocationCodeComponent } from './components/invocation-code/invocation-code.component';
+
 
 const routes: Routes = [
+
   {
-    path: 'add-new',
-    component: AddNewZoneComponent
+    path: 'edit-zone/:websiteId/:zoneId',
+    component: EditZoneComponent,
+    children: [
+      {
+        path: 'properties',
+        component: ZonePropertiesComponent
+      },
+      {
+        path: 'advance',
+        component: AdvanceComponent
+      },
+      {
+        path: 'linked-banner',
+        component: LinkedBannerComponent
+      },
+      {
+        path: 'probabilty',
+        component: ProbabilityComponent
+      },
+      {
+        path: 'invocation-code',
+        component: InvocationCodeComponent
+      }
+    ]
   },
   {
-    path: ':id',
+    path: '/:websiteId/:zoneId',
+    component: AdvanceComponent
+  },
+  {
+    path: 'add-new',
     component: AddNewZoneComponent
   },
   {
@@ -19,8 +52,8 @@ const routes: Routes = [
     component: AllZonesComponent
   },
   {
-    path: 'edit-zone/:websiteId/:zoneId',
-    component: EditZoneComponent
+    path: 'not-found',
+    component: NotFoundComponent
   },
   {
     path: '**',
