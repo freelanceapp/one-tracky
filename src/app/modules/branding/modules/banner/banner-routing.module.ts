@@ -6,13 +6,14 @@ import { NotFoundComponent } from 'src/app/modules/shared/components/not-found/n
 
 const routes: Routes = [
   {
-    path: 'add-new/:campaignId',
-    component: AddNewBannerComponent
-  },
-  {
     path: 'edit/:campaignId/:bannerId',
     component: AddNewBannerComponent
   },
+  {
+    path: 'add-new/:campaignId',
+    component: AddNewBannerComponent
+  },
+
   {
     path: '',
     component: AllBannersComponent
