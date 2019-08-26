@@ -51,6 +51,10 @@ export class AllAdvertisersComponent implements OnInit {
   }
 
   private updateTable() {
+
+    if (this.selection.hasValue()) {
+      this.selection.clear();
+    }
     this.dataSource = new MatTableDataSource(this.advertisersList);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
