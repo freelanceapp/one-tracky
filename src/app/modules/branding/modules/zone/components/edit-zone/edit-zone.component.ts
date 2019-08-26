@@ -7,8 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./edit-zone.component.scss']
 })
 export class EditZoneComponent implements OnInit {
-  public websiteId: number = null;
-  public zoneId: number = null;
+  public websiteId: string = null;
+  public zoneId: string = null;
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {
     this.getParameters();
   }
@@ -18,8 +18,9 @@ export class EditZoneComponent implements OnInit {
     const zoneId: number = parseInt(this.activatedRoute.snapshot.paramMap.get('zoneId'), 10);
 
     if (websiteId && zoneId) {
-      this.zoneId = zoneId;
-      this.websiteId = websiteId;
+
+      this.zoneId = zoneId.toString();
+      this.websiteId = websiteId.toString();
     } else {
       this.router.navigateByUrl('/branding/zone/not-found');
     }
