@@ -15,7 +15,6 @@ export class ZoneService {
   /**
    * get all zone and zone BY ID
    * @param zoneId ID of zone
-   * 
    */
   public getZone(): Promise<ZoneModel[]>;
   public getZone(zoneId: number): Promise<ZoneModel>;
@@ -24,42 +23,41 @@ export class ZoneService {
       if (zoneId) {
         this.httpService.get(this.baseUrl + zoneId)
           .then(resp => {
-            let zone = this.parseZone([resp.data]);
+            const zone = this.parseZone([resp.data]);
             resolve(zone[0]);
           })
           .catch(err => {
             reject(err);
-          })
-      }
-      else {
+          });
+      } else {
         this.httpService.get(this.baseUrl)
           .then(resp => {
-            let zones = this.parseZone(resp.data);
+            const zones = this.parseZone(resp.data);
             resolve(zones);
           })
           .catch(err => {
             reject(err);
-          })
+          });
       }
-    })
+    });
   }
 
   /**
-   * add  new zone 
-   * @param data data to save 
+   * add  new zone
+   * @param data data to save
    */
   public addNewZone(data: ZoneModel): Promise<ZoneModel> {
     return new Promise((resolve, reject) => {
       let sendData = this.deparseZone(data);
       this.httpService.post(this.baseUrl, JSON.stringify(sendData))
         .then(resp => {
-          let zone = this.parseZone([resp.data]);
-          resolve(zone[0])
+          const zone = this.parseZone([resp.data]);
+          resolve(zone[0]);
         })
         .catch(err => {
           reject(err);
-        })
-    })
+        });
+    });
   }
 
 
@@ -75,10 +73,8 @@ export class ZoneService {
         })
         .catch(err => {
           reject(err);
-
-        })
-    })
-
+        });
+    });
   }
 
 
@@ -86,23 +82,23 @@ export class ZoneService {
    * edit zone with id 
    * @param zoneId id of zone
    * @param data json of data for update 
-   * 
    */
+
   public editZone(zoneId: number, data: ZoneModel): Promise<ZoneModel> {
     return new Promise((resolve, reject) => {
       let sendData = this.deparseZone(data);
       this.httpService.put(this.baseUrl + zoneId + '/', JSON.stringify(sendData))
         .then(resp => {
-          let zone = this.parseZone([resp.data]);
+          const zone = this.parseZone([resp.data]);
           resolve(zone[0]);
         })
         .catch(err => {
           reject(err);
-        })
-    })
+        });
+    });
   }
 
-  /**parsing zone funtions start */
+  /** parsing zone funtions start */
   private parseZone(zoneResp: any[]) {
     let zone: ZoneModel[] = [];
     if (zoneResp) {
@@ -121,15 +117,15 @@ export class ZoneService {
         _zone.adSelection = z.ad_selection;
         _zone.comments = z.comments;
         return _zone;
-      })
+      });
     }
-    return zone
+    return zone;
   }
-  /**parsing zone funtions end */
+  /** parsing zone funtions end */
 
 
 
-  /**deparse zone funtion start */
+  /** deparse zone funtion start */
 
   private deparseZone(zone: ZoneModel) {
     return {
@@ -144,6 +140,6 @@ export class ZoneService {
     }
   }
 
-  /**deparse zone funtion end */
+  /** deparse zone funtion end */
 
 }

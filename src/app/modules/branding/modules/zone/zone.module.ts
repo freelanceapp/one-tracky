@@ -9,11 +9,18 @@ import {
   MatInputModule, MatRadioModule,
   MatCardModule, MatFormFieldModule,
   MatButtonModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSnackBarModule, MatTooltipModule
+  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatRippleModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditZoneComponent } from './components/edit-zone/edit-zone.component';
+import { ZonePropertiesComponent } from './components/zone-properties/zone-properties.component';
+import { AdvanceComponent } from './components/advance/advance.component';
+import { LinkedBannerComponent } from './components/linked-banner/linked-banner.component';
+import { ProbabilityComponent } from './components/probability/probability.component';
+import { InvocationCodeComponent } from './components/invocation-code/invocation-code.component';
+
 @NgModule({
-  declarations: [AddNewZoneComponent, AllZonesComponent],
+  declarations: [AddNewZoneComponent, AllZonesComponent, EditZoneComponent, ZonePropertiesComponent, AdvanceComponent, LinkedBannerComponent, ProbabilityComponent, InvocationCodeComponent],
   imports: [
     CommonModule,
     ZoneRoutingModule,
@@ -29,7 +36,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatToolbarModule,
+    MatRippleModule
   ]
 })
 export class ZoneModule { }

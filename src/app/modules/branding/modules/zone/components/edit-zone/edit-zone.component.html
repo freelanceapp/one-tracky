@@ -1,0 +1,34 @@
+<mat-toolbar>
+  <mat-toolbar-row class="bg-black">
+    <span class="zone-menu-item">
+      <a class="zone-menu-link" routerLinkActive="zone-link-active"
+        routerLink='/branding/zone/edit-zone/{{websiteId}}/{{zoneId}}' matRipple
+        [routerLinkActiveOptions]="{exact: true}">
+        Zone Properties</a>
+    </span>
+    <span class="zone-menu-item">
+      <a class="zone-menu-link" routerLinkActive="zone-link-active" matRipple [routerLinkActiveOptions]="{exact: true}"
+        routerLink='/branding/zone/edit-zone/{{websiteId}}/{{zoneId}}/advance'>
+        Advance</a>
+    </span>
+    <span class="zone-menu-item">
+      <a class="zone-menu-link" routerLinkActive="zone-link-active" matRipple [routerLinkActiveOptions]="{exact: true}"
+        routerLink='/branding/zone/edit-zone/{{websiteId}}/{{zoneId}}/linked-banner'>
+        Linked Banners
+      </a>
+    </span>
+    <span class="zone-menu-item">
+      <a class="zone-menu-link" routerLinkActive="zone-link-active" matRipple [routerLinkActiveOptions]="{exact: true}"
+        routerLink='/branding/zone/edit-zone/{{websiteId}}/{{zoneId}}/probabilty'>
+        Probabilty
+      </a>
+    </span>
+    <span class="zone-menu-item">
+      <a class="zone-menu-link" routerLinkActive="zone-link-active" matRipple [routerLinkActiveOptions]="{exact: true}"
+        routerLink='/branding/zone/edit-zone/{{websiteId}}/{{zoneId}}/invocation-code'> Invocation
+        Code
+      </a>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet> </router-outlet>

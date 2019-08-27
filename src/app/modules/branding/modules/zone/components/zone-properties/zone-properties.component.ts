@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSelectChange, MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MatSnackBar, MatSelectChange } from '@angular/material';
+import { AdvertiserService } from 'src/app/modules/branding/services/advertiser/advertiser.service';
+import { CustomValidators } from 'src/app/modules/branding/custom-validators/custom-validators';
 import { ZoneService } from 'src/app/modules/branding/services/zone/zone.service';
 import { ZoneModel } from 'src/app/modules/branding/model/zone.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CustomValidators } from 'src/app/modules/branding/custom-validators/custom-validators';
 
 @Component({
-  selector: 'app-add-new-zone',
-  templateUrl: './add-new-zone.component.html',
-  styleUrls: ['./add-new-zone.component.scss']
+  selector: 'app-zone-properties',
+  templateUrl: './zone-properties.component.html',
+  styleUrls: ['./zone-properties.component.scss']
 })
-export class AddNewZoneComponent implements OnInit {
+export class ZonePropertiesComponent implements OnInit {
+
   public zoneForm: FormGroup;
+  public bannerSizeInput: boolean = false;
   public errMsg: string = '';
   public zoneId: number = null;
-  public bannerSizeInput: boolean = false;
-
+  public websiteId: number = null;
 
   public zoneSizeArr: Array<{ key: string, value: string }> = [{
     value: '468x60',
@@ -92,21 +94,19 @@ export class AddNewZoneComponent implements OnInit {
   }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    public zoneService: ZoneService,
-    private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
-    this.zoneId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
-    if (this.zoneId) {
+  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+    private snackBar: MatSnackBar, private zoneService: ZoneService) {
+    if (this.activatedRoute.parent.snapshot.paramMap.get('zoneId')) {
+      this.zoneId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('zoneId'), 10);
+    }
+    if (this.activatedRoute.parent.snapshot.paramMap.get('websiteId')) {
+      this.websiteId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('websiteId'), 10);
+    }
 
+    if (this.zoneId && this.websiteId) {
+      this.getZoneById();
     }
   }
-
-
-
 
   public createZoneForm() {
     return this.fb.group({
@@ -141,33 +141,59 @@ export class AddNewZoneComponent implements OnInit {
     return size.split('x');
   }
 
+  public getZoneById() {
+    this.zoneService.getZone(this.zoneId)
+      .then(zone => {
+        this.setZoneForm(zone);
+      })
+      .catch(err => {
+        this.errMsg = err;
+      });
+  }
+
+  public setZoneForm(zone: ZoneModel) {
+    this.zoneForm.patchValue({
+      zoneId: zone.zoneId,
+      description: zone.description,
+      zoneName: zone.zoneName,
+      delivery: zone.delivery,
+      zoneType: zone.zoneType,
+      width: zone.width,
+      height: zone.height,
+      comments: zone.comments,
+    });
+    this.setbannerSize(zone);
+  }
+
+  private setbannerSize(zone: ZoneModel) {
+    if (zone) {
+      const width = zone.width;
+      const height = zone.height;
+
+      if (zone.zoneType === 'default') {
+        this.zoneForm.controls['size'].setValue(width + 'x' + height);
+        this.bannerSizeInput = true;
+      }
+      if (zone.zoneType === 'custom') {
+        this.zoneForm.controls['size'].setValue(zone.zoneType);
+        this.bannerSizeInput = false
+      }
+    }
+  }
   public onSubmit() {
     if (this.zoneForm.valid) {
       const data: ZoneModel = this.zoneForm.value;
-      if (this.zoneId) {
-        this.zoneService.editZone(this.zoneId, data)
-          .then(reps => {
-            this.snackBar.open('Zone Succefully Edit', 'Done', {
-              duration: 2000,
-            });
-          })
-          .catch(err => {
-            this.errMsg = err;
-          })
-          .finally(() => {
+      this.zoneService.editZone(this.zoneId, data)
+        .then(reps => {
+          this.snackBar.open('Zone Succefully Edit', 'Done', {
+            duration: 2000,
           });
-      } else {
-        this.zoneService.addNewZone(data)
-          .then(reps => {
-            this.router.navigateByUrl('/branding/zone')
-            this.snackBar.open('Zone Succefully Added', 'Done', {
-              duration: 2000,
-            });
-          })
-          .catch(err => {
-            this.errMsg = err;
-          });
-      }
+        })
+        .catch(err => {
+          this.errMsg = err;
+        })
+        .finally(() => {
+        });
     }
   }
 
