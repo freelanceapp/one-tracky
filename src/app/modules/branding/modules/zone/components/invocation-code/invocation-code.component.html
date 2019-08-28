@@ -1,3 +1,30 @@
-<p>
-  invocation-code works!
-</p>
+<mat-card>
+  <mat-card-header>
+
+    <mat-card-subtitle>Basic Info</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field class="mff-100">
+      <textarea rows="10" matInput placeholder="Invocation Code"></textarea>
+    </mat-form-field>
+    <div class="row">
+      <mat-form-field class="col-md-6">
+        <mat-label>Support 3rd Party Server Clicktracking</mat-label>
+        <mat-select>
+          <mat-option value="">Generic</mat-option>
+          <mat-option value="">Adtech</mat-option>
+          <mat-option value="">Zedo tv</mat-option>
+          <mat-option value="">double click / DFP</mat-option>
+          <mat-option value="">openX / Revive adserver</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-card-actions class="col-md--6">
+          <button mat-raised-button color="primary" mat-button>done</button>
+        </mat-card-actions>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" mat-button>done</button>
+  </mat-card-actions>
+</mat-card>
