@@ -55,7 +55,7 @@
 
           <section class="mff-100">
             <label>Delivery</label><br><br>
-            <mat-radio-group formControlName="delivery" [value]="zoneType">
+            <mat-radio-group formControlName="delivery">
               <mat-radio-button checked class="zone-type-radio" value="web">Standard Banner</mat-radio-button><br>
               <mat-radio-button class="zone-type-radio" value="html5">HTML5</mat-radio-button><br>
               <mat-radio-button class="zone-type-radio" value="html">Inline Video Ad</mat-radio-button><br>
@@ -105,8 +105,7 @@
   </div>
 
   <div>
-    <button mat-raised-button color="primary" [disabled]="!zoneForm.valid" type="submit">{{isNewZone ? 'Add ' : 'Edit'}}
-      zone</button> &nbsp;
+    <button mat-raised-button color="primary" [disabled]="!zoneForm.valid" type="submit">Add zone</button> &nbsp;
     <button *ngIf="isNewZone" mat-raised-button type="reset">Reset</button>
   </div>
 </form>

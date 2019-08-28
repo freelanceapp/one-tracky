@@ -9,7 +9,9 @@ import { HttpService } from '../http/http.service';
 })
 export class ZoneService {
   private baseUrl: string = 'zones/';
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {
+    this.getZonesbyWebsiteId(20)
+  }
 
 
   /**
@@ -78,6 +80,25 @@ export class ZoneService {
   }
 
 
+
+  /**
+   * get zones by website id
+   * @param websiteId id of website
+   */
+  public getZonesbyWebsiteId(websiteId: number): Promise<ZoneModel[]> {
+    return new Promise((resolve, reject) => {
+      this.httpService.get('affiliate/' + websiteId.toString() + '/zones/')
+        .then(resp => {
+          const zones = this.parseZone(resp.data);
+          resolve(zones);
+        }).catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+
+
   /***
    * edit zone with id 
    * @param zoneId id of zone
@@ -136,7 +157,8 @@ export class ZoneService {
       height: zone.height,
       width: zone.width,
       comments: zone.comments,
-      description: zone.description
+      description: zone.description,
+      affiliateid: zone.affiliateId
     }
   }
 

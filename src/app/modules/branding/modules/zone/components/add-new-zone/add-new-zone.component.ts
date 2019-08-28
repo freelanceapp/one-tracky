@@ -14,7 +14,7 @@ import { CustomValidators } from 'src/app/modules/branding/custom-validators/cus
 export class AddNewZoneComponent implements OnInit {
   public zoneForm: FormGroup;
   public errMsg: string = '';
-  public zoneId: number = null;
+  public websiteId: number = null;
   public bannerSizeInput: boolean = false;
 
 
@@ -99,10 +99,8 @@ export class AddNewZoneComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.zoneId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
-    if (this.zoneId) {
+    this.websiteId = parseInt(this.activatedRoute.snapshot.paramMap.get('websiteId'), 10);
 
-    }
   }
 
 
@@ -113,12 +111,13 @@ export class AddNewZoneComponent implements OnInit {
       zoneId: [''],
       description: [''],
       zoneName: ['', [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
-      delivery: [''],
+      delivery: ['web'],
       zoneType: [''],
       width: ['', [Validators.required, Validators.min(1)]],
       height: ['', [Validators.required, Validators.min(1)]],
       comments: [''],
-      size: [null]
+      size: [null],
+      affiliateId: this.websiteId
     });
   }
 
@@ -144,30 +143,16 @@ export class AddNewZoneComponent implements OnInit {
   public onSubmit() {
     if (this.zoneForm.valid) {
       const data: ZoneModel = this.zoneForm.value;
-      if (this.zoneId) {
-        this.zoneService.editZone(this.zoneId, data)
-          .then(reps => {
-            this.snackBar.open('Zone Succefully Edit', 'Done', {
-              duration: 2000,
-            });
-          })
-          .catch(err => {
-            this.errMsg = err;
-          })
-          .finally(() => {
+      this.zoneService.addNewZone(data)
+        .then(reps => {
+          this.router.navigateByUrl('/branding/zone')
+          this.snackBar.open('Zone Succefully Added', 'Done', {
+            duration: 2000,
           });
-      } else {
-        this.zoneService.addNewZone(data)
-          .then(reps => {
-            this.router.navigateByUrl('/branding/zone')
-            this.snackBar.open('Zone Succefully Added', 'Done', {
-              duration: 2000,
-            });
-          })
-          .catch(err => {
-            this.errMsg = err;
-          });
-      }
+        })
+        .catch(err => {
+          this.errMsg = err;
+        });
     }
   }
 
