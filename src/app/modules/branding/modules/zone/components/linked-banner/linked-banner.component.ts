@@ -18,7 +18,8 @@ export class LinkedBannerComponent implements OnInit {
       this.zoneId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('zoneId'), 10);
     }
   }
-
+  displayedColumns: string[] = ['position', 'name', 'size', 'action'];
+  // dataSource = ELEMENT_DATA;
   ngOnInit() {
   }
 
