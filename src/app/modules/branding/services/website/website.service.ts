@@ -9,7 +9,8 @@ import { WebsiteModel } from '../../model/website.model';
 })
 export class WebsiteService {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {
+  }
 
   public baseUrl: string = 'affiliates/';
 
@@ -113,6 +114,10 @@ export class WebsiteService {
   }
 
 
+
+
+
+
   private parseWebsite(website) {
     let websiteList: WebsiteModel[] = [];
     if (website) {
@@ -145,4 +150,8 @@ export class WebsiteService {
       website: website.websiteURL,
     }
   }
+
+
+
+
 }

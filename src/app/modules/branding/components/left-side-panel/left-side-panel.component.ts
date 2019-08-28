@@ -78,7 +78,7 @@ export class LeftSidePanelComponent implements OnInit {
     } else if (usr.role === UserRole.Publisher) {
       this.brandingMenu.push(...
         [new MenuModel('Zones', 'zone', [
-          new MenuItemModel('Add new', 'add-new'),
+          // new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All Zones', ''),
         ]),
         new MenuModel('Website', 'website', [

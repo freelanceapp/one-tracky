@@ -30,7 +30,7 @@
 
         <a [routerLink]="['/branding/zone/add-new', row.affiliateId ]" mat-button color="primary">Add New
           Zones</a>
-        <button mat-button color="accent">Zones</button>
+        <a [routerLink]="['/branding/zone/all-zone', row.affiliateId ]" mat-button color="accent">Zones</a>
         <button matTooltip="Delete {{row.domainName}}" [matTooltipPosition]="'above'" color="warn"
           (click)="deleteWebsite(row.affiliateId)" mat-button><i class="material-icons">
             delete

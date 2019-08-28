@@ -44,6 +44,10 @@ const routes: Routes = [
     component: AddNewZoneComponent
   },
   {
+    path: 'all-zone/:websiteId',
+    component: AllZonesComponent
+  },
+  {
     path: '',
     component: AllZonesComponent
   },

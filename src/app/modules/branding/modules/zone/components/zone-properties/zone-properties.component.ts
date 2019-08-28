@@ -144,6 +144,7 @@ export class ZonePropertiesComponent implements OnInit {
   public getZoneById() {
     this.zoneService.getZone(this.zoneId)
       .then(zone => {
+        console.log(zone)
         this.setZoneForm(zone);
       })
       .catch(err => {

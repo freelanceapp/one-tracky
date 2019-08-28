@@ -111,7 +111,7 @@ export class AddNewZoneComponent implements OnInit {
       zoneId: [''],
       description: [''],
       zoneName: ['', [Validators.required, CustomValidators.isAlphaNumericWithSpace]],
-      delivery: [''],
+      delivery: ['web'],
       zoneType: [''],
       width: ['', [Validators.required, Validators.min(1)]],
       height: ['', [Validators.required, Validators.min(1)]],
