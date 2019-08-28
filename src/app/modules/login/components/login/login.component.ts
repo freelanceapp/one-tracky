@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../../../services/login/login.service';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/modules/branding/enums/user-role.enum';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   public brandingLoginForm: FormGroup;
   public performanceLoginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginSvc: LoginService, private router: Router) { }
+  constructor(private fb: FormBuilder, private loginSvc: LoginService, private router: Router,) { }
 
 
 
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
     this.brandingLoginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      logInAs: ['']
+      logInAs: [''],
+      role: null
     });
   }
 
@@ -37,7 +39,8 @@ export class LoginComponent implements OnInit {
     this.performanceLoginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      logInAs: ['', Validators.required]
+      logInAs: ['', Validators.required],
+
     });
   }
 
@@ -45,11 +48,27 @@ export class LoginComponent implements OnInit {
   public onBrandingSubmit() {
     if (this.brandingLoginForm.valid) {
       this.disableBrandingForm = true;
+
+
+      if (this.brandingLoginForm.get('logInAs').value) {
+        if (this.brandingLoginForm.get('logInAs').value === 'advertiser') {
+          this.brandingLoginForm.controls['role'].setValue(UserRole.Advertiser);
+        }
+        if (this.brandingLoginForm.get('logInAs').value === 'publisher') {
+          this.brandingLoginForm.controls['role'].setValue(UserRole.Publisher);
+        }
+      } else {
+        this.brandingLoginForm.controls['role'].setValue(UserRole.Admin);
+      }
+
       this.loginSvc.loginBrandingUser(
         this.brandingLoginForm.get('username').value,
         this.brandingLoginForm.get('password').value,
+        this.brandingLoginForm.get('role').value,
+
       ).then(resp => {
         if (resp) {
+        
           this.router.navigateByUrl('/branding');
         } else {
 
@@ -59,6 +78,7 @@ export class LoginComponent implements OnInit {
       }).finally(() => {
         this.disableBrandingForm = false;
       });
+      console.log(this.brandingLoginForm.value);
     }
   }
 
