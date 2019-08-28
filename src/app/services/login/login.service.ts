@@ -64,10 +64,10 @@ export class LoginService {
    * @param email email of user
    * @param password password of user
    */
-  public loginBrandingUser(email: string, password: string): Promise<boolean> {
+  public loginBrandingUser(email: string, password: string, role: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.httpClient.post(this.brandingBaseUrl + 'api-token-auth/', {
-        username: email, password
+        username: email, password, role
       }).subscribe(
         (resp: any) => {
           if (resp && resp.status === true) {
