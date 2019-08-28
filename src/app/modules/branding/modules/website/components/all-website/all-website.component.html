@@ -28,7 +28,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
       <td mat-cell *matCellDef="let row">
 
-        <button mat-button color="primary">Add New Zones</button>
+        <a [routerLink]="['/branding/zone/add-new', row.affiliateId ]" mat-button color="primary">Add New
+          Zones</a>
         <button mat-button color="accent">Zones</button>
         <button matTooltip="Delete {{row.domainName}}" [matTooltipPosition]="'above'" color="warn"
           (click)="deleteWebsite(row.affiliateId)" mat-button><i class="material-icons">
