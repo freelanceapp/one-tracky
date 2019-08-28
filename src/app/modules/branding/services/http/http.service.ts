@@ -3,9 +3,11 @@ import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular
 import { environment } from 'src/environments/environment.prod';
 import { IHttpResponse } from '../../interface/http-resp.interface';
 import { BrandingModule } from '../../branding.module';
+
 import { LoginService } from 'src/app/services/login/login.service';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from 'src/app/modules/shared/components/error-dialog/error-dialog.component';
+import { UserRole } from '../../enums/user-role.enum';
 
 export enum HttpMethodType {
   get = 'GET', post = 'POST', delete = 'DELETE', put = 'PUT'
@@ -29,11 +31,24 @@ export class HttpService {
     private loginSvc: LoginService,
     private dialog: MatDialog
   ) {
-
-    // this.baseUrl = 'http://192.168.1.79:8000/affiliates/';
-    this.baseUrl = 'http://139.59.67.0:8000/inventory/';
-
+    this.setBaseURL();
   }
+
+
+  public setBaseURL() {
+    const user = this.loginSvc.loggedInBrandingUser;
+    if (user.role === UserRole.Admin) {
+      console.log('admin')
+      this.baseUrl = 'http://139.59.67.0:8000/inventory/';
+    } else if (user.role === UserRole.Advertiser) {
+      console.log('advertiser');
+      this.baseUrl = 'http://139.59.67.0:8000/inventory/advertiser/';
+    } else if (user.role === UserRole.Publisher) {
+      console.log('pub')
+      this.baseUrl = 'http://139.59.67.0:8000/inventory/publisher/';
+    }
+  }
+
 
   /**
    * Send http get request
@@ -42,6 +57,7 @@ export class HttpService {
    */
   public get(apiPath: string, params?: HttpParams): Promise<IHttpResponse> {
     return new Promise((resolve, reject) => {
+      this.setBaseURL();
 
       this.http.get(this.baseUrl + apiPath, { params, headers: this.authHeaders }).subscribe(
         (resp: any) => {
@@ -52,7 +68,6 @@ export class HttpService {
           reject('Something went wrong');
         },
         () => {
-
         }
       );
     });
@@ -65,6 +80,7 @@ export class HttpService {
    */
   public post(apiPath: string, data?: any): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
+      this.setBaseURL();
       this.http.post(this.baseUrl + apiPath, data, {
         headers: this.authHeaders
       }).subscribe(
@@ -86,6 +102,8 @@ export class HttpService {
    */
   public put(apiPath: string, data?: any): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
+      this.setBaseURL();
+
       this.http.put(this.baseUrl + apiPath, data, {
         headers: this.authHeaders
       }).subscribe(
@@ -105,6 +123,7 @@ export class HttpService {
    */
   public delete(apiPath: string, data?: any): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
+      this.setBaseURL();
 
       this.http.delete(this.baseUrl + apiPath, {
         headers: this.authHeaders
