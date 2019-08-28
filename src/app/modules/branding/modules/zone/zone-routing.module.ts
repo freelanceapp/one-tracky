@@ -40,11 +40,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: '/:websiteId/:zoneId',
-    component: AdvanceComponent
-  },
-  {
-    path: 'add-new',
+    path: 'add-new/:websiteId',
     component: AddNewZoneComponent
   },
   {
