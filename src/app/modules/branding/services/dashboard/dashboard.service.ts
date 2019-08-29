@@ -1,16 +1,33 @@
 import { Injectable } from '@angular/core';
-import { BrandingModule } from '../../branding.module';
 import { HttpService } from '../http/http.service';
+import { HomeModel } from '../../model/home.model';
 
 @Injectable({
-  providedIn: BrandingModule
+  providedIn: 'root'
 })
 export class DashboardService {
 
-  constructor(private http: HttpService) {
-
-
+  public baseUrl: string = 'home/';
+  constructor(private httpServce: HttpService) {
   }
+
+  /** get dashboard data  */
+
+  public getDashBoard(): Promise<HomeModel> {
+    return new Promise((resolve, reject) => {
+      this.httpServce.get(this.baseUrl)
+        .then(resp => {
+          const home = this.parseHome(resp.data);
+          resolve(home[0]);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+
+ 
 
 
 
