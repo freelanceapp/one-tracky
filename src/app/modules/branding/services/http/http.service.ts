@@ -18,7 +18,7 @@ export enum HttpDataType {
 
 
 @Injectable({
-  providedIn: BrandingModule
+  providedIn: 'root'
 })
 
 /** http service for branding module */
