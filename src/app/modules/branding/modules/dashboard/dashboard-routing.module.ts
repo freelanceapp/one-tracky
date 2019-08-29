@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ComponentOneComponent } from './components/component-one/component-one.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotFoundComponent } from 'src/app/modules/shared/components/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: 'component-one',
-    component: ComponentOneComponent
+    path: 'home',
+    component: DashboardComponent
   },
   {
     path: '',
-    redirectTo: 'component-one',
+    redirectTo: 'home',
     pathMatch: 'full'
-  }, {
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }
