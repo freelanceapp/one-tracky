@@ -1,7 +1,7 @@
 export class ZoneModel {
     public zoneId: number = null;
     public affiliateId: number = null;
-    public zoneName: string = "";
+    public zoneName: string = '';
     public description: string = '';
     public delivery: string = '';
     public zoneType: string = '';
