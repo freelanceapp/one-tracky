@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { NotificationModel } from 'src/app/modules/branding/model/notification.model';
+import { NotificationService } from 'src/app/modules/branding/services/notification/notification.service';
 
 @Component({
   selector: 'app-all-notification',
@@ -23,7 +24,7 @@ export class AllNotificationComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor() { }
+  constructor(private notifcSerivce: NotificationService) { }
 
 
 
