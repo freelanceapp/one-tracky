@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModel, MenuItemModel } from '../../model/menu.model';
 import { LoginService } from 'src/app/services/login/login.service';
-import { UserModel } from '../../model/user.model';
 import { UserRole } from '../../enums/user-role.enum';
 
 @Component({
@@ -22,13 +21,13 @@ export class LeftSidePanelComponent implements OnInit {
     this.brandingMenu.push(
       ...[
         new MenuModel('Dashboard', 'dashboard',
-          [new MenuItemModel('Home', 'component-one')]),
+          [new MenuItemModel('Home', 'home')]),
       ]
     );
 
-    const usr = this.logInSvc.loggedInBrandingUser;
+    const user = this.logInSvc.loggedInBrandingUser;
 
-    if (usr.role === UserRole.Admin) {
+    if (user.role === UserRole.Admin) {
 
       this.brandingMenu.push(...
         [new MenuModel('Advertiser', 'advertiser', [
@@ -58,7 +57,7 @@ export class LeftSidePanelComponent implements OnInit {
         ]
       );
 
-    } else if (usr.role === UserRole.Advertiser) {
+    } else if (user.role === UserRole.Advertiser) {
 
       this.brandingMenu.push(...
         [new MenuModel('Advertiser', 'advertiser', [
@@ -75,7 +74,7 @@ export class LeftSidePanelComponent implements OnInit {
         ])]
       );
 
-    } else if (usr.role === UserRole.Publisher) {
+    } else if (user.role === UserRole.Publisher) {
       this.brandingMenu.push(...
         [new MenuModel('Zones', 'zone', [
           // new MenuItemModel('Add new', 'add-new'),
@@ -89,7 +88,7 @@ export class LeftSidePanelComponent implements OnInit {
     }
     this.brandingMenu.push(...[
       new MenuModel('notification', 'notification', [
-        new MenuItemModel('All notification', ''),
+        new MenuItemModel('All notification', 'all-notification'),
       ])
     ]);
   }
