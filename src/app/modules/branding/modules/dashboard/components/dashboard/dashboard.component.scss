@@ -1,0 +1,42 @@
+.stat-col {
+  border: solid 1px #e3e3e3;
+  border-radius: 11px;
+}
+
+
+.stat-headding {
+  text-align: center;
+  font-size: 20px;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 0px;
+  text-transform: capitalize;
+}
+
+.stat div.col-md-3:nth-child(1) div.stat-headding {
+  background-color: #fd7901;
+}
+
+.stat div.col-md-3:nth-child(2) div.stat-headding {
+  background-color: #0ea2c4;
+}
+
+.stat div.col-md-3:nth-child(3) div.stat-headding {
+  background-color: #9f7907;
+}
+
+.stat div.col-md-3:nth-child(4) div.stat-headding {
+  background-color: #07919f;
+}
+
+.stat-detail {
+  text-align: center;
+  font-size: 18px;
+  padding: 10px 0px;
+  text-transform: capitalize;
+
+}
+
+.hr {
+  border: solid .5px #e3e3e3;
+}
