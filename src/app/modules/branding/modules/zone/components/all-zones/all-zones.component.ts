@@ -15,7 +15,7 @@ export class AllZonesComponent implements OnInit {
   public errMsg: string = '';
   public websiteId: number = null;
 
-  displayedColumns: string[] = ['name', 'size', 'description', 'action'];
+  displayedColumns: string[] = ['name', 'size', 'zone-Type', 'description', 'action'];
   dataSource: MatTableDataSource<ZoneModel>;
 
 
