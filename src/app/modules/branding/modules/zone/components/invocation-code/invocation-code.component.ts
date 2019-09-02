@@ -57,6 +57,17 @@ export class InvocationCodeComponent implements OnInit {
   }
 
 
+  private setInvocationForm(invocation: InvocationCodeModel) {
+    this.invocationForm.patchValue({
+      websiteId: invocation.websiteId,
+      zoneId: invocation.zoneId,
+      zoneType: invocation.zoneType,
+      thirdPartyTrack: invocation.thirdPartyTrack,
+      invocationCode: invocation.invocationCode
+    });
+  }
+
+
 
 
   ngOnInit() {
