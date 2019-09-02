@@ -207,5 +207,25 @@ export class ZoneService {
 
 
 
+  /** parse invocation code function start */
+  private parseInvocation(invocation) {
+    let invocationCode: InvocationCodeModel = null;
+
+
+    if (invocation) {
+      invocationCode = invocation.map(i => {
+        let _invocation = new InvocationCodeModel();
+        _invocation.invocationCode = i.code;
+        _invocation.thirdPartyTrack = i.thirdpartytrack;
+        _invocation.zoneId = i.zoneid;
+        _invocation.zoneType = i.zonetype;
+        _invocation.websiteId = i.affiliateid;
+        return _invocation;
+      });
+      return invocationCode;
+    }
+  }
+
+  /** parse invocation code function start */
 
 }
