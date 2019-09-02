@@ -155,7 +155,35 @@ export class ZoneService {
     });
   }
 
-  
+  public editInvocationCode(websiteId: number, zoneId: number, zoneType: string, thirdPartyTrack: string): Promise<InvocationCodeModel> {
+    return new Promise((resolve, reject) => {
+      let param = new HttpParams().set('zoneid', zoneId.toString()).set('affiliateid', websiteId.toString());
+      const track = {
+        thirdpartytrack: thirdPartyTrack
+      };
+      let data = JSON.stringify(track)
+      if (zoneType === 'html') {
+        this.httpService.post('zones-invocation-vast/', data, param)
+          .then(resp => {
+            const invocation = this.parseInvocation([resp.data]);
+            resolve(invocation[0]);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      } else if (zoneType === 'html5' || zoneType === 'web') {
+        this.httpService.post('zonesinvocation/', data, param)
+          .then(resp => {
+            const invocation = this.parseInvocation([resp.data]);
+            resolve(invocation[0]);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      }
+    });
+  }
+
 
 
 
