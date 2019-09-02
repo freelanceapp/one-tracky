@@ -3,23 +3,31 @@
     <mat-card-subtitle>Basic Info</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-form-field class="mff-100">
-      <textarea rows="10" matInput placeholder="Invocation Code"></textarea>
-    </mat-form-field>
-    <div class="row">
-      <mat-form-field class="col-md-6">
-        <mat-label>Support 3rd Party Server Clicktracking</mat-label>
-        <mat-select>
-          <mat-option value="">Generic</mat-option>
-          <mat-option value="">Adtech</mat-option>
-          <mat-option value="">Zedo tv</mat-option>
-          <mat-option value="">double click / DFP</mat-option>
-          <mat-option value="">openX / Revive adserver</mat-option>
-        </mat-select>
+    <form [formGroup]='invocationForm' (ngSubmit)="onSubmit()">
+      <!-- hiddem field -->
+      <input type="hidden" formControlName="zoneId">
+      <input type="hidden" formControlName="websiteId">
+      <input type="hidden" formControlName="zoneType">
+
+      <mat-form-field class="mff-100">
+        <textarea rows="10" formControlName="invocationCode" matInput placeholder="Invocation Code"></textarea>
       </mat-form-field>
-      <mat-card-actions class="col-md--6">
-        <button mat-raised-button color="primary" mat-button>done</button>
-      </mat-card-actions>
-    </div>
+      <div class="row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Support 3rd Party Server Click tracking</mat-label>
+          <mat-select formControlName="thirdPartyTrack">
+            <mat-option value="">No</mat-option>
+            <mat-option value="generic">Generic</mat-option>
+            <mat-option value="adtech">Adtech</mat-option>
+            <mat-option value="zedo">Zedo</mat-option>
+            <mat-option value="doubleclick">double click / DFP</mat-option>
+            <mat-option value="revive">openX / Revive adserver</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-card-actions class="col-md--6">
+          <button mat-raised-button color="primary" type="submit" mat-button>done</button>
+        </mat-card-actions>
+      </div>
+    </form>
   </mat-card-content>
 </mat-card>
