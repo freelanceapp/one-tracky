@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { ZoneModel } from '../../model/zone.model';
 import { BrandingModule } from '../../branding.module';
 import { HttpService } from '../http/http.service';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { InvocationCodeModel } from '../../model/invocation-code.model';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -119,6 +122,44 @@ export class ZoneService {
     });
   }
 
+
+  /**
+   * get invocation code by website and zone id
+   * @param websiteId id of affiliateid
+   * @param zoneId  id of zone
+   */
+
+
+  public getInvocationCode(websiteId: number, zoneId: number, zoneType: string): Promise<InvocationCodeModel> {
+    return new Promise((resolve, reject) => {
+      console.log(zoneType)
+      let param = new HttpParams().set('zoneid', zoneId.toString()).set('affiliateid', websiteId.toString());
+      if (zoneType === 'html') {
+        this.httpService.get('zones-invocation-vast/', param)
+          .then(rep => {
+            const invocationCode = this.parseInvocation([rep.data]);
+            resolve(invocationCode[0]);
+          }).catch(err => {
+            reject(err);
+          });
+      } else if (zoneType === 'html5' || zoneType === 'web') {
+        this.httpService.get('zonesinvocation/', param)
+          .then(rep => {
+            const invocationCode = this.parseInvocation([rep.data]);
+            resolve(invocationCode[0]);
+          }).catch(err => {
+            reject(err);
+          });
+      }
+
+    });
+  }
+
+  
+
+
+
+
   /** parsing zone funtions start */
   private parseZone(zoneResp: any[]) {
     let zone: ZoneModel[] = [];
@@ -163,5 +204,8 @@ export class ZoneService {
   }
 
   /** deparse zone funtion end */
+
+
+
 
 }
