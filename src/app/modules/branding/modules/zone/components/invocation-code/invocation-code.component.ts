@@ -45,6 +45,18 @@ export class InvocationCodeComponent implements OnInit {
   }
 
 
+  private getInvocationCode() {
+    this.zonesvc.getInvocationCode(this.websiteId, this.zoneId, this.zoneType)
+      .then(resp => {
+        this.setInvocationForm(resp);
+        console.log(resp)
+      })
+      .catch(err => {
+        this.errMsg = err;
+      });
+  }
+
+
 
 
   ngOnInit() {
