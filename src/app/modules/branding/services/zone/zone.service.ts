@@ -244,7 +244,11 @@ export class ZoneService {
       invocationCode = invocation.map(i => {
         let _invocation = new InvocationCodeModel();
         _invocation.invocationCode = i.code;
-        _invocation.thirdPartyTrack = i.thirdpartytrack;
+        if (i.thirdpartytrack == null) {
+          _invocation.thirdPartyTrack = '';
+        } else {
+          _invocation.thirdPartyTrack = i.thirdpartytrack;
+        }
         _invocation.zoneId = i.zoneid;
         _invocation.zoneType = i.zonetype;
         _invocation.websiteId = i.affiliateid;
