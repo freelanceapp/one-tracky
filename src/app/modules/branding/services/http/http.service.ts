@@ -78,10 +78,11 @@ export class HttpService {
    * @param apiPath api controller path (exclusive base path)
    * @param data data to send
    */
-  public post(apiPath: string, data?: any): Promise<IHttpResponse> {
+  public post(apiPath: string, data?: any, params?: HttpParams): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
       this.setBaseURL();
       this.http.post(this.baseUrl + apiPath, data, {
+        params,
         headers: this.authHeaders
       }).subscribe(
         resp => {
@@ -100,11 +101,12 @@ export class HttpService {
    * @param apiPath api controller path (exclusive base path)
    * @param data data to send
    */
-  public put(apiPath: string, data?: any): Promise<IHttpResponse> {
+  public put(apiPath: string, data?: any, params?: HttpParams): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
       this.setBaseURL();
 
       this.http.put(this.baseUrl + apiPath, data, {
+        params,
         headers: this.authHeaders
       }).subscribe(
         resp => this.handleResponse(resp).then(respNew => {
