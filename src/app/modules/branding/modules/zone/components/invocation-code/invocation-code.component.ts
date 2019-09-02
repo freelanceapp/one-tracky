@@ -77,7 +77,16 @@ export class InvocationCodeComponent implements OnInit {
     });
   }
 
-
+  private onSubmit() {
+    let thirdPartyTrack = this.invocationForm.controls['thirdPartyTrack'].value;
+    this.zonesvc.editInvocationCode(this.websiteId, this.zoneId, this.zoneType, thirdPartyTrack)
+      .then(resp => {
+        this.setInvocationForm(resp);
+      })
+      .catch(err => {
+        this.errMsg = err;
+      });
+  }
 
 
 
