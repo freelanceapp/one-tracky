@@ -21,6 +21,12 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Size </th>
       <td mat-cell *matCellDef="let row"> {{row.width }} x {{row.height}} </td>
     </ng-container>
+    <!--zone type  -->
+
+    <ng-container matColumnDef="zone-Type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Type </th>
+      <td mat-cell *matCellDef="let row"> {{row.delivery }} </td>
+    </ng-container>
     <!--zone description  -->
 
     <ng-container matColumnDef="description">
