@@ -329,6 +329,24 @@ export class ZoneService {
 
   /** parse invocation code function start */
 
- 
+  /**  parse linkbanner function start */
+  private parseLinkBanner(linkbanner) {
+    let LinkBannerList: LinkBannerModel = null;
+    if (linkbanner) {
+      LinkBannerList = linkbanner.map(lb => {
+        let _lb = new LinkBannerModel();
+        _lb.advertiserList = this.parseAdvertiser(lb.advtdata);
+        _lb.campaignList = this.parsecampaign(lb.cmpdata);
+        _lb.avlBannerList = this.parseBanner(lb.bannerdata);
+        _lb.linkBannerList = this.parseBanner(lb.linkbannerlist);
+        return _lb
+      });
+    }
+    return LinkBannerList
+  }
+
+  /**  parse linkbanner function end */
+
+
 
 }
