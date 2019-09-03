@@ -362,4 +362,20 @@ export class ZoneService {
 
   /** parse advertiser for link banner function  end */
 
+  /** parse campain for link banner function start */
+  private parsecampaign(campaign) {
+    let campaigns: CampaignModel[];
+    if (campaign && campaign.length > 0) {
+      campaigns = campaign.map((cmp => new CampaignModel({
+        campaignId: cmp.campaignid,
+        campaignName: cmp.campaignname
+      })));
+    }
+    return campaigns;
+  }
+
+  /** parse campain for link banner function  end */
+
+
+  
 }
