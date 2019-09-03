@@ -78,6 +78,21 @@ export class LinkedBannerComponent implements OnInit {
       bannerList: ['', Validators.required],
     });
   }
+  public onSubmit() {
+    if (this.linkBanenerForm.valid) {
+      let avdId = this.linkBanenerForm.controls['advertiserList'].value;
+      let cmpId = this.linkBanenerForm.controls['campaignList'].value;
+      let bnrId = this.linkBanenerForm.controls['bannerList'].value;
+
+      this.zonesvc.getLinkedBannerList(this.websiteId, this.zoneId, avdId, cmpId, bnrId)
+        .then(resp => {
+          this.dataSource = new MatTableDataSource<BannerModel>(resp)
+        })
+        .catch(err => {
+          this.errMsg = err;
+        })
+    }
+  }
   ngOnInit() {
     this.linkBanenerForm = this.createLinkBannerForm();
   }
