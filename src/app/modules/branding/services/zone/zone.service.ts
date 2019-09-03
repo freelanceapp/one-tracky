@@ -238,7 +238,24 @@ export class ZoneService {
     });
   }
 
- 
+  public getLinkedBannerList(websiteId: number, zoneId: number, advertiserId: number, campaignId: number, bannerId: number): Promise<BannerModel[]> {
+    return new Promise((resolve, reject) => {
+      let param = new HttpParams()
+        .set('affiliateid', websiteId.toString())
+        .set('zoneid', zoneId.toString())
+        .set('clientid', advertiserId.toString())
+        .set('campaignid', campaignId.toString())
+        .set('bannerid', bannerId.toString());
+      this.httpService.get('zonesinclude/', param)
+        .then(resp => {
+          const linkedbanner = this.parseBanner(resp.data.linkedBanner);
+          resolve(linkedbanner);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    })
+  }
 
   /** parsing zone funtions start */
   private parseZone(zoneResp: any[]) {
