@@ -377,5 +377,22 @@ export class ZoneService {
   /** parse campain for link banner function  end */
 
 
-  
+  /** parse  banner for link banner function  start */
+  private parseBanner(banner) {
+    let bannerList: BannerModel[] = [];
+    if (banner && banner.length > 0) {
+      bannerList = banner.map((b => new BannerModel({
+        bannerId: b.bannerid,
+        bannerName: b.description,
+        width: b.width,
+        height: b.height,
+        destinationUrl: b.url,
+        updated: b.updated,
+      })));
+    }
+    return bannerList;
+  }
+  /** parse  banner for link banner function  end */
+
+
 }
