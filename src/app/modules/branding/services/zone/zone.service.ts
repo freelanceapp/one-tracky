@@ -5,6 +5,10 @@ import { HttpService } from '../http/http.service';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { InvocationCodeModel } from '../../model/invocation-code.model';
 import { HttpParams } from '@angular/common/http';
+import { LinkBannerModel } from '../../model/link-banner.model';
+import { AdvertiserModel } from '../../model/advertiser.model';
+import { CampaignModel } from '../../model/campaign.model';
+import { BannerModel } from '../../model/banner.model';
 
 
 @Injectable({
@@ -13,7 +17,6 @@ import { HttpParams } from '@angular/common/http';
 export class ZoneService {
   private baseUrl: string = 'zones/';
   constructor(private httpService: HttpService) {
-    this.getZonesbyWebsiteId(20)
   }
 
 
@@ -187,6 +190,55 @@ export class ZoneService {
 
 
 
+  public getLinkBannerData(websiteId: number, zoneId: number, advertiserId?: number, campaignId?: number): Promise<LinkBannerModel> {
+    return new Promise((resolve, reject) => {
+      let param = new HttpParams().set('affiliateid', websiteId.toString()).set('zoneid', zoneId.toString());
+
+      if (websiteId && zoneId && advertiserId && campaignId) {
+        let param = new HttpParams()
+          .set('affiliateid', websiteId.toString())
+          .set('zoneid', zoneId.toString())
+          .set('clientid', advertiserId.toString())
+          .set('campaignid', campaignId.toString());
+        this.httpService.get('zonesinclude/', param)
+          .then(resp => {
+            const linkbanner = this.parseLinkBanner([resp.data])
+            resolve(linkbanner[0]);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      } else if (websiteId && zoneId && advertiserId) {
+        param = new HttpParams()
+          .set('affiliateid', websiteId.toString())
+          .set('zoneid', zoneId.toString())
+          .set('clientid', advertiserId.toString());
+        this.httpService.get('zonesinclude/', param)
+          .then(resp => {
+            const linkbanner = this.parseLinkBanner([resp.data])
+            resolve(linkbanner[0]);
+          })
+          .catch(err => {
+            reject(err);
+          });
+
+      } else if (websiteId && zoneId) {
+        let param = new HttpParams()
+          .set('affiliateid', websiteId.toString())
+          .set('zoneid', zoneId.toString());
+        this.httpService.get('zonesinclude/', param)
+          .then(resp => {
+            const linkbanner = this.parseLinkBanner([resp.data])
+            resolve(linkbanner[0]);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      }
+    });
+  }
+
+ 
 
   /** parsing zone funtions start */
   private parseZone(zoneResp: any[]) {
@@ -259,5 +311,7 @@ export class ZoneService {
   }
 
   /** parse invocation code function start */
+
+ 
 
 }
