@@ -70,6 +70,14 @@ export class LinkedBannerComponent implements OnInit {
   }
 
 
+
+  public createLinkBannerForm() {
+    return this.fb.group({
+      advertiserList: ['', Validators.required],
+      campaignList: ['', Validators.required],
+      bannerList: ['', Validators.required],
+    });
+  }
   ngOnInit() {
     this.linkBanenerForm = this.createLinkBannerForm();
   }
