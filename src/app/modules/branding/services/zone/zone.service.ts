@@ -348,5 +348,18 @@ export class ZoneService {
   /**  parse linkbanner function end */
 
 
+  /** parse advertiser for link banner function start */
+  private parseAdvertiser(clients) {
+    let advertisers: AdvertiserModel[];
+    if (clients && clients.length > 0) {
+      advertisers = clients.map((adv => new AdvertiserModel({
+        advertiserId: adv.clientid,
+        advertiserName: adv.clientname,
+      })));
+    }
+    return advertisers;
+  }
+
+  /** parse advertiser for link banner function  end */
 
 }
