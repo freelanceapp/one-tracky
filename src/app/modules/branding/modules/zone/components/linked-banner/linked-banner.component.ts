@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LinkBannerModel } from 'src/app/modules/branding/model/link-banner.model';
+import { ZoneService } from 'src/app/modules/branding/services/zone/zone.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material';
+import { BannerModel } from 'src/app/modules/branding/model/banner.model';
 
 @Component({
   selector: 'app-linked-banner',
@@ -9,18 +14,41 @@ import { ActivatedRoute } from '@angular/router';
 export class LinkedBannerComponent implements OnInit {
   public websiteId: number = null;
   public zoneId: number = null;
+  public linkBanner: LinkBannerModel = null;
+  public errMsg: string = '';
+  public linkBanenerForm: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private zonesvc: ZoneService, private fb: FormBuilder) {
     if (this.activatedRoute.parent.snapshot.paramMap.get('websiteId')) {
       this.websiteId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('websiteId'), 10);
     }
     if (this.activatedRoute.parent.snapshot.paramMap.get('zoneId')) {
       this.zoneId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('zoneId'), 10);
     }
+    if (this.websiteId && this.zoneId) {
+      this.getLinkBanner();
+    }
+
+
+
   }
   displayedColumns: string[] = ['position', 'name', 'size', 'action'];
-  // dataSource = ELEMENT_DATA;
-  ngOnInit() {
+  dataSource: MatTableDataSource<BannerModel>
+
+  public getLinkBanner() {
+    this.zonesvc.getLinkBannerData(this.websiteId, this.zoneId)
+      .then(resp => {
+        this.linkBanner = resp;
+      })
+      .catch(err => {
+        this.errMsg = err;
+      });
   }
+
+
+  ngOnInit() {
+    this.linkBanenerForm = this.createLinkBannerForm();
+  }
+
 
 }
