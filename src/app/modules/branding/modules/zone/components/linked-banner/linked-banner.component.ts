@@ -46,6 +46,17 @@ export class LinkedBannerComponent implements OnInit {
   }
 
 
+  public getCampaignList() {
+    let avdId = this.linkBanenerForm.controls['advertiserList'].value;
+    this.zonesvc.getLinkBannerData(this.websiteId, this.zoneId, avdId)
+      .then(resp => {
+        this.linkBanner = resp;
+      })
+      .catch(err => {
+        this.errMsg = err;
+      });
+  }
+ 
   ngOnInit() {
     this.linkBanenerForm = this.createLinkBannerForm();
   }
