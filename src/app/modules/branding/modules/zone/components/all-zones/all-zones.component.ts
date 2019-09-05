@@ -17,8 +17,6 @@ export class AllZonesComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'size', 'zone-Type', 'description', 'action'];
   dataSource: MatTableDataSource<ZoneModel>;
-
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private zoneService: ZoneService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute) {
@@ -50,6 +48,10 @@ export class AllZonesComponent implements OnInit {
     this.zoneService.getZone()
       .then(resp => {
         this.dataSource = new MatTableDataSource<ZoneModel>(resp);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }, 0);
       })
       .catch(err => {
         this.errMsg = err;
@@ -60,6 +62,10 @@ export class AllZonesComponent implements OnInit {
     this.zoneService.getZonesbyWebsiteId(this.websiteId)
       .then(resp => {
         this.dataSource = new MatTableDataSource<ZoneModel>(resp);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }, 1000);
       })
       .catch(err => {
         this.errMsg = err;

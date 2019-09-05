@@ -19,13 +19,13 @@
 
     <ng-container matColumnDef="size">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Size </th>
-      <td mat-cell *matCellDef="let row"> {{row.width }} x {{row.height}} </td>
+      <td mat-cell *matCellDef="let row">{{row.width }}x{{row.height}}</td>
     </ng-container>
     <!--zone type  -->
 
     <ng-container matColumnDef="zone-Type">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Type </th>
-      <td mat-cell *matCellDef="let row"> {{row.delivery }} </td>
+      <td mat-cell *matCellDef="let row">{{row.delivery }} </td>
     </ng-container>
     <!--zone description  -->
 
@@ -36,7 +36,7 @@
     <!--zone action  -->
 
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+      <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let row">
         <!-- /zone/edit-zone/19/18/linked-banner/ -->
         <a [routerLink]="['/branding/zone/edit-zone/', row.affiliateId,row.zoneId,'linked-banner']" mat-button
@@ -57,5 +57,5 @@
     </tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
 </div>
