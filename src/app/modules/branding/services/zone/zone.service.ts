@@ -135,7 +135,6 @@ export class ZoneService {
 
   public getInvocationCode(websiteId: number, zoneId: number, zoneType: string): Promise<InvocationCodeModel> {
     return new Promise((resolve, reject) => {
-      console.log(zoneType)
       let param = new HttpParams().set('zoneid', zoneId.toString()).set('affiliateid', websiteId.toString());
       if (zoneType === 'html') {
         this.httpService.get('zones-invocation-vast/', param)
@@ -388,6 +387,7 @@ export class ZoneService {
         height: b.height,
         destinationUrl: b.url,
         updated: b.updated,
+
       })));
     }
     return bannerList;

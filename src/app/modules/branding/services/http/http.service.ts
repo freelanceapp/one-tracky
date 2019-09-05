@@ -38,17 +38,13 @@ export class HttpService {
   public setBaseURL() {
     const user = this.loginSvc.loggedInBrandingUser;
     if (user.role === UserRole.Admin) {
-      console.log('admin')
       this.baseUrl = 'http://139.59.67.0:8000/inventory/';
     } else if (user.role === UserRole.Advertiser) {
-      console.log('advertiser');
       this.baseUrl = 'http://139.59.67.0:8000/inventory/advertiser/';
     } else if (user.role === UserRole.Publisher) {
-      console.log('pub')
       this.baseUrl = 'http://139.59.67.0:8000/inventory/publisher/';
     }
   }
-
 
   /**
    * Send http get request

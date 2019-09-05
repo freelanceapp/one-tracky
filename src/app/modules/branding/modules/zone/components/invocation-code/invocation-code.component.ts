@@ -49,7 +49,6 @@ export class InvocationCodeComponent implements OnInit {
     this.zonesvc.getInvocationCode(this.websiteId, this.zoneId, this.zoneType)
       .then(resp => {
         this.setInvocationForm(resp);
-        console.log(resp)
       })
       .catch(err => {
         this.errMsg = err;
