@@ -3,21 +3,21 @@
     <!-- branding -->
     <section class="li-box li-br">
 
-      <form [formGroup]="brandingLoginForm" (ngSubmit)="onBrandingSubmit()">
+      <form [formGroup]="UserSignupForm" (ngSubmit)="onBrandingSubmit()">
 
         <h3 class="si-title">Please choose your account type</h3>
         <div class="radio-control-wrap">
 
           <label class="input-label radio-btn">
-            <input name="signUpAs" value="publisher" type="radio" formControlName="signUpAs">
+            <input name="role" value='3' type="radio" formControlName="role">
             <i>Publisher</i> </label>
           <label class="input-label radio-btn">
-            <input name="signUpAs" value="advertiser" type="radio" formControlName="signUpAs">
+            <input name="role" value='2' type="radio" formControlName="role">
             <i>Advertiser</i> </label>
 
-          <aside *ngIf="brandingLoginForm.get('signUpAs').touched && brandingLoginForm.get('signUpAs').invalid"
+          <aside *ngIf="UserSignupForm.get('role').touched && UserSignupForm.get('role').invalid"
             class="err">
-            <div *ngIf="brandingLoginForm.get('signUpAs').errors.required">Please choose an option</div>
+            <div *ngIf="UserSignupForm.get('role').errors.required">Please choose an option</div>
           </aside>
         </div>
 
@@ -30,9 +30,9 @@
                 <label class="control-label">First name</label>
                 <input formControlName="firstName" class="input-control" autocomplete="off" type="text">
 
-                <aside *ngIf="brandingLoginForm.get('firstName').touched && brandingLoginForm.get('firstName').invalid"
+                <aside *ngIf="UserSignupForm.get('firstName').touched && UserSignupForm.get('firstName').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('firstName').errors.required">First Name is requierd</div>
+                  <div *ngIf="UserSignupForm.get('firstName').errors.required">First Name is requierd</div>
                 </aside>
 
               </div>
@@ -42,9 +42,9 @@
                 <label class="control-label">Last name</label>
                 <input formControlName="lastName" class="input-control" autocomplete="off" type="text">
 
-                <aside *ngIf="brandingLoginForm.get('lastName').touched && brandingLoginForm.get('lastName').invalid"
+                <aside *ngIf="UserSignupForm.get('lastName').touched && UserSignupForm.get('lastName').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('lastName').errors.required">Last Name is requierd</div>
+                  <div *ngIf="UserSignupForm.get('lastName').errors.required">Last Name is requierd</div>
                 </aside>
 
               </div>
@@ -54,9 +54,9 @@
                 <label class="control-label">Email <span class="label-info">used as your username</span></label>
                 <input formControlName="email" class="input-control" autocomplete="off" type="email">
 
-                <aside *ngIf="brandingLoginForm.get('email').touched && brandingLoginForm.get('email').invalid"
+                <aside *ngIf="UserSignupForm.get('email').touched && UserSignupForm.get('email').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('email').errors.required">email is requierd</div>
+                  <div *ngIf="UserSignupForm.get('email').errors.required">email is requierd</div>
                 </aside>
 
               </div>
@@ -66,9 +66,9 @@
                 <label class="control-label">Password</label>
                 <input formControlName="password" class="input-control" autocomplete="off" type="password">
 
-                <aside *ngIf="brandingLoginForm.get('password').touched && brandingLoginForm.get('password').invalid"
+                <aside *ngIf="UserSignupForm.get('password').touched && UserSignupForm.get('password').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('password').errors.required">Password is requierd</div>
+                  <div *ngIf="UserSignupForm.get('password').errors.required">Password is requierd</div>
                 </aside>
 
               </div>
@@ -79,9 +79,9 @@
                 <input formControlName="companyName" class="input-control" autocomplete="off" type="text">
 
                 <aside
-                  *ngIf="brandingLoginForm.get('companyName').touched && brandingLoginForm.get('companyName').invalid"
+                  *ngIf="UserSignupForm.get('companyName').touched && UserSignupForm.get('companyName').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('companyName').errors.required">Company Name is requierd</div>
+                  <div *ngIf="UserSignupForm.get('companyName').errors.required">Company Name is requierd</div>
                 </aside>
 
               </div>
@@ -91,9 +91,9 @@
                 <label class="control-label">SkypeId</label>
                 <input formControlName="skypeId" class="input-control" autocomplete="off" type="text">
 
-                <aside *ngIf="brandingLoginForm.get('skypeId').touched && brandingLoginForm.get('skypeId').invalid"
+                <aside *ngIf="UserSignupForm.get('skypeId').touched && UserSignupForm.get('skypeId').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('skypeId').errors.required">SkypeId is requierd</div>
+                  <div *ngIf="UserSignupForm.get('skypeId').errors.required">SkypeId is requierd</div>
                 </aside>
 
               </div>
@@ -103,24 +103,19 @@
                 <label class="control-label">Phone no.</label>
                 <input formControlName="phoneNo" class="input-control" autocomplete="off" type="tel">
 
-                <aside *ngIf="brandingLoginForm.get('phoneNo').touched && brandingLoginForm.get('phoneNo').invalid"
+                <aside *ngIf="UserSignupForm.get('phoneNo').touched && UserSignupForm.get('phoneNo').invalid"
                   class="err">
-                  <div *ngIf="brandingLoginForm.get('phoneNo').errors.required">phoneNo is requierd</div>
+                  <div *ngIf="UserSignupForm.get('phoneNo').errors.required">phoneNo is requierd</div>
                 </aside>
 
               </div>
 
               <div class="control-wrap sbmt-btn-wrap col-12">
-                <button class="input-control-btn sbmt-btn" type="submit"
-                  [disabled]="!brandingLoginForm.valid">Login</button>
+                <button class="input-control-btn sbmt-btn" type="submit" [disabled]="!UserSignupForm.valid">Sign
+                  Up</button>
               </div>
 
             </div>
-
-
-
-
-
 
             <div class="login-link">
               Already has an account ?
