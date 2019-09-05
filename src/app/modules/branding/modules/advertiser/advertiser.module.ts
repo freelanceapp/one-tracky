@@ -6,7 +6,7 @@ import { AddNewAdvertiserComponent } from './components/add-new-advertiser/add-n
 import { AllAdvertisersComponent } from './components/all-advertisers/all-advertisers.component';
 import {
   MatCardModule, MatButtonModule, MatInputModule,
-  MatFormFieldModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatTooltipModule, MatSnackBarModule
+  MatFormFieldModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatTooltipModule, MatSnackBarModule, MatSortModule
 } from '@angular/material';
 import { AdvertiserService } from '../../services/advertiser/advertiser.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatTooltipModule,
+    MatSortModule
   ],
   providers: [AdvertiserService]
 })
