@@ -6,7 +6,7 @@ import { AddNewUserComponent } from './components/add-new-user/add-new-user.comp
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import {
   MatButtonModule, MatInputModule, MatSelectModule, MatFormFieldModule, MatCardModule,
-  MatCheckboxModule, MatTableModule, MatPaginatorModule, MatIconModule
+  MatCheckboxModule, MatTableModule, MatPaginatorModule, MatIconModule, MatSortModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -25,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatSortModule
   ]
 })
 export class UsersModule { }

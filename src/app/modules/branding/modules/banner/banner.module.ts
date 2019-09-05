@@ -8,7 +8,7 @@ import {
   MatInputModule,
   MatCardModule, MatFormFieldModule,
   MatSelectModule, MatTableModule, MatRadioModule, MatButtonModule,
-  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatCheckboxModule
+  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatCheckboxModule, MatSortModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -30,7 +30,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSortModule
   ]
 })
 export class BannerModule { }

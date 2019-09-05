@@ -9,7 +9,8 @@ import {
   MatInputModule, MatRadioModule,
   MatCardModule, MatFormFieldModule,
   MatButtonModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSnackBarModule, MatTooltipModule
+  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatSortModule,
+
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -32,7 +33,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSnackBarModule,
     MatTooltipModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSortModule,
+
   ]
 })
 export class WebsiteModule { }

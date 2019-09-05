@@ -9,7 +9,7 @@ import {
   MatInputModule, MatRadioModule,
   MatCardModule, MatFormFieldModule,
   MatButtonModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatRippleModule
+  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatToolbarModule, MatRippleModule, MatSortModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditZoneComponent } from './components/edit-zone/edit-zone.component';
@@ -38,7 +38,8 @@ import { InvocationCodeComponent } from './components/invocation-code/invocation
     MatSnackBarModule,
     MatTooltipModule,
     MatToolbarModule,
-    MatRippleModule
+    MatRippleModule,
+    MatSortModule
   ]
 })
 export class ZoneModule { }
