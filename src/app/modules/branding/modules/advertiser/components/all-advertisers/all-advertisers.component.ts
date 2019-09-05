@@ -35,8 +35,11 @@ export class AllAdvertisersComponent implements OnInit {
     this.advertiserSvc.getAdvertisers().then(advs => {
       this.advertisersList = advs;
       this.dataSource = new MatTableDataSource(this.advertisersList);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }, 100);
+
     }).catch(err => alert(err))
       .finally(() => this.loaderSvc.showloader = false);
   }
