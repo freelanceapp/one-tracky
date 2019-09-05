@@ -33,8 +33,12 @@ export class AllWebsiteComponent implements OnInit {
   public getAllWebsite() {
     this.websitSerive.getWebsite()
       .then(resp => {
-        console.log(resp);
         this.dataSource = new MatTableDataSource<WebsiteModel>(resp);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+
+        }, 0);
       })
       .catch(err => {
         this.errMsg = err;
@@ -51,9 +55,7 @@ export class AllWebsiteComponent implements OnInit {
       });
   }
 
-
   ngOnInit() {
     this.getAllWebsite();
   }
-
 }

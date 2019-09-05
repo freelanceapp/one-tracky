@@ -18,7 +18,9 @@ export class AllBannersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private bannerService: BannerService, private snackbar: MatSnackBar) { }
+  constructor(private bannerService: BannerService, private snackbar: MatSnackBar) {
+    this.getBanner();
+  }
 
   public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -41,6 +43,10 @@ export class AllBannersComponent implements OnInit {
 
   private updateBannerTable() {
     this.dataSource = new MatTableDataSource<BannerModel>(this.bannerList);
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 100);
   }
 
   public deleteBanner(bannerId: number) {
@@ -57,7 +63,7 @@ export class AllBannersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getBanner();
+
   }
 
 }

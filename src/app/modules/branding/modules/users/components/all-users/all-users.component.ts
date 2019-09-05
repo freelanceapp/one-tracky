@@ -34,7 +34,6 @@ export class AllUsersComponent implements OnInit {
     this.loaderSvc.showloader = true;
     this.userSvc.getUsers()
       .then(users => {
-        console.log(users);
         this.usersList = users;
         this.updateUserTable();
       })
@@ -53,7 +52,9 @@ export class AllUsersComponent implements OnInit {
   private updateUserTable() {
     this.dataSource = new MatTableDataSource(this.usersList);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+    }, 1000);
   }
 
   public deleteUser(userId: number) {
