@@ -74,8 +74,11 @@ export class AllCampaignsComponent implements OnInit {
 
   private updateCampaignsTable() {
     this.dataSource = new MatTableDataSource(this.campaigns);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 1000);
+
   }
 
   deleteCampaign(campaignId: number) {
