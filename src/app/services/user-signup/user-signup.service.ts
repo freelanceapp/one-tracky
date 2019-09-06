@@ -27,7 +27,23 @@ export class UserSignupService {
     });
   }
 
- 
+  private parseUser(user) {
+    let users: UserModel = null;
+    if (user) {
+      users = user.map(u => {
+        let _user = new UserModel()
+        _user.companyName = u.company;
+        _user.email = u.username;
+        _user.firstName = u.firstname;
+        _user.lastName = u.lastname;
+        _user.skypeId = u.skype;
+        _user.phoneNo = u.phone;
+        _user.role = u.role;
+        return _user;
+      });
+      return users;
+    }
+  }
 
 
   private deparseUser(user: UserModel): any {
