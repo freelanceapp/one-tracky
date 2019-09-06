@@ -74,9 +74,9 @@ export class AllUsersComponent implements OnInit {
 
   private updateUserTable() {
     this.dataSource = new MatTableDataSource(this.usersList);
-    this.dataSource.paginator = this.paginator;
     setTimeout(() => {
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     }, 1000);
   }
 
