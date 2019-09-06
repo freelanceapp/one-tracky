@@ -39,10 +39,12 @@ export class HttpService {
     const user = this.loginSvc.loggedInBrandingUser;
     if (user.role === UserRole.Admin) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/';
-    } else if (user.role === UserRole.Advertiser) {
+    } else if (user.role === UserRole.AdvertiserAdmin) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/advertiser/';
-    } else if (user.role === UserRole.Publisher) {
+    } else if (user.role === UserRole.PublisherAdmin) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/publisher/';
+    } else if (user.role === UserRole.PublisherExecutive || user.role === UserRole.AdvertiserExecutive) {
+      this.baseUrl = 'http://139.59.67.0:8000/inventory/executive/';
     }
   }
 
