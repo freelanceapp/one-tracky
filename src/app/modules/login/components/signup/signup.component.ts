@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../../models/user.model';
 import { UserSignupService } from 'src/app/services/user-signup/user-signup.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,8 @@ import { UserSignupService } from 'src/app/services/user-signup/user-signup.serv
 })
 export class SignupComponent implements OnInit {
   public UserSignupForm: FormGroup;
-  constructor(private fb: FormBuilder, private signupService: UserSignupService) { }
+  public errMsg: string = '';
+  constructor(private fb: FormBuilder, private signupService: UserSignupService, private snackbar: MatSnackBar) { }
 
   private createUserSignupForm() {
     this.UserSignupForm = this.fb.group({
@@ -31,9 +33,14 @@ export class SignupComponent implements OnInit {
       const role: number = parseInt(this.UserSignupForm.controls['role'].value, 10);
       this.signupService.adduser(data, role)
         .then(res => {
-
+          this.snackbar.open(res, 'done', {
+            duration: 3000
+          });
         })
         .catch(err => {
+          this.snackbar.open(err, 'done', {
+            duration: 3000
+          });
 
         });
     }
