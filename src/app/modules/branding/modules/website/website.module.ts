@@ -9,7 +9,7 @@ import {
   MatInputModule, MatRadioModule,
   MatCardModule, MatFormFieldModule,
   MatButtonModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatSortModule,
+  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatSortModule, MatCheckboxModule,
 
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -35,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatSortModule,
+    MatCheckboxModule
 
   ]
 })
