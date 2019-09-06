@@ -84,7 +84,10 @@ export class AllBannersComponent implements OnInit {
         this.bannerList.splice(index, 1);
         this.updateBannerTable();
         this.snackbar.open(msg, 'Done', { duration: 2000, });
-      }).catch(err => alert(err));
+      }).catch(err => alert(err))
+      .finally(() => {
+        this.selection.clear();
+      });
   }
 
 
