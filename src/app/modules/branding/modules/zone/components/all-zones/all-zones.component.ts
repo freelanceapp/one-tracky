@@ -57,14 +57,22 @@ export class AllZonesComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.zoneId}`;
   }
-  public deleteZone(id) {
-    this.zoneService.deleteZone(id)
+  public deleteZone() {
+
+    if (!confirm('Are you sure to delete this zone ?')) {
+      return;
+    }
+
+    this.zoneService.deleteZone(this.getCheckBoxId())
       .then(resp => {
         this.snackBar.open(resp, 'Done', { duration: 2000 });
         this.getAllZone();
       })
       .catch(err => {
         this.errMsg = err;
+      })
+      .finally(() => {
+        this.selection.clear();
       });
   }
 
@@ -94,6 +102,11 @@ export class AllZonesComponent implements OnInit {
       .catch(err => {
         this.errMsg = err;
       });
+  }
+
+  private getCheckBoxId(): number[] {
+    const zoneId = this.selection.selected.map(zone => zone.zoneId)
+    return zoneId;
   }
 
   ngOnInit() {
