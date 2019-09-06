@@ -11,31 +11,30 @@ export class UserSignupService {
   private baseUrl: string = 'http://139.59.67.0:8000/';
   constructor(private httpClient: HttpClient) { }
 
-  public adduser(userData: UserModel, role: number): Promise<UserModel> {
+  public adduser(userData: UserModel, role: number): Promise<string> {
     return new Promise((resolve, reject) => {
       const data = this.deparseUser(userData);
-      console.log(role)
-      if (role === 3) {
-        console.log('pub')
-        this.httpClient.post(this.baseUrl + 'inventory/publisher/users/', data).subscribe(
-          (resp: any) => { },
-          (err) => { }
-        );
-      } else if (role === 2) {
-        console.log('adv')
-        this.httpClient.post(this.baseUrl + 'inventory/advertiser/users/', data).subscribe(
-          (resp: any) => { },
-          (err) => { }
+      if (userData) {
+        this.httpClient.post(this.baseUrl + 'inventory/users/', data).subscribe(
+          (resp: any) => {
+            resolve(resp.message);
+          },
+          (err) => {
+            reject(err.message);
+          }
         );
       }
     });
   }
 
+ 
+
+
   private deparseUser(user: UserModel): any {
     return {
       firstname: user.firstName,
       lastname: user.lastName,
-      email: user.email,
+      username: user.email,
       password: user.password,
       company: user.companyName,
       skype: user.skypeId,
@@ -43,4 +42,5 @@ export class UserSignupService {
       role: user.role
     };
   }
+
 }
