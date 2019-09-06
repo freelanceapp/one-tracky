@@ -84,11 +84,16 @@ export class AdvertiserService {
 
   /**
    * Delete an advertiser
-   * @param id Advertiser id
+   * @param Ids Advertiser id
    */
-  public deleteAdvertiser(id: number): Promise<string> {
+  public deleteAdvertiser(Ids: number[]): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.httpSvc.delete(this.baseUrl + id + '/').then(resp => {
+      const data = {
+        ids: Ids
+      };
+      const dataToSend = JSON.stringify(data);
+
+      this.httpSvc.post(this.baseUrl + 'clientsdelete/', dataToSend).then(resp => {
         if (resp.status) {
           resolve(resp.message);
         } else {
