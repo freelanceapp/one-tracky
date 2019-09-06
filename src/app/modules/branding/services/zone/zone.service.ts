@@ -79,7 +79,7 @@ export class ZoneService {
         ids: Ids
       };
       const dataToSend = JSON.stringify(data);
-      this.httpService.post(this.baseUrl + 'zonesdelete', dataToSend)
+      this.httpService.post(this.baseUrl + 'zonesdelete/', dataToSend)
         .then(resp => {
           resolve(resp.message);
         })
