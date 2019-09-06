@@ -4,6 +4,7 @@ import { ZoneModel } from 'src/app/modules/branding/model/zone.model';
 import { ZoneService } from 'src/app/modules/branding/services/zone/zone.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-zones',
@@ -14,8 +15,9 @@ export class AllZonesComponent implements OnInit {
   public zoneList: ZoneModel[] = [];
   public errMsg: string = '';
   public websiteId: number = null;
+  selection = new SelectionModel<ZoneModel>(true, []);
 
-  displayedColumns: string[] = ['name', 'size', 'zone-Type', 'description', 'action'];
+  displayedColumns: string[] = ['select', 'name', 'size', 'zone-Type', 'description', 'action'];
   dataSource: MatTableDataSource<ZoneModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -32,6 +34,28 @@ export class AllZonesComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ZoneModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.zoneId}`;
   }
   public deleteZone(id) {
     this.zoneService.deleteZone(id)
