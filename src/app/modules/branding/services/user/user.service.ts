@@ -69,9 +69,14 @@ export class UserService {
     });
   }
 
-  public deleteUser(userId: number): Promise<string> {
+  public deleteUser(Ids: number[]): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.httpSvc.delete(this.baseUrl + userId + '/').then(resp => {
+      const data = {
+        ids: Ids
+      };
+      const dataToSend = JSON.stringify(data);
+
+      this.httpSvc.post(this.baseUrl + 'usersdelete/', dataToSend).then(resp => {
         if (resp.status === true) {
           resolve(resp.message);
         } else {

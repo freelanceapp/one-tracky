@@ -7,7 +7,7 @@ import { AllCampaignsComponent } from './components/all-campaigns/all-campaigns.
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import {
   MatInputModule, MatRadioModule, MatDatepickerModule,
-  MatCardModule, MatNativeDateModule, MatButtonModule, MatSelectModule, MatTableModule, MatPaginatorModule, MatCheckboxModule, MatIconModule
+  MatCardModule, MatNativeDateModule, MatButtonModule, MatSelectModule, MatTableModule, MatPaginatorModule, MatCheckboxModule, MatIconModule, MatSortModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -28,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatTableModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class CampaignModule { }

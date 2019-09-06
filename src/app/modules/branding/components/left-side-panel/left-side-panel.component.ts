@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuModel, MenuItemModel } from '../../model/menu.model';
 import { LoginService } from 'src/app/services/login/login.service';
-import { UserModel } from '../../model/user.model';
 import { UserRole } from '../../enums/user-role.enum';
 
 @Component({
@@ -22,13 +21,13 @@ export class LeftSidePanelComponent implements OnInit {
     this.brandingMenu.push(
       ...[
         new MenuModel('Dashboard', 'dashboard',
-          [new MenuItemModel('Home', 'component-one')]),
+          [new MenuItemModel('Home', 'home')]),
       ]
     );
 
-    const usr = this.logInSvc.loggedInBrandingUser;
+    const user = this.logInSvc.loggedInBrandingUser;
 
-    if (usr.role === UserRole.Admin) {
+    if (user.role === UserRole.Admin) {
 
       this.brandingMenu.push(...
         [new MenuModel('Advertiser', 'advertiser', [
@@ -58,7 +57,7 @@ export class LeftSidePanelComponent implements OnInit {
         ]
       );
 
-    } else if (usr.role === UserRole.Advertiser) {
+    } else if (user.role === UserRole.AdvertiserAdmin) {
 
       this.brandingMenu.push(...
         [new MenuModel('Advertiser', 'advertiser', [
@@ -72,10 +71,33 @@ export class LeftSidePanelComponent implements OnInit {
         new MenuModel('Banner', 'banner', [
           new MenuItemModel('Add new', 'add-new/' + '1'),
           new MenuItemModel('All banners', ''),
+        ]),
+        new MenuModel('User', 'user', [
+          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All Users', ''),
         ])]
       );
 
-    } else if (usr.role === UserRole.Publisher) {
+    } else if (user.role === UserRole.AdvertiserExecutive) {
+
+      this.brandingMenu.push(...
+        [
+          // new MenuModel('Advertiser', 'advertiser', [
+          //   new MenuItemModel('Add new', 'add-new'),
+          //   new MenuItemModel('All advertisers', ''),
+          // ]),
+          new MenuModel('Campaign', 'campaign', [
+            // new MenuItemModel('Add new', 'add-new/' + this.logInSvc.loggedInBrandingUser.userId.toString()),
+            new MenuItemModel('All campaigns', ''),
+          ]),
+          // new MenuModel('Banner', 'banner', [
+          //   new MenuItemModel('Add new', 'add-new/' + '1'),
+          //   new MenuItemModel('All banners', ''),
+          // ])
+        ]
+      );
+
+    } else if (user.role === UserRole.PublisherAdmin) {
       this.brandingMenu.push(...
         [new MenuModel('Zones', 'zone', [
           // new MenuItemModel('Add new', 'add-new'),
@@ -84,12 +106,27 @@ export class LeftSidePanelComponent implements OnInit {
         new MenuModel('Website', 'website', [
           new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All website', ''),
+        ]),
+        new MenuModel('User', 'user', [
+          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All Users', ''),
+        ])]
+      );
+    } else if (user.role === UserRole.PublisherExecutive) {
+      this.brandingMenu.push(...
+        [new MenuModel('Zones', 'zone', [
+          // new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All Zones', ''),
+        ]),
+        new MenuModel('Website', 'website', [
+          // new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All website', ''),
         ])]
       );
     }
     this.brandingMenu.push(...[
       new MenuModel('notification', 'notification', [
-        new MenuItemModel('All notification', ''),
+        new MenuItemModel('All notification', 'all-notification'),
       ])
     ]);
   }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './components/login/login.component';
 
-import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
+import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule,MatSnackBarModule } from '@angular/material';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './components/signup/signup.component';
@@ -22,7 +22,8 @@ import { LoginLayoutComponent } from './components/login-layout/login-layout.com
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   exports: [FormsModule]
 })

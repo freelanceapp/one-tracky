@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { BrandingModule } from '../../branding.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: BrandingModule
 })
 export class NotificationService {
 

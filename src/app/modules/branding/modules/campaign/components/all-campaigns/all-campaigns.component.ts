@@ -3,6 +3,7 @@ import { CampaignService } from 'src/app/modules/branding/services/campaign/camp
 import { CampaignModel } from 'src/app/modules/branding/model/campaign.model';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-campaigns',
@@ -12,17 +13,39 @@ import { ActivatedRoute } from '@angular/router';
 export class AllCampaignsComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['campaignName', 'startDate', 'status', 'campaigns', 'details'];
+  displayedColumns: string[] = ['select', 'campaignName', 'startDate', 'status', 'campaigns'];
   dataSource: MatTableDataSource<CampaignModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public campaigns: CampaignModel[] = [];
+  selection = new SelectionModel<CampaignModel>(true, []);
 
   constructor(private campaignSvc: CampaignService, private actRoute: ActivatedRoute) {
     this.getCampaings();
   }
 
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: CampaignModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.campaignId}`;
+  }
   ngOnInit() {
   }
 
@@ -51,21 +74,32 @@ export class AllCampaignsComponent implements OnInit {
 
   private updateCampaignsTable() {
     this.dataSource = new MatTableDataSource(this.campaigns);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 1000);
+
   }
 
   deleteCampaign(campaignId: number) {
     if (confirm('Are you sure to delete this campaign')) {
-      this.campaignSvc.deleteCampaign(campaignId)
+      this.campaignSvc.deleteCampaign(this.getCheckBoxId())
         .then(msg => {
           alert(msg);
           const index = this.campaigns.findIndex(cmp => cmp.campaignId === campaignId);
           this.campaigns.splice(index, 1);
           this.updateCampaignsTable();
         })
-        .catch(err => alert(err));
+        .catch(err => alert(err))
+        .finally(() => {
+          this.selection.clear();
+        });
     }
+  }
+
+  private getCheckBoxId(): number[] {
+    const cmpId = this.selection.selected.map(cmp => cmp.campaignId);
+    return cmpId;
   }
 
 }

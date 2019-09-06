@@ -4,6 +4,7 @@ import { ZoneModel } from 'src/app/modules/branding/model/zone.model';
 import { ZoneService } from 'src/app/modules/branding/services/zone/zone.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-all-zones',
@@ -14,11 +15,10 @@ export class AllZonesComponent implements OnInit {
   public zoneList: ZoneModel[] = [];
   public errMsg: string = '';
   public websiteId: number = null;
+  selection = new SelectionModel<ZoneModel>(true, []);
 
-  displayedColumns: string[] = ['name', 'size', 'description', 'action'];
+  displayedColumns: string[] = ['select', 'name', 'size', 'zone-Type', 'description', 'action'];
   dataSource: MatTableDataSource<ZoneModel>;
-
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private zoneService: ZoneService, private snackBar: MatSnackBar, private activatedRoute: ActivatedRoute) {
@@ -35,14 +35,44 @@ export class AllZonesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  public deleteZone(id) {
-    this.zoneService.deleteZone(id)
+
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ZoneModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.zoneId}`;
+  }
+  public deleteZone() {
+
+    if (!confirm('Are you sure to delete this zone ?')) {
+      return;
+    }
+
+    this.zoneService.deleteZone(this.getCheckBoxId())
       .then(resp => {
         this.snackBar.open(resp, 'Done', { duration: 2000 });
         this.getAllZone();
       })
       .catch(err => {
         this.errMsg = err;
+      })
+      .finally(() => {
+        this.selection.clear();
       });
   }
 
@@ -50,6 +80,10 @@ export class AllZonesComponent implements OnInit {
     this.zoneService.getZone()
       .then(resp => {
         this.dataSource = new MatTableDataSource<ZoneModel>(resp);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }, 1000);
       })
       .catch(err => {
         this.errMsg = err;
@@ -60,10 +94,19 @@ export class AllZonesComponent implements OnInit {
     this.zoneService.getZonesbyWebsiteId(this.websiteId)
       .then(resp => {
         this.dataSource = new MatTableDataSource<ZoneModel>(resp);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }, 1000);
       })
       .catch(err => {
         this.errMsg = err;
       });
+  }
+
+  private getCheckBoxId(): number[] {
+    const zoneId = this.selection.selected.map(zone => zone.zoneId)
+    return zoneId;
   }
 
   ngOnInit() {

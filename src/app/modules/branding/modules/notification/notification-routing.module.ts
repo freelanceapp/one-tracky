@@ -5,10 +5,9 @@ import { NotFoundComponent } from 'src/app/modules/shared/components/not-found/n
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'all-notification',
     component: AllNotificationComponent
-  }
-  ,
+  },
   {
     path: '**',
     component: NotFoundComponent

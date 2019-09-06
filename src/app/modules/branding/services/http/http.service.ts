@@ -18,7 +18,7 @@ export enum HttpDataType {
 
 
 @Injectable({
-  providedIn: BrandingModule
+  providedIn: 'root'
 })
 
 /** http service for branding module */
@@ -38,17 +38,15 @@ export class HttpService {
   public setBaseURL() {
     const user = this.loginSvc.loggedInBrandingUser;
     if (user.role === UserRole.Admin) {
-      console.log('admin')
       this.baseUrl = 'http://139.59.67.0:8000/inventory/';
-    } else if (user.role === UserRole.Advertiser) {
-      console.log('advertiser');
+    } else if (user.role === UserRole.AdvertiserAdmin) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/advertiser/';
-    } else if (user.role === UserRole.Publisher) {
-      console.log('pub')
+    } else if (user.role === UserRole.PublisherAdmin) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/publisher/';
+    } else if (user.role === UserRole.PublisherExecutive || user.role === UserRole.AdvertiserExecutive) {
+      this.baseUrl = 'http://139.59.67.0:8000/inventory/executive/';
     }
   }
-
 
   /**
    * Send http get request
@@ -78,10 +76,11 @@ export class HttpService {
    * @param apiPath api controller path (exclusive base path)
    * @param data data to send
    */
-  public post(apiPath: string, data?: any): Promise<IHttpResponse> {
+  public post(apiPath: string, data?: any, params?: HttpParams): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
       this.setBaseURL();
       this.http.post(this.baseUrl + apiPath, data, {
+        params,
         headers: this.authHeaders
       }).subscribe(
         resp => {
@@ -100,11 +99,12 @@ export class HttpService {
    * @param apiPath api controller path (exclusive base path)
    * @param data data to send
    */
-  public put(apiPath: string, data?: any): Promise<IHttpResponse> {
+  public put(apiPath: string, data?: any, params?: HttpParams): Promise<IHttpResponse> {
     return new Promise((rs, rj) => {
       this.setBaseURL();
 
       this.http.put(this.baseUrl + apiPath, data, {
+        params,
         headers: this.authHeaders
       }).subscribe(
         resp => this.handleResponse(resp).then(respNew => {
