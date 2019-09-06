@@ -57,7 +57,7 @@ export class LeftSidePanelComponent implements OnInit {
         ]
       );
 
-    } else if (user.role === UserRole.Advertiser) {
+    } else if (user.role === UserRole.AdvertiserAdmin) {
 
       this.brandingMenu.push(...
         [new MenuModel('Advertiser', 'advertiser', [
@@ -71,10 +71,33 @@ export class LeftSidePanelComponent implements OnInit {
         new MenuModel('Banner', 'banner', [
           new MenuItemModel('Add new', 'add-new/' + '1'),
           new MenuItemModel('All banners', ''),
+        ]),
+        new MenuModel('User', 'user', [
+          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All Users', ''),
         ])]
       );
 
-    } else if (user.role === UserRole.Publisher) {
+    } else if (user.role === UserRole.AdvertiserExecutive) {
+
+      this.brandingMenu.push(...
+        [
+          // new MenuModel('Advertiser', 'advertiser', [
+          //   new MenuItemModel('Add new', 'add-new'),
+          //   new MenuItemModel('All advertisers', ''),
+          // ]),
+          new MenuModel('Campaign', 'campaign', [
+            // new MenuItemModel('Add new', 'add-new/' + this.logInSvc.loggedInBrandingUser.userId.toString()),
+            new MenuItemModel('All campaigns', ''),
+          ]),
+          // new MenuModel('Banner', 'banner', [
+          //   new MenuItemModel('Add new', 'add-new/' + '1'),
+          //   new MenuItemModel('All banners', ''),
+          // ])
+        ]
+      );
+
+    } else if (user.role === UserRole.PublisherAdmin) {
       this.brandingMenu.push(...
         [new MenuModel('Zones', 'zone', [
           // new MenuItemModel('Add new', 'add-new'),
@@ -82,6 +105,21 @@ export class LeftSidePanelComponent implements OnInit {
         ]),
         new MenuModel('Website', 'website', [
           new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All website', ''),
+        ]),
+        new MenuModel('User', 'user', [
+          new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All Users', ''),
+        ])]
+      );
+    } else if (user.role === UserRole.PublisherExecutive) {
+      this.brandingMenu.push(...
+        [new MenuModel('Zones', 'zone', [
+          // new MenuItemModel('Add new', 'add-new'),
+          new MenuItemModel('All Zones', ''),
+        ]),
+        new MenuModel('Website', 'website', [
+          // new MenuItemModel('Add new', 'add-new'),
           new MenuItemModel('All website', ''),
         ])]
       );
