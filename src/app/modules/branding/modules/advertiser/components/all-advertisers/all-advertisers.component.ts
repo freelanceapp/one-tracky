@@ -62,7 +62,7 @@ export class AllAdvertisersComponent implements OnInit {
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }, 100);
+      }, 1000);
 
     }).catch(err => alert(err))
       .finally(() => this.loaderSvc.showloader = false);
