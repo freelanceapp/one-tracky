@@ -83,7 +83,7 @@ export class AllZonesComponent implements OnInit {
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-        }, 0);
+        }, 1000);
       })
       .catch(err => {
         this.errMsg = err;

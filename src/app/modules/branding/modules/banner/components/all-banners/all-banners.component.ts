@@ -70,7 +70,7 @@ export class AllBannersComponent implements OnInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }, 100);
+    }, 1000);
   }
 
   public deleteBanner(bannerId: number) {
