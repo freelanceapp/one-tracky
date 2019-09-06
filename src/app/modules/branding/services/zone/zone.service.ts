@@ -71,11 +71,15 @@ export class ZoneService {
 
   /**
    * delete zone by id 
-   * @param zoneId id of zone 
+   * @param Ids array of zone id 
    */
-  public deleteZone(zoneId): Promise<string> {
+  public deleteZone(Ids: number[]): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.httpService.delete(this.baseUrl + zoneId)
+      const data = {
+        ids: Ids
+      };
+      const dataToSend = JSON.stringify(data);
+      this.httpService.post(this.baseUrl + 'zonesdelete', dataToSend)
         .then(resp => {
           resolve(resp.message);
         })
@@ -84,6 +88,8 @@ export class ZoneService {
         });
     });
   }
+
+
 
 
 
