@@ -100,14 +100,18 @@ export class BannerService {
 
 
 
-
   /**
    * delete banner with banner id
-   * @param bannerId  id of banner
+   * @param Ids  array of banner Id
    */
-  public deleteBanner(bannerId: number): Promise<string> {
+  public deleteBanner(Ids: number[]): Promise<string> {
     return new Promise((resoleve, reject) => {
-      this.httpServce.delete(this.baseUrl + bannerId + '/')
+      const data = {
+        ids: Ids
+      };
+      const dataToSend = JSON.stringify(data);
+
+      this.httpServce.post(this.baseUrl + 'bannerdelete/', dataToSend)
         .then(resp => {
           resoleve(resp.message);
         })
