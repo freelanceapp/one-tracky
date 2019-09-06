@@ -78,9 +78,14 @@ export class CampaignService {
     });
   }
 
-  public deleteCampaign(campaignId: number): Promise<string> {
+  public deleteCampaign(Ids: number[]): Promise<string> {
     return new Promise((res, rej) => {
-      this.httpSvc.delete(this.baseUrl + campaignId + '/')
+      const data = {
+        ids: Ids
+      };
+      const dataToSend = JSON.stringify(data);
+
+      this.httpSvc.post(this.baseUrl + 'campaignsdelete/', dataToSend)
         .then(resp => {
           if (resp.status === true) {
             res(resp.message);
