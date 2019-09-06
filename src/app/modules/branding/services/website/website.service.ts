@@ -101,16 +101,20 @@ export class WebsiteService {
    * @param affiliateId id of affiliate
    */
 
-  public deleteWebsite(affiliateId: number): Promise<string> {
+  public deleteWebsite(Ids: number[]): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.httpService.delete(this.baseUrl + affiliateId)
+      const data = {
+        ids: Ids
+      };
+      const dataToSend = JSON.stringify(data);
+      this.httpService.post(this.baseUrl + 'affiliatesdelete/', dataToSend)
         .then(resp => {
           resolve(resp.message);
         })
         .catch(err => {
           reject(err);
-        })
-    })
+        });
+    });
   }
 
 
