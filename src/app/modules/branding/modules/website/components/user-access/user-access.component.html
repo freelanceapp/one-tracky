@@ -1,0 +1,79 @@
+
+
+<form [formGroup]="pubExecutiveForm" (ngSubmit)="onSubmit()">
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>Basic Info</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+
+          <!--first name -->
+          <mat-form-field class="col-6">
+            <input matInput formControlName="firstName" placeholder="First Name *" value="">
+            <mat-error *ngIf="this.pubExecutiveForm.invalid">
+              First Name required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- last Name -->
+          <mat-form-field class="col-6">
+            <input formControlName="lastName" matInput placeholder="Last Name * " value="">
+            <mat-error *ngIf="this.pubExecutiveForm.invalid">
+              Last Name required
+            </mat-error>
+          </mat-form-field>
+
+          <!--email -->
+          <mat-form-field class="col-6">
+            <input formControlName="userName" matInput placeholder="email *" value="">
+            <mat-error *ngIf="this.pubExecutiveForm.invalid">
+              <mat-error *ngIf="this.pubExecutiveForm.controls['userName'].errors.required"> email required</mat-error>
+              <mat-error *ngIf="this.pubExecutiveForm.controls['userName'].errors.email"> Email must be a valid email
+                address
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <!--password -->
+          <mat-form-field class="col-6">
+            <input formControlName="password" type="password" matInput placeholder="Password * " value="">
+            <mat-error *ngIf="this.pubExecutiveForm.invalid">
+              Password required
+            </mat-error>
+          </mat-form-field>
+
+          <!--Contact Number -->
+          <mat-form-field class="col-6">
+            <input formControlName="phoneNo" matInput placeholder="Contact Number * " value="">
+            <mat-error *ngIf="this.pubExecutiveForm.invalid">
+              Contact Number required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- role  -->
+          <mat-form-field class="col-6">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option value="3">Publisher Admin</mat-option>
+              <mat-option value="5">Publisher Executive</mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.pubExecutiveForm.invalid">
+              Role required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br>
+  </div>
+
+  <div>
+    <button [disabled]="!pubExecutiveForm.valid" mat-raised-button color="primary"
+      type="submit">{{isNewWebsite ? 'Add' : 'Edit'}} Website</button> &nbsp;
+    <button *ngIf="isNewWebsite" mat-raised-button type="reset">Reset</button>
+  </div>
+
+
+</form>
