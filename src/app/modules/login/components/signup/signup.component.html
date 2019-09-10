@@ -9,15 +9,15 @@
         <div class="radio-control-wrap">
 
           <label class="input-label radio-btn">
-            <input name="role" value='3' type="radio" formControlName="role">
+            <input name="userType" value='3' type="radio" formControlName="userType">
             <i>Publisher</i> </label>
           <label class="input-label radio-btn">
-            <input name="role" value='2' type="radio" formControlName="role">
+            <input name="userType" value='2' type="radio" formControlName="userType">
             <i>Advertiser</i> </label>
 
-          <aside *ngIf="UserSignupForm.get('role').touched && UserSignupForm.get('role').invalid"
+          <aside *ngIf="UserSignupForm.get('userType').touched && UserSignupForm.get('userType').invalid"
             class="err">
-            <div *ngIf="UserSignupForm.get('role').errors.required">Please choose an option</div>
+            <div *ngIf="UserSignupForm.get('userType').errors.required">Please choose an option</div>
           </aside>
         </div>
 
