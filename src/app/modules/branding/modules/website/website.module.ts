@@ -9,15 +9,18 @@ import {
   MatInputModule, MatRadioModule,
   MatCardModule, MatFormFieldModule,
   MatButtonModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatSortModule, MatCheckboxModule,
+  MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatSortModule, MatCheckboxModule, MatToolbarModule,
 
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditWebsiteComponent } from './components/edit-website/edit-website.component';
+import { WebsitePropertiesComponent } from './components/website-properties/website-properties.component';
+import { UserAccessComponent } from './components/user-access/user-access.component';
 
 
 
 @NgModule({
-  declarations: [AddNewWebsiteComponent, AllWebsiteComponent],
+  declarations: [AddNewWebsiteComponent, AllWebsiteComponent, EditWebsiteComponent, WebsitePropertiesComponent, UserAccessComponent],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
@@ -35,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatToolbarModule
 
   ]
 })
