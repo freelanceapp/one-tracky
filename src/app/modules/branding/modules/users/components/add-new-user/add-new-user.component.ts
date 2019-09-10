@@ -58,7 +58,7 @@ export class AddNewUserComponent implements OnInit {
       userName: ['', [Validators.required, Validators.email]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      role: [UserRole.Advertiser, [Validators.required]],
+      role: [UserRole.AdvertiserAdmin, [Validators.required]],
       skype: [''],
       company: [''],
       phone: ['', [Validators.required]],
