@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
 import { BrandingModule } from '../../branding.module';
 import { WebsiteModel } from '../../model/website.model';
+import { UserModel } from '../../model/user.model';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class WebsiteService {
 
 
   /**
-   *get all website 
+   *get all website
    */
 
   public getWebsite(): Promise<WebsiteModel[]>;
@@ -51,8 +52,6 @@ export class WebsiteService {
       }
     })
   }
-
-
 
 
   /**
@@ -94,8 +93,6 @@ export class WebsiteService {
     })
   }
 
-
-
   /**
    * delete website by id 
    * @param affiliateId id of affiliate
@@ -117,10 +114,17 @@ export class WebsiteService {
     });
   }
 
+  public addPublisherExecutive(websiteId: number, data): Promise<UserModel> {
+    return new Promise((resolve, reject) => {
+      this.httpService.post('executive/users/' + websiteId, data)
+        .then(resp => {
 
-
-
-
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   private parseWebsite(website) {
     let websiteList: WebsiteModel[] = [];
