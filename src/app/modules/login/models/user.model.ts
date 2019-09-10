@@ -7,4 +7,6 @@ export class UserModel {
     public skypeId: string = '';
     public phoneNo: number = null;
     public role: number = null;
+    public userType: number = null;
+
 }
