@@ -3,14 +3,28 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddNewWebsiteComponent } from './components/add-new-website/add-new-website.component';
 import { NotFoundComponent } from 'src/app/modules/shared/components/not-found/not-found.component';
 import { AllWebsiteComponent } from './components/all-website/all-website.component';
+import { EditWebsiteComponent } from './components/edit-website/edit-website.component';
+import { WebsitePropertiesComponent } from './components/website-properties/website-properties.component';
+import { UserAccessComponent } from './components/user-access/user-access.component';
 
 const routes: Routes = [
+
   {
-    path: 'add-new',
-    component: AddNewWebsiteComponent
+    path: 'edit-website/:websiteId',
+    component: EditWebsiteComponent,
+    children: [
+      {
+        path: '',
+        component: WebsitePropertiesComponent
+      },
+      {
+        path: 'user-access',
+        component: UserAccessComponent
+      }
+    ]
   },
   {
-    path: ':id',
+    path: 'add-new',
     component: AddNewWebsiteComponent
   },
   {
