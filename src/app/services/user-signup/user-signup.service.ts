@@ -38,7 +38,7 @@ export class UserSignupService {
         _user.lastName = u.lastname;
         _user.skypeId = u.skype;
         _user.phoneNo = u.phone;
-        _user.role = u.role;
+        _user.role = u.user_type;
         return _user;
       });
       return users;
@@ -55,7 +55,7 @@ export class UserSignupService {
       company: user.companyName,
       skype: user.skypeId,
       phone: user.phoneNo,
-      role: user.role
+      user_type: user.userType
     };
   }
 
