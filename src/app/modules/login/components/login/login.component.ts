@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   public brandingLoginForm: FormGroup;
   public performanceLoginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginSvc: LoginService, private router: Router,) { }
+  constructor(private fb: FormBuilder, private loginSvc: LoginService, private router: Router, ) { }
 
 
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
       logInAs: [''],
-      role: null
+      userType: null
     });
   }
 
@@ -52,23 +52,23 @@ export class LoginComponent implements OnInit {
 
       if (this.brandingLoginForm.get('logInAs').value) {
         if (this.brandingLoginForm.get('logInAs').value === 'advertiser') {
-          this.brandingLoginForm.controls['role'].setValue(UserRole.Advertiser);
+          this.brandingLoginForm.controls['userType'].setValue(UserRole.AdvertiserAdmin);
         }
         if (this.brandingLoginForm.get('logInAs').value === 'publisher') {
-          this.brandingLoginForm.controls['role'].setValue(UserRole.Publisher);
+          this.brandingLoginForm.controls['userType'].setValue(UserRole.PublisherAdmin);
         }
       } else {
-        this.brandingLoginForm.controls['role'].setValue(UserRole.Admin);
+        this.brandingLoginForm.controls['userType'].setValue(UserRole.Admin);
       }
 
       this.loginSvc.loginBrandingUser(
         this.brandingLoginForm.get('username').value,
         this.brandingLoginForm.get('password').value,
-        this.brandingLoginForm.get('role').value,
+        this.brandingLoginForm.get('userType').value,
 
       ).then(resp => {
         if (resp) {
-        
+
           this.router.navigateByUrl('/branding');
         } else {
 
