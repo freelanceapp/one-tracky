@@ -46,8 +46,6 @@ export class AllCampaignsComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.campaignId}`;
   }
-  ngOnInit() {
-  }
 
   private async getCampaings() {
     const advertiserId: number = parseInt(this.actRoute.snapshot.paramMap.get('advertiserId'), 10);
@@ -101,5 +99,9 @@ export class AllCampaignsComponent implements OnInit {
     const cmpId = this.selection.selected.map(cmp => cmp.campaignId);
     return cmpId;
   }
+
+  ngOnInit() {
+  }
+
 
 }
