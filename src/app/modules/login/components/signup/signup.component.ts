@@ -23,15 +23,15 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required],
       skypeId: ['', Validators.required],
       phoneNo: ['', Validators.required],
-      role: ['3', Validators.required]
+      userType: ['3', Validators.required]
     });
   }
 
   public onBrandingSubmit() {
     if (this.UserSignupForm.valid) {
       const data = this.UserSignupForm.value as UserModel;
-      const role: number = parseInt(this.UserSignupForm.controls['role'].value, 10);
-      this.signupService.adduser(data, role)
+      const userType: number = parseInt(this.UserSignupForm.controls['userType'].value, 10);
+      this.signupService.adduser(data, userType)
         .then(res => {
           this.snackbar.open(res, 'done', {
             duration: 3000
