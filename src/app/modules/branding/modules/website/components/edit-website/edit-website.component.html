@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <mat-toolbar-row class="bg-black">
+    <span class="website-menu-item">
+      <a class="website-menu-link" routerLinkActive="website-link-active"
+        routerLink='/branding/website/edit-website/{{websiteId}}' matRipple [routerLinkActiveOptions]="{exact: true}">
+        Website Properties</a>
+    </span>
+    <span class="website-menu-item">
+      <a class="website-menu-link" routerLinkActive="website-link-active" matRipple
+        [routerLinkActiveOptions]="{exact: true}" routerLink='/branding/website/edit-website/{{websiteId}}/user-access'>
+        User Access
+      </a>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
