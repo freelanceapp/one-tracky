@@ -29,8 +29,8 @@ export class AddNewWebsiteComponent implements OnInit {
   ) {
     this.affiliateId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (this.affiliateId) {
-      this.getWebsiteByAffiliateID();
-      this.isNewWebsite = false;
+      // this.getWebsiteByAffiliateID();
+      // this.isNewWebsite = false;
     }
   }
 
@@ -46,52 +46,21 @@ export class AddNewWebsiteComponent implements OnInit {
     });
   }
 
-  public getWebsiteByAffiliateID() {
-    this.websiteService.getWebsite(this.affiliateId)
-      .then(resp => {
-        this.setWebsiteForm(resp);
-      });
-  }
-
-  private setWebsiteForm(website: WebsiteModel) {
-    this.websiteForm.patchValue({
-      userId: website.userId,
-      affiliateId: website.affiliateId,
-      domainName: website.domainName,
-      websiteURL: website.websiteURL,
-      contact: website.contact,
-      email: website.email,
-      comments: website.comments,
-    });
-  }
 
 
   public onSubmit() {
     if (this.websiteForm.valid) {
       const data = this.websiteForm.value;
-      if (this.affiliateId) {
-        this.websiteService.editWebsite(this.affiliateId, data)
-          .then(resp => {
-            this.snackBar.open('website Succefully update', 'Done', {
-              duration: 2000,
-            });
-
-          })
-          .catch(err => {
-            this.errMsg = err;
+      this.websiteService.addWebsite(data)
+        .then(resp => {
+          this.router.navigateByUrl('/branding/website');
+          this.snackBar.open('website Succefully Added', 'Done', {
+            duration: 2000,
           });
-      } else {
-        this.websiteService.addWebsite(data)
-          .then(resp => {
-            this.router.navigateByUrl('/branding/website');
-            this.snackBar.open('website Succefully Added', 'Done', {
-              duration: 2000,
-            });
-          })
-          .catch(err => {
-            this.errMsg = err;
-          });
-      }
+        })
+        .catch(err => {
+          this.errMsg = err;
+        });
     }
   }
 
