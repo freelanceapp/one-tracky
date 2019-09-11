@@ -8,7 +8,7 @@ import {
   MatCardModule, MatButtonModule, MatInputModule,
   MatFormFieldModule, MatCheckboxModule, MatTableModule,
   MatPaginatorModule, MatTooltipModule, MatSnackBarModule,
-  MatSortModule, MatToolbarModule
+  MatSortModule, MatToolbarModule, MatSelectModule
 } from '@angular/material';
 import { AdvertiserService } from '../../services/advertiser/advertiser.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,7 +35,8 @@ import { UserAccessComponent } from './components/user-access/user-access.compon
     ReactiveFormsModule,
     MatTooltipModule,
     MatSortModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSelectModule
   ],
   providers: [AdvertiserService]
 })
