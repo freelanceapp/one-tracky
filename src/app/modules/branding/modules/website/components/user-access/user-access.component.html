@@ -1,72 +1,119 @@
-<form [formGroup]="pubUserForm" (ngSubmit)="onSubmit()">
-  <div>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-subtitle>Basic Info</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="row">
+<button type="button" mat-raised-button color="primary"
+  (click)="isAddUser=!isAddUser">{{isAddUser ? 'Add User' : 'All Users'}} </button>
+<div class="mt-4">
+  <div [hidden]="isAddUser">
+    <form [formGroup]="pubUserForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle>Basic Info</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
 
-          <!--first name -->
-          <mat-form-field class="col-6">
-            <input matInput formControlName="firstName" placeholder="First Name *" value="">
-            <mat-error *ngIf="this.pubUserForm.invalid">
-              First Name required
-            </mat-error>
-          </mat-form-field>
+              <!--first name -->
+              <mat-form-field class="col-6">
+                <input matInput formControlName="firstName" placeholder="First Name *" value="">
+                <mat-error *ngIf="this.pubUserForm.invalid">
+                  First Name required
+                </mat-error>
+              </mat-form-field>
 
-          <!-- last Name -->
-          <mat-form-field class="col-6">
-            <input formControlName="lastName" matInput placeholder="Last Name * " value="">
-            <mat-error *ngIf="this.pubUserForm.invalid">
-              Last Name required
-            </mat-error>
-          </mat-form-field>
+              <!-- last Name -->
+              <mat-form-field class="col-6">
+                <input formControlName="lastName" matInput placeholder="Last Name * " value="">
+                <mat-error *ngIf="this.pubUserForm.invalid">
+                  Last Name required
+                </mat-error>
+              </mat-form-field>
 
-          <!--email -->
-          <mat-form-field class="col-6">
-            <input formControlName="userName" matInput placeholder="email *" value="">
-            <mat-error *ngIf="this.pubUserForm.invalid">
-              please enter a valid email
-            </mat-error>
-          </mat-form-field>
+              <!--email -->
+              <mat-form-field class="col-6">
+                <input formControlName="userName" matInput placeholder="email *" value="">
+                <mat-error *ngIf="this.pubUserForm.invalid">
+                  please enter a valid email
+                </mat-error>
+              </mat-form-field>
 
-          <!--password -->
-          <mat-form-field class="col-6">
-            <input formControlName="password" type="password" matInput placeholder="Password * " value="">
-            <mat-error *ngIf="this.pubUserForm.invalid">
-              Password required
-            </mat-error>
-          </mat-form-field>
+              <!--password -->
+              <mat-form-field class="col-6">
+                <input formControlName="password" type="password" matInput placeholder="Password * " value="">
+                <mat-error *ngIf="this.pubUserForm.invalid">
+                  Password required
+                </mat-error>
+              </mat-form-field>
 
-          <!--Contact Number -->
-          <mat-form-field class="col-6">
-            <input formControlName="phoneNo" matInput placeholder="Contact Number * " value="">
-            <mat-error *ngIf="this.pubUserForm.invalid">
-              Contact Number required
-            </mat-error>
-          </mat-form-field>
+              <!--Contact Number -->
+              <mat-form-field class="col-6">
+                <input formControlName="phoneNo" matInput placeholder="Contact Number * " value="">
+                <mat-error *ngIf="this.pubUserForm.invalid">
+                  Contact Number required
+                </mat-error>
+              </mat-form-field>
 
-          <!-- role  -->
-          <mat-form-field class="col-6">
-            <mat-label>Role</mat-label>
-            <mat-select formControlName="role">
-              <mat-option value="3">Publisher Admin</mat-option>
-              <mat-option value="5">Publisher Executive</mat-option>
-            </mat-select>
-            <mat-error *ngIf="this.pubUserForm.invalid">
-              Role required
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <br>
+              <!-- role  -->
+              <mat-form-field class="col-6">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role">
+                  <mat-option value="3">Publisher Admin</mat-option>
+                  <mat-option value="5">Publisher Executive</mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.pubUserForm.invalid">
+                  Role required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <br>
+      </div>
+
+      <div>
+        <button [disabled]="!pubUserForm.valid" mat-raised-button color="primary" type="submit">add user</button>
+        &nbsp;
+        <button *ngIf="isNewWebsite" mat-raised-button type="reset">Reset</button>
+      </div>
+    </form>
   </div>
+  <div [hidden]="!isAddUser">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <div>
-    <button [disabled]="!pubUserForm.valid" mat-raised-button color="primary" type="submit">add user</button>
-    &nbsp;
-    <button *ngIf="isNewWebsite" mat-raised-button type="reset">Reset</button>
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- email id -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let row"> {{row.position}} </td>
+      </ng-container>
+
+      <!-- First  Name Column -->
+      <ng-container matColumnDef="fName">
+        <th mat-header-cell *matHeaderCellDef>First Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <!-- Last Name -->
+      <ng-container matColumnDef="lName">
+        <th mat-header-cell *matHeaderCellDef>Last Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.weight}} </td>
+      </ng-container>
+
+      <!-- date -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.symbol}} </td>
+      </ng-container>
+
+      <!-- Action -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let row"> {{row.symbol}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
   </div>
-</form>
+</div>
