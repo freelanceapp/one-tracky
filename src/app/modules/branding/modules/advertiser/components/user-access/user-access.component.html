@@ -1,0 +1,73 @@
+<form [formGroup]="avdUserForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Basic Info</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+  
+            <!--first name -->
+            <mat-form-field class="col-6">
+              <input matInput formControlName="firstName" placeholder="First Name *" value="">
+              <mat-error *ngIf="this.avdUserForm.invalid">
+                First Name required
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- last Name -->
+            <mat-form-field class="col-6">
+              <input formControlName="lastName" matInput placeholder="Last Name * " value="">
+              <mat-error *ngIf="this.avdUserForm.invalid">
+                Last Name required
+              </mat-error>
+            </mat-form-field>
+  
+            <!--email -->
+            <mat-form-field class="col-6">
+              <input formControlName="userName" matInput placeholder="email *" value="">
+              <mat-error *ngIf="this.avdUserForm.invalid">
+                please enter a valid email
+              </mat-error>
+            </mat-form-field>
+  
+            <!--password -->
+            <mat-form-field class="col-6">
+              <input formControlName="password" type="password" matInput placeholder="Password * " value="">
+              <mat-error *ngIf="this.avdUserForm.invalid">
+                Password required
+              </mat-error>
+            </mat-form-field>
+  
+            <!--Contact Number -->
+            <mat-form-field class="col-6">
+              <input formControlName="phoneNo" matInput placeholder="Contact Number * " value="">
+              <mat-error *ngIf="this.avdUserForm.invalid">
+                Contact Number required
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- role  -->
+            <mat-form-field class="col-6">
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role">
+                <mat-option value="3">Publisher Admin</mat-option>
+                <mat-option value="5">Publisher Executive</mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.avdUserForm.invalid">
+                Role required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <br>
+    </div>
+  
+    <div>
+      <button [disabled]="!avdUserForm.valid" mat-raised-button color="primary" type="submit">add user</button>
+      &nbsp;
+      <button *ngIf="isNewWebsite" mat-raised-button type="reset">Reset</button>
+    </div>
+  </form>
+  
