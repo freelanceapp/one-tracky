@@ -114,11 +114,17 @@ export class WebsiteService {
     });
   }
 
-  public addPublisherExecutive(websiteId: number, data): Promise<UserModel> {
+
+  /**
+   * add publisher user as admin or executives
+   * @param websiteId affiliate id
+   * @param data user data
+   */
+  public addPublisherUser(websiteId: number, data): Promise<string> {
     return new Promise((resolve, reject) => {
       this.httpService.post('executive/users/' + websiteId, data)
         .then(resp => {
-
+          resolve(resp.message);
         })
         .catch(err => {
           reject(err);

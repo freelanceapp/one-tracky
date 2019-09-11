@@ -1,12 +1,9 @@
 <h1 class="mat-headline">Edit advertiser</h1>
 
 <form [formGroup]="advSrForm" (ngSubmit)="onSubmit()">
-
   <div class="row">
     <section class="col-8">
-
       <mat-card class="example-card">
-
         <mat-card-header>
           <mat-card-subtitle>Basic Info</mat-card-subtitle>
         </mat-card-header>
@@ -108,6 +105,4 @@
   <br>
   <button type="submit" [disabled]="!advSrForm.valid" mat-raised-button color="primary">Save advertiser</button> &nbsp;
   <button type="button" (click)="resetForm()" mat-raised-button>Reset</button>
-
-
 </form>
