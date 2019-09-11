@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserModel } from 'src/app/modules/branding/model/user.model';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-user-access',
@@ -7,7 +9,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./user-access.component.scss']
 })
 export class UserAccessComponent implements OnInit {
+  displayedColumns: string[] = ['email', 'fName', 'lName', 'date', 'action'];
+  dataSource: MatTableDataSource<UserModel>;
   public pubUserForm: FormGroup;
+  public isAddUser: boolean = true;
   constructor(private fb: FormBuilder) { }
 
   public createPubUserForm() {
