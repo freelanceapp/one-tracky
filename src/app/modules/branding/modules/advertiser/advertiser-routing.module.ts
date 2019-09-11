@@ -2,14 +2,28 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddNewAdvertiserComponent } from './components/add-new-advertiser/add-new-advertiser.component';
 import { AllAdvertisersComponent } from './components/all-advertisers/all-advertisers.component';
+import { EditAdvertiserComponent } from './components/edit-advertiser/edit-advertiser.component';
+import { AdvertiserPropertiesComponent } from './components/advertiser-properties/advertiser-properties.component';
+import { UserAccessComponent } from './components/user-access/user-access.component';
 
 const routes: Routes = [
+
   {
-    path: 'add-new',
-    component: AddNewAdvertiserComponent
+    path: 'edit-advertiser/:advertiserId',
+    component: EditAdvertiserComponent,
+    children: [
+      {
+        path: '',
+        component: AdvertiserPropertiesComponent
+      },
+      {
+        path: 'user-access',
+        component: UserAccessComponent
+      }
+    ]
   },
   {
-    path: ':id',
+    path: 'add-new',
     component: AddNewAdvertiserComponent
   },
   {
