@@ -7,10 +7,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./user-access.component.scss']
 })
 export class UserAccessComponent implements OnInit {
-  public pubExecutiveForm: FormGroup;
+  public pubUserForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
-  public createPubExecutiveForm() {
+  public createPubUserForm() {
     return this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -23,10 +23,10 @@ export class UserAccessComponent implements OnInit {
 
 
   public onSubmit() {
-    console.log(this.pubExecutiveForm.value)
+    console.log(this.pubUserForm.value)
   }
   ngOnInit() {
-    this.pubExecutiveForm = this.createPubExecutiveForm();
+    this.pubUserForm = this.createPubUserForm();
   }
 
 }
