@@ -13,7 +13,6 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AddNewAdvertiserComponent implements OnInit {
 
-  public isNewAdvertiser: boolean = true;
   public advSrForm: FormGroup;
   public advertiserId: number = null;
   constructor(
@@ -29,12 +28,7 @@ export class AddNewAdvertiserComponent implements OnInit {
     this.createAdvSrForm().then(() => {
       const advId: string = this.activatedRoute.snapshot.paramMap.get('id');
       this.advertiserId = parseInt(advId, 10);
-      if (this.advertiserId) {
-        this.isNewAdvertiser = false;
-        this.getAndPatchAdvertiser();
-      } else {
-        this.isNewAdvertiser = true;
-      }
+
     });
   }
 
@@ -69,17 +63,13 @@ export class AddNewAdvertiserComponent implements OnInit {
 
   onSubmit() {
     if (this.advSrForm.valid) {
-      if (this.isNewAdvertiser) {
-        this.advSvc.addAdvertiser(this.advSrForm.value).then(msg => {
-          this.snackBar.open(msg, 'Ok');
-          this.resetForm();
-        }).catch(err => console.log(err));
-      } else {
-        this.advSvc.updateAdvertisers(this.advSrForm.value).then(msg => {
-          this.snackBar.open(msg, 'Ok');
-        }).catch(err => console.log(err));
-      }
-
+      this.advSvc.addAdvertiser(this.advSrForm.value).then(msg => {
+        this.snackBar.open(msg, 'Ok');
+        this.resetForm();
+      }).catch(err => console.log(err));
+      this.advSvc.updateAdvertisers(this.advSrForm.value).then(msg => {
+        this.snackBar.open(msg, 'Ok');
+      }).catch(err => console.log(err));
     }
   }
 
@@ -89,11 +79,7 @@ export class AddNewAdvertiserComponent implements OnInit {
     Object.keys(this.advSrForm.controls).forEach(async key => {
       this.advSrForm.get(key).setErrors(null);
     });
-    if (!this.isNewAdvertiser) {
-      const advertiserIdControl: AbstractControl = this.advSrForm.get('advertiserId');
-      advertiserIdControl.setValue(this.advertiserId);
-      advertiserIdControl.updateValueAndValidity();
-    }
+
   }
 
   private getAndPatchAdvertiser() {
