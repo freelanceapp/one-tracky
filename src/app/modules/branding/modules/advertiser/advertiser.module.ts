@@ -6,15 +6,20 @@ import { AddNewAdvertiserComponent } from './components/add-new-advertiser/add-n
 import { AllAdvertisersComponent } from './components/all-advertisers/all-advertisers.component';
 import {
   MatCardModule, MatButtonModule, MatInputModule,
-  MatFormFieldModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatTooltipModule, MatSnackBarModule, MatSortModule
+  MatFormFieldModule, MatCheckboxModule, MatTableModule,
+  MatPaginatorModule, MatTooltipModule, MatSnackBarModule,
+  MatSortModule, MatToolbarModule
 } from '@angular/material';
 import { AdvertiserService } from '../../services/advertiser/advertiser.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditAdvertiserComponent } from './components/edit-advertiser/edit-advertiser.component';
+import { AdvertiserPropertiesComponent } from './components/advertiser-properties/advertiser-properties.component';
+import { UserAccessComponent } from './components/user-access/user-access.component';
 
 
 
 @NgModule({
-  declarations: [AddNewAdvertiserComponent, AllAdvertisersComponent],
+  declarations: [AddNewAdvertiserComponent, AllAdvertisersComponent, EditAdvertiserComponent, AdvertiserPropertiesComponent, UserAccessComponent],
   imports: [
     CommonModule,
     AdvertiserRoutingModule,
@@ -29,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatToolbarModule
   ],
   providers: [AdvertiserService]
 })
