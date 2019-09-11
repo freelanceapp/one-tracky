@@ -131,6 +131,23 @@ export class WebsiteService {
         });
     });
   }
+  
+  /**
+   * get all users
+   * @param websiteId affiliate id 
+   */
+  public getAllUsers(websiteId): Promise<UserModel[]> {
+    return new Promise((resolve, reject) => {
+      this.httpService.get('pubexecutive/users/' + websiteId)
+        .then(res => {
+          const user = this.parseUser(res.data);
+          resolve(user);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   private parseWebsite(website) {
     let websiteList: WebsiteModel[] = [];
@@ -152,7 +169,6 @@ export class WebsiteService {
     return websiteList
   }
 
-
   private deparseWebsite(website: WebsiteModel) {
     return {
       affiliateid: website.affiliateId,
@@ -165,7 +181,38 @@ export class WebsiteService {
     }
   }
 
+  private parseUser(userArr: any[]): UserModel[] {
+    let users: UserModel[] = [];
 
+    if (Array.isArray(userArr) && userArr.length > 0) {
+      users = userArr.map(u => new UserModel({
+        userId: u.user_id,
+        firstName: u.firstname,
+        lastName: u.lastname,
+        userName: u.username,
+        password: u.password,
+        company: u.company,
+        phone: u.phone,
+        role: parseInt(u.role, 10),
+        skype: u.skype,
+        dateCreated: new Date(u.date_created)
+      }));
+    }
+    return users;
+  }
 
+  private deParseUser(user: UserModel): any {
+    return {
+      user_id: user.userId,
+      firstname: user.firstName,
+      lastname: user.lastName,
+      username: user.userName,
+      password: user.password,
+      company: user.company,
+      phone: user.phone,
+      role: user.role,
+      skype: user.skype,
+    };
+  }
 
 }
