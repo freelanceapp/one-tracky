@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-advertiser',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-advertiser.component.scss']
 })
 export class EditAdvertiserComponent implements OnInit {
+  public avdId: string = '';
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.avdId = this.activatedRoute.snapshot.paramMap.get('advertiserId');
+  }
 
   ngOnInit() {
   }
