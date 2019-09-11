@@ -1,0 +1,28 @@
+.advertiser-menu-link {
+  padding: 0px;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  color: #fff;
+}
+
+.advertiser-link-active {
+  color: #fff;
+  background-color: #3f51b5;
+}
+
+.advertiser-menu-item {
+  flex-grow: 1;
+  border-right: solid 1px #fff;
+}
+
+.mat-toolbar-row {
+  padding: 0px;
+  height: auto;
+}
+
+.bg-black {
+  background-color: #000;
+}

@@ -1,0 +1,17 @@
+
+<mat-toolbar>
+  <mat-toolbar-row class="bg-black">
+    <span class="advertiser-menu-item">
+      <a class="advertiser-menu-link" routerLinkActive="advertiser-link-active"
+        routerLink='/branding/advertiser/edit-advertiser/{{advertiserId}}' matRipple [routerLinkActiveOptions]="{exact: true}">
+        Website Properties</a>
+    </span>
+    <span class="advertiser-menu-item">
+      <a class="advertiser-menu-link" routerLinkActive="advertiser-link-active" matRipple
+        [routerLinkActiveOptions]="{exact: true}" routerLink='/branding/advertiser/edit-advertiser/{{advertiserId}}/user-access'>
+        User Access
+      </a>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
