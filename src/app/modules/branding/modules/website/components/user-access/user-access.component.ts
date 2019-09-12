@@ -45,6 +45,15 @@ export class UserAccessComponent implements OnInit {
     this.getAllUsers();
   }
 
+  public getUserById() {
+    this.websiteSvc.getUserBYId(this.userId)
+      .then(resp => {
+        this.setUserForm(resp);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
 
   public getAllUsers() {
