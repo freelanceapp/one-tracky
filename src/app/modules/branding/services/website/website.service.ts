@@ -3,6 +3,7 @@ import { HttpService } from '../http/http.service';
 import { BrandingModule } from '../../branding.module';
 import { WebsiteModel } from '../../model/website.model';
 import { UserModel } from '../../model/user.model';
+import { StylingIndex } from '@angular/core/src/render3/interfaces/styling';
 
 
 @Injectable({
@@ -149,6 +150,22 @@ export class WebsiteService {
         });
     });
   }
+
+  public getUserBYId(userId): Promise<UserModel> {
+    return new Promise((resolve, reject) => {
+      this.httpService.get('/pubexecutive/users/edit/' + userId + '/')
+        .then(resp => {
+          const user = this.parseUser([resp.data]);
+          resolve(user[0]);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  
+
 
   private parseWebsite(website) {
     let websiteList: WebsiteModel[] = [];
