@@ -15,6 +15,7 @@ export class UserModel {
     public role: UserRole = null;
     public skype: string = null;
     public dateCreated: Date = null;
+    public userType: number = null;
     constructor();
     constructor(userProperties: Partial<UserModel>);
     constructor(args?: any) {
