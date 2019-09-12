@@ -16,10 +16,16 @@ export class UserAccessComponent implements OnInit {
   public pubUserForm: FormGroup;
   public isAddUser: boolean = true;
   public websiteId: number = null;
+  public userId: number = null;
   constructor(private fb: FormBuilder, private websiteSvc: WebsiteService,
     private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {
     this.websiteId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('websiteId'), 10);
-    this.getAllUsers();
+    this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'), 10);
+    if (this.userId) {
+      this.isAddUser = false;
+    } else {
+      this.getAllUsers();
+    }
   }
 
   public createPubUserForm() {
