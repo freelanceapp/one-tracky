@@ -18,7 +18,7 @@ export class UserAccessComponent implements OnInit {
   public websiteId: number = null;
   constructor(private fb: FormBuilder, private websiteSvc: WebsiteService, private activatedRoute: ActivatedRoute) {
     this.websiteId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('websiteId'), 10);
-
+    this.getAllUsers();
   }
 
   public createPubUserForm() {
@@ -33,7 +33,10 @@ export class UserAccessComponent implements OnInit {
     });
   }
 
-  // private 
+  private getUserList() {
+    this.isAddUser = !this.isAddUser;
+    this.getAllUsers();
+  }
 
 
 
