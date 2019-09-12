@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AdvertiserModel } from '../../model/advertiser.model';
 import { BrandingModule } from '../../branding.module';
 import { HttpService } from '../http/http.service';
+import { UserModel } from '../../model/user.model';
 
 @Injectable({
   providedIn: BrandingModule
@@ -103,6 +104,34 @@ export class AdvertiserService {
     });
   }
 
+
+
+
+
+  /**
+   * add advertiser user as admin or executives
+   * @param advertiserId affiliate id
+   * @param data user data
+   */
+  public addPublisherUser(advertiserId: number, data): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const dataToSend = this.deParseUser(data);
+      this.httpSvc.post('executive/users/' + advertiserId + '/', dataToSend)
+        .then(resp => {
+          resolve(resp.message);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+
+
+
+
+
+
   /**
    * Parse clients to Advertisers
    * @param clients Clients array
@@ -143,6 +172,6 @@ export class AdvertiserService {
     };
   }
 
-
+ 
 
 }
