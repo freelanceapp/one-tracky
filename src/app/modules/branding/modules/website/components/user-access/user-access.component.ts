@@ -92,7 +92,9 @@ export class UserAccessComponent implements OnInit {
       if (this.userId) {
         this.websiteSvc.editUserBYId(this.userId, this.pubUserForm.value)
           .then(resp => {
-            this.snackBar.open(resp, 'done');
+            this.snackBar.open(resp, 'done', {
+              duration: 4000
+            });
           })
           .catch(err => {
             console.log(err);
@@ -100,7 +102,9 @@ export class UserAccessComponent implements OnInit {
       } else {
         this.websiteSvc.addPublisherUser(this.websiteId, this.pubUserForm.value)
           .then(resp => {
-            this.snackBar.open(resp, 'done');
+            this.snackBar.open(resp, 'done', {
+              duration: 4000
+            });
           })
           .catch(err => {
             console.log(err);
