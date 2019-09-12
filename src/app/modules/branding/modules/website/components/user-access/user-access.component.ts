@@ -61,7 +61,18 @@ export class UserAccessComponent implements OnInit {
       });
   }
 
- 
+  private setUserForm(user: UserModel) {
+    this.pubUserForm.patchValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userName: user.userName,
+      password: user.password,
+      role: user.role.toString(),
+      phone: user.phone,
+      userType: 3
+    });
+  }
+
   public getAllUsers() {
     if (this.isAddUser) {
       this.websiteSvc.getAllUsers(this.websiteId)
