@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from 'src/app/modules/branding/model/user.model';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { WebsiteService } from 'src/app/modules/branding/services/website/website.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-access',
@@ -17,12 +17,15 @@ export class UserAccessComponent implements OnInit {
   public isAddUser: boolean = true;
   public websiteId: number = null;
   public userId: number = null;
+  public isEdit: boolean = false;
   constructor(private fb: FormBuilder, private websiteSvc: WebsiteService,
-    private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {
+    private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private router: Router) {
     this.websiteId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('websiteId'), 10);
     this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'), 10);
     if (this.userId) {
       this.isAddUser = false;
+      this.isEdit = true;
+      this.getUserById();
     } else {
       this.getAllUsers();
     }
@@ -35,7 +38,7 @@ export class UserAccessComponent implements OnInit {
       userName: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       role: ['', Validators.required],
-      phoneNo: ['', Validators.required],
+      phone: ['', Validators.required],
       userType: 3
     });
   }
@@ -43,6 +46,9 @@ export class UserAccessComponent implements OnInit {
   private getUserList() {
     this.isAddUser = !this.isAddUser;
     this.getAllUsers();
+  }
+  private addUser() {
+    this.router.navigateByUrl('/branding/website/edit-website/' + this.websiteId + '/user-access');
   }
 
   public getUserById() {
@@ -55,7 +61,7 @@ export class UserAccessComponent implements OnInit {
       });
   }
 
-
+ 
   public getAllUsers() {
     if (this.isAddUser) {
       this.websiteSvc.getAllUsers(this.websiteId)
@@ -72,13 +78,27 @@ export class UserAccessComponent implements OnInit {
 
   public onSubmit() {
     if (this.pubUserForm.valid) {
-      this.websiteSvc.addPublisherUser(this.websiteId, this.pubUserForm.value)
-        .then(resp => {
-          this.snackBar.open(resp, 'done');
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (this.userId) {
+        this.websiteSvc.editUserBYId(this.userId, this.pubUserForm.value)
+          .then(resp => {
+            this.snackBar.open(resp, 'done');
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        this.websiteSvc.addPublisherUser(this.websiteId, this.pubUserForm.value)
+          .then(resp => {
+            this.snackBar.open(resp, 'done');
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+
+
+
+
     }
   }
 
