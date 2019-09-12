@@ -161,6 +161,26 @@ export class AdvertiserService {
     });
   }
 
+  /**
+   * edit user by user id
+   * @param userId  id of user 
+   * @param data data of user for edit 
+   */
+
+  public editUserBYId(userId: number, data): Promise<string> {
+    return new Promise((resolve, reject) => {
+      let dataToSend = this.deParseUser(data);
+      delete dataToSend['password'];
+      this.httpSvc.put('executive/users/edit/' + userId + '/', dataToSend)
+        .then(resp => {
+          resolve(resp.message);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
 
 
 
