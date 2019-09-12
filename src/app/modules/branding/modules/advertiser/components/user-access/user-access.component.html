@@ -1,5 +1,5 @@
-<button type="button" mat-raised-button color="primary"
-  (click)="isAddUser=!isAddUser">{{isAddUser ? 'Add User' : 'All Users'}} </button>
+<button type="button" mat-raised-button color="primary" (click)="getuserList()">{{isAddUser ? 'Add User' : 'All Users'}}
+</button>
 <div class="mt-4">
   <div [hidden]="isAddUser">
     <form [formGroup]="avdUserForm" (ngSubmit)="onSubmit()">
