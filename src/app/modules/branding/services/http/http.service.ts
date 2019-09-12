@@ -43,7 +43,9 @@ export class HttpService {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/advertiser/';
     } else if (user.role === UserRole.PublisherAdmin) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/publisher/';
-    } else if (user.role === UserRole.PublisherExecutive || user.role === UserRole.AdvertiserExecutive) {
+    } else if (user.role === UserRole.PublisherExecutive) {
+      this.baseUrl = 'http://139.59.67.0:8000/inventory/pubexecutive/';
+    } else if (user.role === UserRole.AdvertiserExecutive) {
       this.baseUrl = 'http://139.59.67.0:8000/inventory/executive/';
     }
   }
