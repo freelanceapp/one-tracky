@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from 'src/app/modules/branding/model/user.model';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { WebsiteService } from 'src/app/modules/branding/services/website/website.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,7 +16,8 @@ export class UserAccessComponent implements OnInit {
   public pubUserForm: FormGroup;
   public isAddUser: boolean = true;
   public websiteId: number = null;
-  constructor(private fb: FormBuilder, private websiteSvc: WebsiteService, private activatedRoute: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private websiteSvc: WebsiteService,
+    private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {
     this.websiteId = parseInt(this.activatedRoute.parent.snapshot.paramMap.get('websiteId'), 10);
     this.getAllUsers();
   }
@@ -44,7 +45,7 @@ export class UserAccessComponent implements OnInit {
     if (this.isAddUser) {
       this.websiteSvc.getAllUsers(this.websiteId)
         .then(resp => {
-          this.dataSource = new MatTableDataSource<UserModel>(resp)
+          this.dataSource = new MatTableDataSource<UserModel>(resp);
         })
         .catch(err => {
           console.log(err);
@@ -58,7 +59,7 @@ export class UserAccessComponent implements OnInit {
     if (this.pubUserForm.valid) {
       this.websiteSvc.addPublisherUser(this.websiteId, this.pubUserForm.value)
         .then(resp => {
-          console.log(resp);
+          this.snackBar.open(resp, 'done');
         })
         .catch(err => {
           console.log(err);
