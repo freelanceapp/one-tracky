@@ -20,6 +20,10 @@ const routes: Routes = [
       {
         path: 'user-access',
         component: UserAccessComponent
+      },
+      {
+        path: 'edit-user/:userId',
+        component: UserAccessComponent
       }
     ]
   },
