@@ -151,6 +151,11 @@ export class WebsiteService {
     });
   }
 
+  /**
+   * get user by user id 
+   * @param userId  id of user
+   */
+
   public getUserBYId(userId): Promise<UserModel> {
     return new Promise((resolve, reject) => {
       this.httpService.get('/pubexecutive/users/edit/' + userId + '/')
@@ -164,7 +169,24 @@ export class WebsiteService {
     });
   }
 
-  
+  /**
+   * edit user by user id
+   * @param userId  id of user 
+   * @param data data of user for edit 
+   */
+
+  public editUserBYId(userId: number, data): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const dataToSend = this.deParseUser(data);
+      this.httpService.put('/pubexecutive/users/edit/' + userId + '/', dataToSend)
+        .then(resp => {
+          resolve(resp.message);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
 
   private parseWebsite(website) {
