@@ -172,6 +172,37 @@ export class AdvertiserService {
     };
   }
 
- 
+  private parseUser(userArr: any[]): UserModel[] {
+    let users: UserModel[] = [];
+
+    if (Array.isArray(userArr) && userArr.length > 0) {
+      users = userArr.map(u => new UserModel({
+        userId: u.user_id,
+        firstName: u.firstname,
+        lastName: u.lastname,
+        userName: u.username,
+        password: u.password,
+        company: u.company,
+        phone: u.phone,
+        role: parseInt(u.role, 10),
+        skype: u.skype,
+        dateCreated: new Date(u.date_created)
+      }));
+    }
+    return users;
+  }
+
+  private deParseUser(user: UserModel): any {
+    return {
+      firstname: user.firstName,
+      lastname: user.lastName,
+      username: user.userName,
+      password: user.password,
+      phone: user.phone,
+      role: user.role,
+      user_type: user.userType
+    };
+  }
+
 
 }
