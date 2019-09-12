@@ -113,7 +113,7 @@ export class AdvertiserService {
    * @param advertiserId affiliate id
    * @param data user data
    */
-  public addPublisherUser(advertiserId: number, data): Promise<string> {
+  public addAdvertiserUser(advertiserId: number, data): Promise<string> {
     return new Promise((resolve, reject) => {
       const dataToSend = this.deParseUser(data);
       this.httpSvc.post('executive/users/' + advertiserId + '/', dataToSend)
