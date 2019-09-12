@@ -126,6 +126,22 @@ export class AdvertiserService {
     });
   }
 
+  /**
+   * get all users
+   * @param advertiserId affiliate id 
+   */
+  public getAllUsers(advertiserId): Promise<UserModel[]> {
+    return new Promise((resolve, reject) => {
+      this.httpSvc.get('executive/users/' + advertiserId)
+        .then(res => {
+          const user = this.parseUser(res.data);
+          resolve(user);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
 
 
