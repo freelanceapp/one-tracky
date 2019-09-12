@@ -143,6 +143,24 @@ export class AdvertiserService {
     });
   }
 
+  /**
+   * get user by user id 
+   * @param userId  id of user
+   */
+
+  public getUserBYId(userId): Promise<UserModel> {
+    return new Promise((resolve, reject) => {
+      this.httpSvc.get('executive/users/edit/' + userId + '/')
+        .then(resp => {
+          const user = this.parseUser([resp.data]);
+          resolve(user[0]);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
 
 
 
