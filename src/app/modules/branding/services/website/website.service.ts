@@ -158,7 +158,7 @@ export class WebsiteService {
 
   public getUserBYId(userId): Promise<UserModel> {
     return new Promise((resolve, reject) => {
-      this.httpService.get('/pubexecutive/users/edit/' + userId + '/')
+      this.httpService.get('pubexecutive/users/edit/' + userId + '/')
         .then(resp => {
           const user = this.parseUser([resp.data]);
           resolve(user[0]);
@@ -177,8 +177,9 @@ export class WebsiteService {
 
   public editUserBYId(userId: number, data): Promise<string> {
     return new Promise((resolve, reject) => {
-      const dataToSend = this.deParseUser(data);
-      this.httpService.put('/pubexecutive/users/edit/' + userId + '/', dataToSend)
+      let dataToSend = this.deParseUser(data);
+      delete dataToSend['password'];
+      this.httpService.put('pubexecutive/users/edit/' + userId + '/', dataToSend)
         .then(resp => {
           resolve(resp.message);
         })
