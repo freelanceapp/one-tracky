@@ -122,7 +122,8 @@ export class WebsiteService {
    */
   public addPublisherUser(websiteId: number, data): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.httpService.post('executive/users/' + websiteId, data)
+      const dataToSend = this.deParseUser(data);
+      this.httpService.post('pubexecutive/users/' + websiteId + '/', dataToSend)
         .then(resp => {
           resolve(resp.message);
         })
@@ -131,7 +132,7 @@ export class WebsiteService {
         });
     });
   }
-  
+
   /**
    * get all users
    * @param websiteId affiliate id 
@@ -203,15 +204,13 @@ export class WebsiteService {
 
   private deParseUser(user: UserModel): any {
     return {
-      user_id: user.userId,
       firstname: user.firstName,
       lastname: user.lastName,
       username: user.userName,
       password: user.password,
-      company: user.company,
       phone: user.phone,
       role: user.role,
-      skype: user.skype,
+      user_type: user.userType
     };
   }
 
